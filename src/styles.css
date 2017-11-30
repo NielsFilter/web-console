@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+@font-face {
+    font-family: Roboto-Regular;
+    src: url("../res/fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Thin;
+    src: url("../res/fonts/Roboto-Thin.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Light;
+    src: url("../res/fonts/Roboto-Light.ttf");
+}
+body{
+    font-family: Roboto-Light!important;
+}
+
+h1{
+    font-family: Roboto-Light!important;
+    margin: 24px;
+    text-align: center;
+
+}
+h4{
+    font-weight: none;
+    font-family: Roboto-Thin!important;
+    text-align: center;
+}
+
+button{
+    font-family: Roboto-Light;
+}

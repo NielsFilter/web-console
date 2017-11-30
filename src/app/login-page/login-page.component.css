@@ -1,0 +1,19 @@
+#login-logo{
+    background-image: url('../../../res/images/logo_black.svg');
+    background-repeat: no-repeat;
+    background-position: center; 
+    
+    height: 60px;
+
+    display: block;
+    margin: auto;
+}
+
+
+#input-form{
+    display: block;
+    margin:auto;
+}
+p{
+    text-align: center;
+}
