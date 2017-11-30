@@ -20,14 +20,14 @@ body{
 }
 
 h1{
-    font-family: Roboto-Light!important;
+    font-size: 1.6em;
     margin: 24px;
     text-align: center;
 
 }
 h4{
+    font-size: 1em;
     font-weight: none;
-    font-family: Roboto-Thin!important;
     text-align: center;
 }
 

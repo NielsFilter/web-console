@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { TextInputComponent } from '../text-input/text-input.component';
 import { PasswordInputComponent } from '../password-input/password-input.component';
@@ -11,6 +11,11 @@ import { Button1Component } from '../button-1/button-1.component';
 })
 
 export class LoginPageComponent implements OnInit {
+  platformAddress: string;
+  username: string;
+  password: string;
+
+
   constructor() { }
 
   ngOnInit() {
