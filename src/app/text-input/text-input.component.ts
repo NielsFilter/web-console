@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TextInputComponent implements OnInit {
   @Input() placeholderText: string;
-  inputString: string;
+  inputText: string;
   constructor() { }
 
   ngOnInit() {

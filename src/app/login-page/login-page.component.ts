@@ -11,9 +11,10 @@ import { Button1Component } from '../button-1/button-1.component';
 })
 
 export class LoginPageComponent implements OnInit {
-  platformAddress: string;
-  username: string;
-  password: string;
+
+  platformAddress: TextInputComponent;
+  username: TextInputComponent;
+  password: PasswordInputComponent;
 
 
   constructor() { }
