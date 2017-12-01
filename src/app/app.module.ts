@@ -10,11 +10,14 @@ import { TextInputComponent } from './text-input/text-input.component';
 import { PasswordInputComponent } from './password-input/password-input.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
+import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import { Button2Component } from './button-2/button-2.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginPageComponent }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'dashboard', component: DashboardPageComponent }
 ];
 
 @NgModule({
@@ -25,7 +28,9 @@ const routes: Routes = [
     TextInputComponent,
     PasswordInputComponent,
     LoginPageComponent,
-    TopNavComponent
+    TopNavComponent,
+    DashboardPageComponent,
+    Button2Component
   ],
   imports: [
     BrowserModule,
