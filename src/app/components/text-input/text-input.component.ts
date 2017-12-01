@@ -12,6 +12,8 @@ export class TextInputComponent implements OnInit, OnChanges {
   @Input() value: string;
 
   // Component output event notifying parent of changes
+  // NOTE: The fact that this has the word "Change" in the variable name is very important.
+  //       Angular does some magic here.
   @Output() valueChange = new EventEmitter<any>();
 
 
@@ -27,7 +29,8 @@ export class TextInputComponent implements OnInit, OnChanges {
 
   }
 
-  emitChange(event?: any): void {
+
+  emitChange(event: any): void {
     // this.value = event.target.value;
     this.valueChange.emit(event);
   }
