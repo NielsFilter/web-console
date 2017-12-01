@@ -15,13 +15,16 @@ import { HttpHeaders } from '@angular/common/http';
 })
 
 export class LoginPageComponent implements OnInit {
+
   platformAddress: TextInputComponent;
-  username: TextInputComponent;
-  password: PasswordInputComponent;
+
+  username: string;
+  password: string;
 
   constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
+
   }
 
   doLogin(username: string, password: string, platformAddress: string): void {
@@ -32,11 +35,12 @@ export class LoginPageComponent implements OnInit {
     const credentials = 'Basic ' + btoa(`${username}:${password}`);
     const c2 = 'Basic ' + btoa('admin:password');
 
-     const url = `https://${s}/api/odata`;
-    //const url = 'https://httpbin.org/basic-auth/admin/password';
+    const url = `https://${s}/api/odata`;
+
+    // const url = 'https://httpbin.org/basic-auth/admin/password';
     // const h = {'Authorization': 'Basic YWRtaW46cGFzc3dvcmQ='};
 
-    let headers = new HttpHeaders({'Authorization': c2});
+    const headers = new HttpHeaders({'Authorization': c2});
     headers.append('Content-Type', 'application/json');
 
 
@@ -55,5 +59,9 @@ export class LoginPageComponent implements OnInit {
               err => {
                 console.log(err.status + ' Something went wrong!');
               });
+  }
+
+  doSomething(event: any): void {
+      console.log(event);
   }
 }
