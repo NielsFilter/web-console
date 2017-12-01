@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { TextInputComponent } from '../text-input/text-input.component';
-import { PasswordInputComponent } from '../password-input/password-input.component';
-import { Button1Component } from '../button-1/button-1.component';
+import { TextInputComponent } from '../../components/text-input/text-input.component';
+import { PasswordInputComponent } from '../../components/password-input/password-input.component';
+import { Button1Component } from '../../components/button-1/button-1.component';
 import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { Http, RequestOptions } from '@angular/http';

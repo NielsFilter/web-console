@@ -22,7 +22,7 @@ input{
     /*
     Icon
     */
-    background: url("../../../res/images/search.png");
+    background: url("/assets/images/search.png");
     background-repeat: no-repeat;
     background-position: 8px 8px;
 }
