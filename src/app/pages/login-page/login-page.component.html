@@ -1,0 +1,32 @@
+<div id="login-logo"></div>
+
+<div id="login-text">
+  <h1>Redstor Pro Cloud Console</h1>
+  <h4>Welcome! To continue, please login.</h4>
+  <br>
+</div>
+
+<div id="input-form">
+
+  <app-text-input
+    placeholderText="Platform Address">
+  </app-text-input>
+
+  <app-text-input
+    placeholderText="Username"
+    [(value)]="username">
+  </app-text-input>
+
+  <!-- <select [(ngModel)]="selectedItem" (ngModelChange)="onChange($event)"></select> -->
+
+  <app-password-input></app-password-input>
+
+  <br>
+
+  <app-button-1 buttonName="LOGIN" (click)="doLogin(username, password, platformAddress)"></app-button-1>
+  <div class="container">
+      <pre>// This is the value of the username in your page component:
+Username: {{username}}</pre>
+  </div>
+
+</div>
