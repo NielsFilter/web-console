@@ -15,6 +15,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { Button2Component } from './components/button-2/button-2.component';
 import { ManagementPageComponent } from './pages/management-page/management-page.component';
 
+import { DataService } from './services/data.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -43,7 +44,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [ RouterModule ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
