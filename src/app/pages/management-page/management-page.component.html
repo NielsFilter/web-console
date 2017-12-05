@@ -10,12 +10,13 @@
     <app-search-input-text></app-search-input-text>
 
   </div>
-  
 
-</div>
+  <br>
 
+  <!-- How to!!!  -->
+  <!-- https://stackoverflow.com/questions/35733186/angular2-ul-li-json-tree-recursive-in-ngfor -->
 
-<div id="accordion" role="tablist">
+  <div id="accordion" role="tablist">
     <div class="card">
       <div class="card-header" role="tab" id="headingOne">
         <h5 class="mb-0" *ngFor="let group of platformGroups" >
@@ -23,8 +24,18 @@
               <span>
                   <p>{{group.ParentId}} - {{group.Name}}</p>
               </span>
+
           </a>
+
+          <div *ngFor="let child of group.children">
+            <p> -- {{child.Name}}</p>
+          </div>
         </h5>
       </div>
     </div>
 </div>
+
+
+</div>
+
+
