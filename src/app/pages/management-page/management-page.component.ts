@@ -325,9 +325,11 @@ export class ManagementPageComponent implements OnInit {
 
 
   constructor(private dataService: DataService) {
-    this.groupDataStructure = this.getNestedChildren(this.mockGroups, this.rootBackupGroupId);
-    console.log(this.groupDataStructure);
-    console.log(dataService.currentConsoleUser);
+    // this.populateGroups();
+
+     this.groupDataStructure = this.getNestedChildren(this.mockGroups, this.rootBackupGroupId);
+    // console.log(this.groupDataStructure);
+   // console.log(dataService.currentConsoleUser);
   }
 
   ngOnInit() {}
@@ -345,6 +347,15 @@ export class ManagementPageComponent implements OnInit {
         }
     }
     return structuredArray;
+  }
+
+  populateGroups(): void {
+    console.log('Management Page - Populating groups');
+    const groups = this.dataService.fetchGroups();
+    console.log('Management Page - GROUPS FOUND : ');
+    console.log('groups : ' + groups.then);
+    console.log('ID : ' + this.dataService.currentConsoleUser.rootBackupGroupId);
+    // this.groupDataStructure = this.getNestedChildren(groups, this.dataService.currentConsoleUser.rootBackupGroupId);
   }
 
 }

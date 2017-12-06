@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ConsoleUser } from '../classes/consoleUser';
-import { HttpClient } from '@angular/common/http';
-import { HttpParams } from '@angular/common/http';
-import { Http } from '@angular/http';
-import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+
+import { HttpClient, HttpParams, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import { LoginPageComponent } from '../pages/login-page/login-page.component';
+import { race } from 'q';
+
+import { catchError, map, tap } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/filter';
 
 
 @Injectable()
@@ -23,7 +27,7 @@ export class DataService {
 
   login(username: string, password: string, platformAddress: string): Promise<any> {
     const credentials = 'Basic ' + btoa(`${username}:${password}`);
-    const url = `http://localhost:8080/https://${platformAddress}/api/access/Users`;
+    const url = `http://192.168.20.198:8080/https://${platformAddress}/api/access/Users`;
 
     const headers = new HttpHeaders({
       'Authorization': credentials,
@@ -34,17 +38,27 @@ export class DataService {
     return this.http.get(url, { headers })
             .toPromise()
             .then( res => {
-                console.log('DataService - Login Successful');
-                // TODO GET ROOT DIR FROM res
-                const root = 1;
+                console.log(`DataService - Login Successful, logging is as ${username}`);
+                // If no root is specified, use the root group which is 1
+                let root = 1;
 
+                // Gets the root group for the current user
+                for (const i in res) {
+                  if (res[i].Name === username) {
+                    root = res[i].AdminBackupGroupId;
+                  }
+                }
+
+                // Successful login creates user object
                 const user: ConsoleUser = {
                   username : username,
                   platformAddress: platformAddress,
                   encryptedCredentials: credentials,
-                  rootBackupGroupId: root
+                  rootBackupGroupId: root,
+                  userInformation: res
                 } ;
-                console.log(res);
+
+                // might need to change this to show when someone is logged in
                 this.currentConsoleUser = user;
                 this.loggedIn = true;
                 this.router.navigate(['/dashboard']);
@@ -71,5 +85,27 @@ export class DataService {
                 }
               });
   }
+
+
+  fetchGroups(): Promise<any> {
+    const url = `http://192.168.20.198:8080/https://${this.currentConsoleUser.platformAddress}/api/backup/Groups`;
+    const headers = new HttpHeaders({
+      'Authorization': this.currentConsoleUser.encryptedCredentials,
+      'Content-Type': 'application/json',
+    });
+
+    console.log(`DataService - Sending request to ${url}`);
+    return this.http.get(url, { headers })
+          .toPromise()
+          .then( res => {
+              console.log(`DataService - Fetching groups successful`);
+              return res;
+            },
+            (err: HttpErrorResponse) => {
+              console.log('DataService - Fetching groups unsuccessful');
+              console.log(`${err.status} - Error : ${err.statusText}`);
+            });
+
+          }
 
 }

@@ -80,7 +80,10 @@ button:focus {
 
 
 .custom-input-search{
-     /*
+    width: 100%;
+    padding: 16px 24px 16px 42px; 
+
+    /*
     Icon
     */
     background: url("/assets/images/search.png");

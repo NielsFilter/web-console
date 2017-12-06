@@ -13,6 +13,10 @@ import { ManagementPageComponent } from './pages/management-page/management-page
 import { DataService } from './services/data.service';
 import { TreeComponent } from './components/tree/tree.component';
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/filter';
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },

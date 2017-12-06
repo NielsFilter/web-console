@@ -1,6 +1,43 @@
-<ul>
+<!-- <ul>
     <li *ngFor="let node of treeData">
       {{node.Name}}
       <app-tree [treeData]="node.children"></app-tree>
     </li>
-</ul>
+</ul> -->
+
+  <!-- https://codepen.io/aanjulena/pen/ZLZjzV -->
+
+<!-- TODO:
+- Styling
+- Add accounts under groups
+- Display some message if a group is empty
+- Think of things to display on the groups/collections 
+  - icon
+  - edit settings
+  - remove group
+  - disabled
+  - size?
+  - other info -->
+
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default" *ngFor="let node of treeData">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#{{node.Id}}">{{node.Name}}</a>
+        </h4>
+      </div>
+      <div id="{{node.Id}}" class="panel-collapse collapse">
+        <ul class="list-group">
+          <li class="list-group-item">
+              <app-tree [treeData]="node.children"></app-tree>
+          </li>
+        </ul>
+        <div class="panel-footer">Footer</div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+ 
+ 
