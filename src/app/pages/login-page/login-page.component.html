@@ -7,19 +7,45 @@
 </div>
 
 <div id="input-form">
-  <app-text-input placeholderText="Platform Address" [(value)]="platformAddress"></app-text-input>
-  <app-text-input placeholderText="Username" [(value)]="username"></app-text-input>
-  <app-password-input [(value)]="password"></app-password-input>
+  <input 
+    [(ngModel)]="platformAddress"
+    type="text" 
+    class="custom-input-text"  
+    placeholder="Platform Address">
+
+  <input 
+    [(ngModel)]="username"
+    type="text" 
+    class="custom-input-text"  
+    placeholder="Username">
+
+  <input 
+  [(ngModel)]="password"
+    type="password" 
+    class="custom-input-text"  
+    placeholder="Password">
+
+  <span *ngIf="errorOccurred">
+    <p class="custom-error-message">
+      {{errorMessage}}
+    </p>
+  </span>
   <br>
 
-  <app-button-1 buttonName="LOGIN" (click)="doLogin(username, password, platformAddress)"></app-button-1>
-  <div class="container">
-      <pre>
-SP Address: {{platformAddress}}
-Username: {{username}}
-Password : {{password}}
+  <button 
+    type="button"
+    class="custom-button-red" 
+    (click)="doLogin(username, password, platformAddress)">LOGIN
+  </button>
 
-</pre>
+
+  <div class="container">
+    <pre>
+      //For testing purposes
+      SP Address: {{platformAddress}}
+      Username: {{username}}
+      Password : {{password}}
+    </pre>
   </div>
 
 </div>

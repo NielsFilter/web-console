@@ -34,3 +34,106 @@ h4{
 button{
     font-family: Roboto-Light;
 }
+button:focus {
+    outline:0;
+}
+
+
+/*  TEXT */
+.custom-error-message{
+    color:#CE992A;
+    font-style: italic;
+}
+
+
+
+
+
+/*  INPUT */
+
+.custom-input-text{
+    color:#464646;
+    width: 360px;
+    padding: 16px 20px;
+
+    box-sizing: border-box;
+    border-style:solid;
+    border-width:1px;
+    border-color: #dedede;
+    outline:none;
+
+    display: table;
+    margin: 8px auto;
+
+    /*
+    Transition
+    */
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+.custom-input-text:hover{
+    border-color: #ed9095;
+}
+
+
+.custom-input-search{
+     /*
+    Icon
+    */
+    background: url("/assets/images/search.png");
+    background-repeat: no-repeat;
+    background-position: 8px 8px;
+}
+
+
+/*  BUTTONS */
+
+
+.custom-button-red {
+    background-color: #C92128;
+    color: white;
+    outline: none;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 8px 8px 0 rgba(0,0,0,0.1);
+
+    display: table;
+    margin: 8px auto;
+
+}
+
+.custom-button-red:hover {
+    background-color: #b31d24;
+}
+
+
+
+
+
+
+.custom-button-white {
+    background-color: #ffffff;
+    color: #464646;
+    outline: none;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px;
+    border-color: #464646;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 8px 8px 0 rgba(0,0,0,0.1);
+
+    display: table;
+    margin: 8px auto;
+
+}

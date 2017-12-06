@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchInputTextComponent } from './search-input-text.component';
+import { TreeComponent } from './tree.component';
 
-describe('SearchInputTextComponent', () => {
-  let component: SearchInputTextComponent;
-  let fixture: ComponentFixture<SearchInputTextComponent>;
+describe('TreeComponent', () => {
+  let component: TreeComponent;
+  let fixture: ComponentFixture<TreeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchInputTextComponent ]
+      declarations: [ TreeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchInputTextComponent);
+    fixture = TestBed.createComponent(TreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -8,11 +8,10 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./top-nav.component.css']
 })
 export class TopNavComponent implements OnInit {
-  loggedIn: Boolean;
+
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.loggedIn = this.dataService.loggedIn;
   }
 
 }

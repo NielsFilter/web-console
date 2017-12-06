@@ -7,7 +7,7 @@
       </ol>
 
     <br>
-    <app-search-input-text></app-search-input-text>
+    <input type="text" class="custom-input-text custom-input-search">
 
   </div>
 
@@ -15,6 +15,10 @@
 
   <!-- How to!!!  -->
   <!-- https://stackoverflow.com/questions/35733186/angular2-ul-li-json-tree-recursive-in-ngfor -->
+
+  <app-tree [treeData]=groupDataStructure></app-tree>
+  
+
 
   <div id="accordion" role="tablist">
     <div class="card">

@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { TextInputComponent } from '../../components/text-input/text-input.component';
-import { PasswordInputComponent } from '../../components/password-input/password-input.component';
-import { Button1Component } from '../../components/button-1/button-1.component';
 import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { Http } from '@angular/http';
@@ -18,10 +15,12 @@ import { ConsoleUser } from '../../classes/consoleUser';
 })
 
 export class LoginPageComponent implements OnInit {
-
   username: string;
   password: string;
   platformAddress: string;
+
+  errorOccurred = false;
+  errorMessage = 'Oops';
 
   constructor(private router: Router, private http: HttpClient, private dataService: DataService) { }
 
@@ -30,16 +29,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   doLogin(): void {
+    this.dataService.login(this.username, this.password, this.platformAddress)
+    .then(result => {
 
-    this.router.navigate(['/dashboard']);
-
-    // this.dataService.login(this.username, this.password, this.platformAddress)
-    // .then(result => {
-    //   this.router.navigate(['/dashboard']);
-    // })
-    // .catch(ex => {
-    //   console.log(ex);
-    // });
+    })
+    .catch(ex => {
+      this.errorOccurred = true;
+      this.errorMessage = 'mooooo';
+      console.log(ex);
+    });
   }
 
   doSomething(event: any): void {
