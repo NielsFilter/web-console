@@ -18,43 +18,28 @@ import { ConsoleUser } from '../../classes/consoleUser';
 })
 
 export class LoginPageComponent implements OnInit {
+
+  username: string;
+  password: string;
+  platformAddress: string;
+
   constructor(private router: Router, private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit() {
 
   }
 
-  doLogin(username: string, password: string, platformAddress: string): void {
-    const credentials = 'Basic ' + btoa(`${username}:${password}`);
-    const url = `http://localhost:8080/https://${platformAddress}/api/odata`;
-    const headers = new HttpHeaders({
-      'Authorization': credentials,
-      'Content-Type': 'application/json',
-    });
+  doLogin(): void {
 
-    console.log(`Login Page - Sending login request to ${url}`);
-    this.http.get(url, { headers })
-            .toPromise()
-            .then( res => {
-                console.log('Login Page - Login Successful');
-                const user: ConsoleUser = {
-                  username : username,
-                  platformAddress: platformAddress,
-                  encryptedCredentials: credentials
-                  } ;
-                /*
-                this.dataService.currentConsoleUser.platformAddress = platformAddress;
-                this.dataService.currentConsoleUser.username = username;
-                this.dataService.currentConsoleUser.encryptedCredentials = credentials;
-                */
-                this.dataService.currentConsoleUser = user;
-                this.dataService.loggedIn = true;
-                this.router.navigate(['/dashboard']);
-              },
-              (err: HttpErrorResponse) => {
-                console.log('Login Page - Login Unsuccessful');
-                console.log(`${err.status} - Error : ${err.statusText}`);
-              });
+    this.router.navigate(['/dashboard']);
+
+    // this.dataService.login(this.username, this.password, this.platformAddress)
+    // .then(result => {
+    //   this.router.navigate(['/dashboard']);
+    // })
+    // .catch(ex => {
+    //   console.log(ex);
+    // });
   }
 
   doSomething(event: any): void {
