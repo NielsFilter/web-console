@@ -6,7 +6,7 @@
   <br>
 </div>
 
-<div id="input-form">
+<div id="input-form" (keydown.enter)="doLogin()">
   <input 
     [(ngModel)]="platformAddress"
     type="text" 
@@ -20,7 +20,7 @@
     placeholder="Username">
 
   <input 
-  [(ngModel)]="password"
+    [(ngModel)]="password"
     type="password" 
     class="custom-input-text"  
     placeholder="Password">
@@ -29,7 +29,7 @@
       <p [hidden]="this.dataService.errorOccurred.occurred" class="custom-error-message"></p>
       <p [hidden]="!this.dataService.errorOccurred.occurred" class="custom-error-message">
       {{this.dataService.errorOccurred.errorMessage}}
-    </p>
+      </p>
   </span>
   <br>
 

@@ -11,12 +11,17 @@ import { ConsoleUser } from '../../classes/consoleUser';
 })
 export class ManagementPageComponent implements OnInit {
 
+  /**
+   * TODO
+   *  rename this to 'account-management-page'
+   * add the Root level as a 'collection'
+   */
 
+  rootGroup = 'Storage Platform';
   structuredGroupData = this.dataService.structuredGroupData;
 
   constructor(private dataService: DataService) {
-    this.dataService.currentConsoleUser = new ConsoleUser('Admin', 'Basic QWRtaW46cGFzc3dvcmQ=', 'jono-pc', 1 , []);
-
+    // this.dataService.currentConsoleUser = new ConsoleUser('Admin', 'Basic QWRtaW46cGFzc3dvcmQ=', 'jono-pc', 1 , 'GGG', []);
     this.dataService.fetchGroups();
   }
 

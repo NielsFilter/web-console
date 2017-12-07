@@ -6,6 +6,7 @@ import { HttpClient, HttpParams, HttpHeaders, HttpResponse, HttpErrorResponse } 
 import { Router } from '@angular/router';
 import { LoginPageComponent } from '../pages/login-page/login-page.component';
 import { race } from 'q';
+import * as _ from 'lodash';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
@@ -46,13 +47,18 @@ export class DataService {
                 console.log(`DataService - Login Successful, logging is as ${username}`);
                 // If no root is specified, use the root group which is 1
                 let root = 1;
-
+                let rootName = 'Storage Platform';
                 // Gets the root group for the current user
                 for (const i in res) {
                   if (res[i].Name === username) {
                     root = res[i].AdminBackupGroupId;
-                  }
+                    }
                 }
+
+                // TODO : check for non-root group
+                // if (rootNameTemp.includes('\\')) {
+                //   const t = rootNameTemp.indexOf('\\');
+                //   rootName = rootNameTemp.substring(0, t);
 
                 // Successful login creates user object
                 const user: ConsoleUser = {
@@ -60,6 +66,7 @@ export class DataService {
                   platformAddress: platformAddress,
                   encryptedCredentials: credentials,
                   rootBackupGroupId: root,
+                  rootBackupGroupName: rootName,
                   userInformation: res
                 } ;
 
@@ -104,8 +111,12 @@ export class DataService {
 
     this.http.get(url, { headers }).subscribe(
       data => {
-        console.log('Data Service -Fetching groups successful');
+        console.log('Data Service - Fetching groups successful');
         this.structuredGroupData =  this.getNestedChildren(data, this.currentConsoleUser.rootBackupGroupId);
+
+        console.log('Data Service - Ordering groups...');
+        const x = _.orderBy(this.structuredGroupData, function(e){return e.GroupType; }, ['asc']);
+        this.structuredGroupData = x;
       },
       err => {
         console.log('Data Service - Something went wrong!');

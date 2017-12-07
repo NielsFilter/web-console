@@ -44,11 +44,44 @@
 <div class="panel-group">
   <div class="panel" *ngFor="let node of treeData ">
     <div class="custom-header-panel panel-heading">
+      
+      <!-- group button depending on group type -->
+      <img  class="custom-panel-icon" 
+            *ngIf="node.GroupType == 'BackupGroup'" 
+            src="../../../assets/images/environment.png">
+
+      <img  class="custom-panel-icon"
+            *ngIf="node.GroupType == 'AdminGroup'" 
+            src="../../../assets/images/GroupCollection.png">
+
+      <!-- name of the group -->
       <a data-toggle="collapse" href="#{{node.Id}}">{{node.Name | uppercase}}</a>
+
+      <!-- change group settings button -->
+      <button
+        type="button"
+        class="custom-panel-button-icon custom-preferences-button"
+        (Click)="c()">
+      </button>
+
+      <!-- remove group button -->
+      <button
+        type="button"
+        class="custom-panel-button-icon custom-remove-button"
+        (Click)="r()">
+      </button>
+
+      <!-- add group button if current group is a collection-->
+      <button *ngIf="node.GroupType == 'AdminGroup'"
+        type="button"
+        class="custom-panel-button-icon custom-add-button"
+        (Click)="a()">
+      </button>
+
     </div>
     <div id="{{node.Id}}" class="panel-collapse collapse">
       <app-tree [treeData]="node.children"></app-tree>
-        <div *ngIf="node.GroupType == 'BackupGroup'"><p>Accounts coming soon...</p></div>
+      <div *ngIf="node.GroupType == 'BackupGroup'"><p>Accounts coming soon...</p></div>
     </div>
   </div>
 </div>

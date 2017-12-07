@@ -23,6 +23,7 @@ export class LoginPageComponent implements OnInit {
 
 /**
  * TODO:
+ *  adjust width of login component correctly instead of hardcoded
  *  proper way to handle if a user is logged in
  *  cache logged in user details
  *  find a better way to preserve error message height in HTML
@@ -64,5 +65,4 @@ export class LoginPageComponent implements OnInit {
       this.isDisabled = false;
     });
   }
-
 }

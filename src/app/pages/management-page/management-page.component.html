@@ -8,25 +8,26 @@
 
     <br>
     <input type="text" class="custom-input-text custom-input-search">
+    <br>
 
-  </div>
+    <!-- How to!!!  -->
+    <!-- https://stackoverflow.com/questions/35733186/angular2-ul-li-json-tree-recursive-in-ngfor -->
 
-  <br>
+    <div class="">
+        <!-- <img class="custom-panel-icon" src="../../../assets/images/GroupCollection.png"> -->
 
-  <!-- How to!!!  -->
-  <!-- https://stackoverflow.com/questions/35733186/angular2-ul-li-json-tree-recursive-in-ngfor -->
-
-  <div *ngIf="!this.dataService.structuredGroupData">
-    <div class="col-4">
-      <p>empty</p>
+        <p>{{this.dataService.currentConsoleUser.rootBackupGroupName}}</p>
     </div>
-  </div>
 
-  <div id="spGroups" *ngIf="this.dataService.structuredGroupData">
-    <app-tree [treeData]=this.dataService.structuredGroupData></app-tree>
-  </div>
+    <div *ngIf="!this.dataService.structuredGroupData">
+        <p>No groups found, please add some collections/groups </p>
+    </div>
+
+    <div id="spGroups" *ngIf="this.dataService.structuredGroupData">
+      <app-tree [treeData]=this.dataService.structuredGroupData></app-tree>
+    </div>
   
-<!-- 
+<!-- MOCK DATA
 
   <div id="accordion" role="tablist">
     <div class="card">
@@ -47,7 +48,7 @@
     </div>
 </div> -->
 
-
+  </div>
 </div>
 
 

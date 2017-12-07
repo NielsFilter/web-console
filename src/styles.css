@@ -141,3 +141,42 @@ button:focus {
     margin: 8px auto;
 
 }
+
+
+
+
+
+
+/*  CUSTOM ICONS FOR BUTTONS */
+
+
+.custom-panel-icon{
+    margin-right: 1em;
+}
+
+.custom-panel-button-icon {
+    background-size: contain!important;
+    border:none;
+    height: 1.2em;
+    width: 1.2em;
+    float: right;
+    margin: 0px 8px;
+    /*
+    position: absolute;
+    right: 0px;
+    width: 10px;
+    background-color:  #73AD21;
+    padding: 10px;*/
+
+}
+.custom-preferences-button{
+    background:url('assets/images/preferences.png') no-repeat;
+}
+
+.custom-remove-button{
+    background:url('assets/images/delete.png') no-repeat;
+}
+
+.custom-add-button{
+    background:url('assets/images/environment_add32.png') no-repeat;
+}
