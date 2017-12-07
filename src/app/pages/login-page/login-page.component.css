@@ -11,8 +11,10 @@
 
 #input-form{
     display: block;
-    margin:auto;
+    margin: auto;
 }
+
 p{
+    height: 1em;
     text-align: center;
 }

@@ -25,16 +25,19 @@
     class="custom-input-text"  
     placeholder="Password">
 
-  <span *ngIf="errorOccurred">
-    <p class="custom-error-message">
-      {{errorMessage}}
+  <span>
+      <p [hidden]="this.dataService.errorOccurred.occurred" class="custom-error-message"></p>
+      <p [hidden]="!this.dataService.errorOccurred.occurred" class="custom-error-message">
+      {{this.dataService.errorOccurred.errorMessage}}
     </p>
   </span>
   <br>
 
   <button 
+    id="loginButton"
     type="button"
     class="custom-button-red" 
+    [disabled]="isDisabled"
     (click)="doLogin(username, password, platformAddress)">LOGIN
   </button>
 

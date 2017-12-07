@@ -16,9 +16,17 @@
   <!-- How to!!!  -->
   <!-- https://stackoverflow.com/questions/35733186/angular2-ul-li-json-tree-recursive-in-ngfor -->
 
-  <app-tree [treeData]=groupDataStructure></app-tree>
-  
+  <div *ngIf="!this.dataService.structuredGroupData">
+    <div class="col-4">
+      <p>empty</p>
+    </div>
+  </div>
 
+  <div id="spGroups" *ngIf="this.dataService.structuredGroupData">
+    <app-tree [treeData]=this.dataService.structuredGroupData></app-tree>
+  </div>
+  
+<!-- 
 
   <div id="accordion" role="tablist">
     <div class="card">
@@ -37,7 +45,7 @@
         </h5>
       </div>
     </div>
-</div>
+</div> -->
 
 
 </div>

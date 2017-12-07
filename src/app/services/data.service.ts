@@ -17,10 +17,15 @@ import 'rxjs/add/operator/filter';
 export class DataService {
   currentConsoleUser: ConsoleUser;
   loggedIn: Boolean = false;
-  errorMessage = '';
+
+  errorOccurred = {
+    occurred: false,
+    errorMessage: ''
+  };
+
+  structuredGroupData: any;
 
   constructor(public http: HttpClient, public router: Router ) {
-
   }
 
 
@@ -66,46 +71,61 @@ export class DataService {
               (err: HttpErrorResponse) => {
                 console.log('DataService - Login Unsuccessful');
                 console.log(`${err.status} - Error : ${err.statusText}`);
+                this.errorOccurred.occurred = true;
+
                 switch (err.status) {
                   case 400:
-                    this.errorMessage = 'Sorry';
+                    this.errorOccurred.errorMessage = 'Sorry, your login request failed';
                   break;
 
                   case 401:
-                    this.errorMessage = 'Sorry, you are unauthorized to make this request';
+                    this.errorOccurred.errorMessage = 'Sorry, you are unauthorized to make this request';
                   break;
 
                   case 404:
-                      this.errorMessage = 'Sorry, the requested resource could not be found';
+                    this.errorOccurred.errorMessage = `Sorry, we couldn't find the server you specified`;
                     break;
 
                   default:
-                    this.errorMessage = `Sorry, but you couldn't be authenticated`;
+                    this.errorOccurred.errorMessage = `Sorry, but you couldn't be authenticated`;
                     break;
                 }
               });
   }
 
 
-  fetchGroups(): Promise<any> {
+  fetchGroups(): void {
     const url = `http://192.168.20.198:8080/https://${this.currentConsoleUser.platformAddress}/api/backup/Groups`;
     const headers = new HttpHeaders({
       'Authorization': this.currentConsoleUser.encryptedCredentials,
       'Content-Type': 'application/json',
     });
 
-    console.log(`DataService - Sending request to ${url}`);
-    return this.http.get(url, { headers })
-          .toPromise()
-          .then( res => {
-              console.log(`DataService - Fetching groups successful`);
-              return res;
-            },
-            (err: HttpErrorResponse) => {
-              console.log('DataService - Fetching groups unsuccessful');
-              console.log(`${err.status} - Error : ${err.statusText}`);
-            });
 
-          }
+    this.http.get(url, { headers }).subscribe(
+      data => {
+        console.log('Data Service -Fetching groups successful');
+        this.structuredGroupData =  this.getNestedChildren(data, this.currentConsoleUser.rootBackupGroupId);
+      },
+      err => {
+        console.log('Data Service - Something went wrong!');
+      }
+    );
+
+  }
+
+  getNestedChildren(groups, ParentId) {
+    const structuredArray = [];
+    for (const group in groups) {
+        if (groups[group].ParentId === ParentId) {
+          const children = this.getNestedChildren(groups, groups[group].Id);
+            if (children.length) {
+                groups[group].children = children;
+            }
+            structuredArray.push(groups[group]);
+        }
+    }
+    return structuredArray;
+  }
 
 }

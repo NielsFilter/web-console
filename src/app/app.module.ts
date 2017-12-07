@@ -16,6 +16,7 @@ import { TreeComponent } from './components/tree/tree.component';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,7 +32,8 @@ const routes: Routes = [
     TopNavComponent,
     DashboardPageComponent,
     ManagementPageComponent,
-    TreeComponent
+    TreeComponent,
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,

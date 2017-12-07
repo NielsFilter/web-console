@@ -1,0 +1,25 @@
+img {
+    -webkit-animation: fade 3s alternate infinite;
+    animation: fade 3s alternate infinite;
+    display: block;
+  }
+  
+@-webkit-keyframes fade {
+0% {
+    opacity: 1;
+}
+
+100% {
+    opacity: 0;
+}
+
+}
+
+@keyframes fade {
+0% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
