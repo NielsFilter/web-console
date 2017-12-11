@@ -13,10 +13,12 @@ import { ManagementPageComponent } from './pages/management-page/management-page
 import { DataService } from './services/data.service';
 import { TreeComponent } from './components/tree/tree.component';
 
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import { AccountListComponent } from './components/account-list/account-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,7 +35,8 @@ const routes: Routes = [
     DashboardPageComponent,
     ManagementPageComponent,
     TreeComponent,
-    LoadingScreenComponent
+    LoadingScreenComponent,
+    AccountListComponent
   ],
   imports: [
     BrowserModule,

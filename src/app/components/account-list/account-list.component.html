@@ -1,0 +1,28 @@
+<div *ngIf="!accountList">
+  <p>no accounts, oops...</p>
+</div>
+
+<div *ngIf="accountList">
+  <div class="panel panel-default" *ngFor="let account of accountList">
+      <div class="custom-header-panel panel-heading">
+  
+            <!-- group button depending on group type -->          
+        <img  class="custom-panel-icon" 
+            *ngIf="account.AccountType == 'ESE'" 
+            src="../../../assets/images/client_ese.png">
+  
+        <img  class="custom-panel-icon"
+              *ngIf="account.AccountType == 'SE'" 
+              src="../../../assets/images/client_se.png">
+  
+        <img  class="custom-panel-icon"
+              *ngIf="account.AccountType == 'DL'" 
+              src="../../../assets/images/client_dl.png">
+  
+  
+          <!-- name of the group -->
+          <a data-toggle="collapse">{{account.Name | uppercase}}</a>
+  
+      </div>
+  </div>
+</div>

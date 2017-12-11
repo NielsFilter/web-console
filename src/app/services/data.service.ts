@@ -12,6 +12,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
+import { asTextData } from '@angular/core/src/view';
 
 
 @Injectable()
@@ -26,8 +27,12 @@ export class DataService {
 
   structuredGroupData: any;
 
+
   constructor(public http: HttpClient, public router: Router ) {
   }
+
+
+ 
 
 
 
@@ -138,5 +143,54 @@ export class DataService {
     }
     return structuredArray;
   }
+
+
+
+  getAccountsForGroup(groupId: number): any[]{
+    console.log(`Data Service - Fetching accounts for group ${groupId}`);
+    const accountListMock = [
+      {
+        'Id': 2,
+        'Name': 'Account 1',
+        'AccountType': 'ESE',
+        'Group': 'Group 1',
+        'GroupKey': 'group1',
+        'Size': 100,
+        'Disabled': false,
+        'DefaultLimitMB': 1024,
+        'StoragePoolId': 1,
+        'StoragePool': 'Storage Pool'
+      },
+      {
+        'Id': 4,
+        'Name': 'Account 2',
+        'AccountType': 'SE',
+        'Group': 'Group 1',
+        'GroupKey': 'group1',
+        'Size': 100,
+        'Disabled': false,
+        'DefaultLimitMB': 1024,
+        'StoragePoolId': 1,
+        'StoragePool': 'Storage Pool'
+      },
+      ,
+      {
+        'Id': 42,
+        'Name': 'Account 3',
+        'AccountType': 'DL',
+        'Group': 'Group 1',
+        'GroupKey': 'group1',
+        'Size': 100,
+        'Disabled': false,
+        'DefaultLimitMB': 1024,
+        'StoragePoolId': 1,
+        'StoragePool': 'Storage Pool'
+      }];
+
+      console.log(accountListMock);
+    
+    return accountListMock;
+  }
+
 
 }
