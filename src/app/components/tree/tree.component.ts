@@ -11,6 +11,8 @@ export class TreeComponent implements OnInit {
 
  // @Input() count: number;
   @Input() treeData: any;
+  accounts: any;
+  accountsLoading = false;
 
   constructor(private dataService: DataService) { }
 
@@ -33,8 +35,20 @@ export class TreeComponent implements OnInit {
   groupSettingsButtonClicked(name: string, id: number){
     console.log(`Tree Component - groupSettingsButtonClicked() was called for ${id}(${name})`);
   }
-  getBackupAccountsForGroup(name: string, id: number){
+  getBackupAccountsForGroup(name: string, id: number) {
     console.log(`Tree Component - User queried group with id ${id}(${name}) for backup accounts`);
-    const accounts = this.dataService.getAccountsForGroup(id);
+
+    this.accountsLoading = true;
+
+    this.dataService.getAccountsForGroup(id)
+      .then(data => {
+        this.accounts = data;
+      })
+      .catch(ex => {
+
+      })
+      .then(() => {
+        this.accountsLoading = false;
+      });
   }
 }
