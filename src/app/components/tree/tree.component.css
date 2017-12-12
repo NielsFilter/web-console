@@ -15,3 +15,21 @@ a{
 .custom-header-panel:hover{
   background-color: #FAFAFA;
 }
+
+
+.collapsed { background: #ffffff; }
+
+
+[data-toggle="collapse"]:not(.collapsed) {
+    background-color: #dedede;
+  }
+
+
+div a:not(.collapsed) { 
+    background-color: #dedede!important;
+}
+
+.active{
+    background-color: #dedede;
+}
+

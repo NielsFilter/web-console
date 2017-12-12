@@ -334,19 +334,19 @@ export class ManagementPageComponent implements OnInit {
 
 
 
-   
+
   rootGroup = 'Storage Platform';
   structuredGroupData = this.dataService.structuredGroupData;
 
   constructor(private dataService: DataService) {
     // testing
-    this.dataService.currentConsoleUser = new ConsoleUser('Admin', 'Basic QWRtaW46cGFzc3dvcmQ=', 'jono-pc', 1 , 'GGG', []);
+    this.dataService.currentConsoleUser = new ConsoleUser('Admin', 'Basic QWRtaW46cGFzc3dvcmQ=', 'jono-pc', 1 , 'Collection 0', []);
     const p = this.dataService.getNestedChildren(this.mockGroups, this.dataService.currentConsoleUser.rootBackupGroupId);
     const x = _.orderBy(p, function(e){return e.GroupType; }, ['asc']);
     this.dataService.structuredGroupData = x;
 
-    //real
-   // this.dataService.fetchGroups();
+    // real
+    // this.dataService.fetchGroups();
   }
 
   ngOnInit() {}

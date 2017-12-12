@@ -8,23 +8,20 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./tree.component.css']
 })
 export class TreeComponent implements OnInit {
+
+ // @Input() count: number;
   @Input() treeData: any;
 
   constructor(private dataService: DataService) { }
 
 
-
-
-
-
-
-  
     ngOnInit() {
   //  this.increment();
- //   console.log('num is ' + this.count);
+  //  console.log('num is ' + this.count);
   }
+
   increment() {
-  //  this.count = this.count + 1;
+ //   this.count = this.count + 1;
   }
 
   addGroupButtonClicked(name: string, id: number){
@@ -38,6 +35,6 @@ export class TreeComponent implements OnInit {
   }
   getBackupAccountsForGroup(name: string, id: number){
     console.log(`Tree Component - User queried group with id ${id}(${name}) for backup accounts`);
-    this.dataService.getAccountsForGroup(id);
+    const accounts = this.dataService.getAccountsForGroup(id);
   }
 }

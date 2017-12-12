@@ -5,7 +5,18 @@
     </li>
 </ul> -->
 
-  <!-- https://codepen.io/aanjulena/pen/ZLZjzV -->
+  <!-- 
+  https://codepen.io/aanjulena/pen/ZLZjzV
+  https://stackoverflow.com/questions/39175389/how-to-change-the-bootstrap-accordion-panel-heading-title-background-color-when
+  https://stackoverflow.com/questions/35605772/active-state-on-bootstrap-acccordion-click
+  https://stackoverflow.com/questions/10984745/how-to-change-background-color-of-active-accordion-segment
+  https://stackoverflow.com/questions/41613628/in-angular2-how-to-add-a-css-class-to-an-element-when-the-link-is-clicked-witho
+  https://jharaphula.com/heading-background-color-bootstrap-accordion/
+  http://jsfiddle.net/h38jn324/350/
+  https://stackoverflow.com/questions/25458074/bootstrap-3-collapse-adding-active-class-to-open-panel <<<<<
+  https://codepen.io/martinkrulltott/pen/mPgYgQ <<<<<
+  https://stackoverflow.com/questions/42809368/angular-2-adding-a-class-to-a-dom-element-when-clicked <<<<<
+  -->
 
 <!-- TODO:
 - Styling
@@ -38,10 +49,12 @@
     </div>
   </div>
 </div> -->
-       
-<div class="panel-group" >
-    <div class="panel" *ngFor="let node of treeData ">
-      <div class="custom-header-panel panel-heading">
+
+
+
+<div class="accordion panel-group" id="{{count}}" >
+    <div class="panel panel-default" *ngFor="let node of treeData ">
+      <div class="custom-header-panel panel-heading" >
         
 
         <!-- group button depending on group type -->
@@ -55,12 +68,16 @@
   
         <!-- name of the group -->
         <a  data-toggle="collapse" 
+            aria-expanded="false" 
+            class="collapsed"
             *ngIf="node.GroupType == 'BackupGroup'" 
             href="#{{node.Id}}" 
             (click)="getBackupAccountsForGroup(node.Name, node.Id)">{{node.Name | uppercase}}</a>
         
         <!-- name of the collection -->
         <a  data-toggle="collapse" 
+            aria-expanded="false" 
+            class="collapsed"
             *ngIf="node.GroupType == 'AdminGroup'" 
             href="#{{node.Id}}">{{node.Name | uppercase}}</a>
 
@@ -87,9 +104,15 @@
         </button>
   
       </div>
-      <div id="{{node.Id}}" class="panel-collapse collapse">
-        <app-tree [treeData]="node.children"></app-tree>
+
+
+      <div id="{{node.Id}}" class="panel-body panel-collapse collapse">
+
+        <!-- recursively create collection/group structure here -->
+        <app-tree [treeData]="node.children" ></app-tree>
+
         <div *ngIf="node.GroupType == 'BackupGroup'">
+          <!-- accounts get populated here -->
           <app-account-list></app-account-list>
       </div>
     </div>
