@@ -21,18 +21,30 @@ app.use(function(req, res, next) {
 //   };
 
 function validateRequest(authHeader) {
-    let authName = '';
-    // TODO decode
 
-    if(authName.toLowerCase === 'admin' || authHeader === 'Basic QWRtaW46cGFzc3dvcmQ='){
+    const str = authHeader.replace("Basic ", "");
+    const decoded = Buffer.from(str, 'base64').toString()
+    const divider = decoded.indexOf(":");
+    const authName = decoded.substring(0, divider);
+    const authPass = decoded.substring(divider + 1, decoded.length);
+    console.log(`Username : ${authName}`);
+    console.log(`Password : ${authPass}`);
+  
+    if(authPass !== 'password'){
+      console.log(`Invalid password : Expected "password", received "${authPass}"`);
+      return 'incorrect_password';
+    }
+
+    if(authName.toLowerCase() === 'admin' || authHeader == 'Basic QWRtaW46cGFzc3dvcmQ='){
         console.log('Admin user logged in');
         return 'admin_user';
     }
-    else if(authName.toLowerCase === 'groupadmin'|| authHeader === 'Basic R3JvdXBBZG1pbjpwYXNzd29yZA=='){
+    else if(authName.toLowerCase() === 'groupadmin'|| authHeader === 'Basic R3JvdXBBZG1pbjpwYXNzd29yZA=='){
         console.log('Group user logged in');
         return 'group_user';
     }
     else{
+        console.log('Invalid user');
         return 'invalid_user';
     }
 }
