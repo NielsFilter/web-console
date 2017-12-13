@@ -1,0 +1,78 @@
+//user
+
+[
+  {
+    "Id": 1,
+    "Name": "GroupAdmin",
+    "FullName": "GroupAdmin",
+    "Description": "GroupAdmin",
+    "Admin": true,
+    "AdminBackupGroupId": 4,
+    "CreatedBy": "admin"
+  }
+]
+
+
+
+
+
+//groups
+
+[
+  {
+    "Id": 8,
+    "Name": "Group 1 oo",
+    "GroupType": "BackupGroup",
+    "ParentId": 4,
+    "GroupPath": "Collection 2\\Group 1 oo",
+    "GroupKey": "group",
+    "MaxSizeGB": 10,
+    "MaxUsers": 0,
+    "OverSpill": 0,
+    "Disabled": false,
+    "DefaultLimitMB": 1024,
+    "StoragePoolId": 1,
+    "StoragePool": "Storage Pool",
+    "RollupWindowMin": 10,
+    "RollupWindowMax": 20,
+    "RollupMonthly": true,
+    "RollupCount": 1,
+    "RollupCountOnMirror": -1,
+    "MirroringEnabled": true,
+    "RestoreFromMirrorEnabled": false,
+    "HsmEnabled": true,
+    "BakReferEnabled": false,
+    "CreatedOn": "2017-12-05T09:34:51.54",
+    "ModifiedOn": "2017-12-05T09:34:51.577",
+    "ModifiedBy": "admin",
+    "Cert": false
+  },
+  {
+    "Id": 9,
+    "Name": "Group 2 oo",
+    "GroupType": "BackupGroup",
+    "ParentId": 4,
+    "GroupPath": "Collection 2\\Group 2 oo",
+    "GroupKey": "group",
+    "MaxSizeGB": 10,
+    "MaxUsers": 0,
+    "OverSpill": 0,
+    "Disabled": false,
+    "DefaultLimitMB": 1024,
+    "StoragePoolId": 1,
+    "StoragePool": "Storage Pool",
+    "RollupWindowMin": 10,
+    "RollupWindowMax": 20,
+    "RollupMonthly": true,
+    "RollupCount": 1,
+    "RollupCountOnMirror": -1,
+    "MirroringEnabled": true,
+    "RestoreFromMirrorEnabled": false,
+    "HsmEnabled": true,
+    "BakReferEnabled": false,
+    "CreatedOn": "2017-12-05T09:35:03.907",
+    "ModifiedOn": "2017-12-05T09:35:03.94",
+    "ModifiedBy": "admin",
+    "Cert": false
+  }
+]

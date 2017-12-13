@@ -1,0 +1,17 @@
+
+/*
+ACCOUNTS :
+**********
+GET /api/backup/Accounts
+GET /api/backup/Accounts/{id}
+PATCH /api/backup/Accounts/{id}
+DELETE /api/backup/Accounts/{id}
+
+GROUPS :
+********
+GET /api/backup/Groups
+POST /api/backup/Groups
+DELETE /api/backup/Groups/{id}
+GET /api/backup/Groups/{id}
+PATCH /api/backup/Groups/{id}
+PUT /api/backup/Groups/{id} <<< Set the licence allocation

@@ -9,7 +9,6 @@ import { DataService } from '../../services/data.service';
 })
 export class TreeComponent implements OnInit {
 
- // @Input() count: number;
   @Input() treeData: any;
   accounts: any;
   accountsLoading = false;
@@ -17,13 +16,11 @@ export class TreeComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
 
-    ngOnInit() {
-  //  this.increment();
-  //  console.log('num is ' + this.count);
+  ngOnInit() {
+
   }
 
   increment() {
- //   this.count = this.count + 1;
   }
 
   addGroupButtonClicked(name: string, id: number){
@@ -41,11 +38,13 @@ export class TreeComponent implements OnInit {
     this.accountsLoading = true;
 
     this.dataService.getAccountsForGroup(id)
-      .then(data => {
-        this.accounts = data;
+      .then(response => {
+        console.log('Tree Component - Fetching accounts successful');
+        console.log(response);
+        this.accounts = response.data;
       })
       .catch(ex => {
-
+        console.log('Tree Component - Fetching accounts unsuccessful');
       })
       .then(() => {
         this.accountsLoading = false;

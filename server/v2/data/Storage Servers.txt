@@ -1,0 +1,53 @@
+Odata
+https://kaze/api/odata/StorageServers
+
+{
+  "@odata.context":"https://kaze/api/odata/$metadata#StorageServers","value":[
+    {
+      "Id":2,"ServerGuid":"3f99d2e8-c8ea-4a39-a97b-9c5a680b597b","ServerName":"StorageServer","StoragePoolId":1,"StoragePool":"Storage Pool","SpaceManagement":"Manual","Threshold":null,"IP":"kaze","Port":8443,"OnLine":true,"Version":"17.12.8.8342","UpdateVersion":null,"DiskSize":64288190464,"FreeSpace":37182562304,"DiskUsedPercentage":42.2,"OnDiskCount":0,"OnDiskCountDup":0,"OnDiskSize":0,"OnDiskSizeDup":0,"ProtectedSizeLB":0,"ProtectedSize":0,"ProtectedSizeAll":0,"ProtectedSizeDup":0,"TotalOnDiskSize":0,"TotalOnDiskCount":0,"TotalProtectedSize":0,"AccountOnDiskCount":0,"AccountOnDiskCountAll":0,"AccountOnDiskCountDup":0,"AccountOnDiskSize":0,"AccountOnDiskSizeDup":0,"IndexSize":0,"NoNewAccounts":false,"AcceptDB":true,"MirrorServer":"13af31b6-1236-48f9-bbe4-c5c5bc469290@Yuki:8444","SavingGlobalSISSize":0,"SavingGlobalSISPerc":0.00,"SavingLocalSISSize":0,"SavingLocalSISPerc":0.00,"SavingPatchCompSize":0,"SavingPatchCompPerc":0.00,"SavingTotalSisSize":0,"SavingTotalSisPerc":0.00,"SavingTotalSize":0,"SavingTotalPerc":0.00,"ServeArtifacts":true
+    },{
+      "Id":3,"ServerGuid":"8067866a-073c-40fb-a531-1c8562cf520b","ServerName":"StorageServer","StoragePoolId":1,"StoragePool":"Storage Pool","SpaceManagement":"Manual","Threshold":null,"IP":"yuki","Port":8443,"OnLine":true,"Version":"17.12.8.8342","UpdateVersion":null,"DiskSize":64288190464,"FreeSpace":37288685568,"DiskUsedPercentage":42.0,"OnDiskCount":3439,"OnDiskCountDup":3442,"OnDiskSize":23634882390,"OnDiskSizeDup":23686971791,"ProtectedSizeLB":10513775,"ProtectedSize":10515981,"ProtectedSizeAll":10515981,"ProtectedSizeDup":31542398,"TotalOnDiskSize":-41570586,"TotalOnDiskCount":19,"TotalProtectedSize":31542398,"AccountOnDiskCount":22,"AccountOnDiskCountAll":22,"AccountOnDiskCountDup":46,"AccountOnDiskSize":10518815,"AccountOnDiskSizeDup":10518815,"IndexSize":15578,"NoNewAccounts":false,"AcceptDB":true,"MirrorServer":"e008d516-f08e-4d3e-9606-18f2f30808f5@Kaze:8444","SavingGlobalSISSize":52089401,"SavingGlobalSISPerc":495.34,"SavingLocalSISSize":0,"SavingLocalSISPerc":0.00,"SavingPatchCompSize":-2834,"SavingPatchCompPerc":-0.03,"SavingTotalSisSize":52089401,"SavingTotalSisPerc":495.34,"SavingTotalSize":52086567,"SavingTotalPerc":495.31,"ServeArtifacts":true
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+'https://jono-pc/api/storage/Servers'
+[
+  {
+    "Id": 1,
+    "ServerName": "MasterAccountServer",
+    "ServerTypeId": 1,
+    "ServerGuid": "9329af13-d0d7-429d-bf48-625ae126f3a1",
+    "IP": "0.0.0.0",
+    "Port": 443,
+    "OnLine": true,
+    "NoNewAccounts": false,
+    "CreatedOn": "2017-12-05T09:13:47.263",
+    "ModifiedOn": "2017-12-08T11:56:42.22",
+    "Deleted": false
+  },
+  {
+    "Id": 2,
+    "ServerName": "StorageServer",
+    "ServerTypeId": 2,
+    "ServerGuid": "3e13c677-8c1b-45f2-96cc-6dc0178f4c00",
+    "StoragePoolId": 1,
+    "IP": "169.254.240.14",
+    "Port": 8443,
+    "OnLine": true,
+    "NoNewAccounts": false,
+    "CreatedOn": "2017-12-05T09:14:05.367",
+    "ModifiedOn": "2017-12-13T10:57:01.527",
+    "Deleted": false
+  }
+]

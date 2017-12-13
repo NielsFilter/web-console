@@ -21,6 +21,8 @@ export class LoginPageComponent implements OnInit {
 
   isDisabled = false;
 
+  loading = false;
+
 /**
  * TODO:
  *  adjust width of login component correctly instead of hardcoded

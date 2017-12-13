@@ -1,0 +1,9 @@
+'https://jono-pc/api/storage/Pools'
+
+[
+  {
+    "Id": 1,
+    "Name": "Storage Pool",
+    "SpaceManagementType": "Manual"
+  }
+]

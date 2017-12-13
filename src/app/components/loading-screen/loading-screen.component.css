@@ -1,25 +1,21 @@
-img {
-    -webkit-animation: fade 3s alternate infinite;
-    animation: fade 3s alternate infinite;
-    display: block;
+#image-wrapper{
+    height: 10em;
+    width: 100%;
+    position: relative;
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; } 
   }
   
-@-webkit-keyframes fade {
-0% {
-    opacity: 1;
-}
+  #loading-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-100% {
-    opacity: 0;
-}
-
-}
-
-@keyframes fade {
-0% {
-    opacity: 1;
-}
-100% {
-    opacity: 0;
-}
-}
+    height: 60px;
+    display: block;
+    margin: 0 auto ;
+    animation: fadeIn 1.5s infinite alternate;
+  }

@@ -1,0 +1,14 @@
+
+
+
+
+
+{
+  "@odata.context":"https://kaze/api/odata/$metadata#MirrorServers","value":[
+    {
+      "Id":4,"ServerName":"MirrorServer","ServerTypeId":5,"ServerGuid":"e008d516-f08e-4d3e-9606-18f2f30808f5","IP":"Kaze","Port":8444,"OnLine":true,"DiskSize":64288190464,"FreeSpace":37182562304,"OnDiskCount":3440,"OnDiskCountDup":3443,"OnDiskSize":23635406922,"OnDiskSizeDup":23687496323,"ProtectedSize":32115212517,"ProtectedSizeDup":32173377178,"CertId":"FC74CD56CA18D4B76CFC22162F2D1484CF244898","NoNewAccounts":false,"AcceptDB":false,"OldPassword":null,"MirrorServer":null,"MirrorCompleted":null,"MirrorDataSent":null,"MirrorDuration":null,"MirrorAccounts":null,"CreatedOn":"2017-12-05T13:30:00.477+02:00","ModifiedOn":"2017-12-13T10:22:16.607+02:00","Deleted":false,"UpdateVersion":null,"StoragePoolId":null,"ServeArtifacts":null
+    },{
+      "Id":5,"ServerName":"MirrorServer","ServerTypeId":5,"ServerGuid":"13af31b6-1236-48f9-bbe4-c5c5bc469290","IP":"Yuki","Port":8444,"OnLine":true,"DiskSize":64288190464,"FreeSpace":37288685568,"OnDiskCount":0,"OnDiskCountDup":0,"OnDiskSize":0,"OnDiskSizeDup":0,"ProtectedSize":0,"ProtectedSizeDup":0,"CertId":"FC74CD56CA18D4B76CFC22162F2D1484CF244898","NoNewAccounts":false,"AcceptDB":false,"OldPassword":null,"MirrorServer":null,"MirrorCompleted":null,"MirrorDataSent":null,"MirrorDuration":null,"MirrorAccounts":null,"CreatedOn":"2017-12-05T13:30:00.67+02:00","ModifiedOn":"2017-12-13T10:22:16.657+02:00","Deleted":false,"UpdateVersion":null,"StoragePoolId":null,"ServeArtifacts":null
+    }
+  ]
+}

@@ -1,54 +1,65 @@
-<div id="login-logo"></div>
 
-<div id="login-text">
-  <h1>Redstor Pro Cloud Console</h1>
-  <h4>Welcome! To continue, please login.</h4>
-  <br>
+<div *ngIf="loading" id="loading">
+  <app-loading-screen></app-loading-screen>
 </div>
 
-<div id="input-form" (keydown.enter)="doLogin()">
-  <input 
-    [(ngModel)]="platformAddress"
-    type="text" 
-    class="custom-input-text"  
-    placeholder="Platform Address">
+<div *ngIf="!loading">
+  
+  <div id="login-logo"></div>
 
-  <input 
-    [(ngModel)]="username"
-    type="text" 
-    class="custom-input-text"  
-    placeholder="Username">
-
-  <input 
-    [(ngModel)]="password"
-    type="password" 
-    class="custom-input-text"  
-    placeholder="Password">
-
-  <span>
-      <p [hidden]="this.dataService.errorOccurred.occurred" class="custom-error-message"></p>
-      <p [hidden]="!this.dataService.errorOccurred.occurred" class="custom-error-message">
-      {{this.dataService.errorOccurred.errorMessage}}
-      </p>
-  </span>
-  <br>
-
-  <button 
-    id="loginButton"
-    type="button"
-    class="custom-button-red" 
-    [disabled]="isDisabled"
-    (click)="doLogin(username, password, platformAddress)">LOGIN
-  </button>
-
-
-  <div class="container">
-    <pre>
-      //For testing purposes
-      SP Address: {{platformAddress}}
-      Username: {{username}}
-      Password : {{password}}
-    </pre>
+  <div id="login-text">
+    <h1>Redstor Pro Cloud Console</h1>
+    <h4>Welcome! To continue, please login.</h4>
+    <br>
   </div>
 
+  <div id="input-form" (keydown.enter)="doLogin()">
+    <input 
+      [(ngModel)]="platformAddress"
+      type="text" 
+      class="custom-input-text"  
+      placeholder="Platform Address">
+
+    <input 
+      [(ngModel)]="username"
+      type="text" 
+      class="custom-input-text"  
+      placeholder="Username">
+
+    <input 
+      [(ngModel)]="password"
+      type="password" 
+      class="custom-input-text"  
+      placeholder="Password">
+
+    <span>
+        <p [hidden]="this.dataService.errorOccurred.occurred" class="custom-error-message"></p>
+        <p [hidden]="!this.dataService.errorOccurred.occurred" class="custom-error-message">
+        {{this.dataService.errorOccurred.errorMessage}}
+        </p>
+    </span>
+    <br>
+
+    <button 
+      id="loginButton"
+      type="button"
+      class="custom-button-red" 
+      [disabled]="isDisabled"
+      (click)="doLogin(username, password, platformAddress)">LOGIN
+    </button>
+
+
+    <div class="container">
+      <pre>
+        //For testing purposes
+        SP Address: {{platformAddress}}
+        Username: {{username}}
+        Password : {{password}}
+
+        Available usernames : 'Admin', 'GroupAdmin'
+        password is always 'password'
+      </pre>
+    </div>
+
+  </div>
 </div>
