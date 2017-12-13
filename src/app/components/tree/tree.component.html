@@ -5,7 +5,7 @@
     </li>
 </ul> -->
 
-  <!-- 
+  <!--
   https://codepen.io/aanjulena/pen/ZLZjzV
   https://stackoverflow.com/questions/39175389/how-to-change-the-bootstrap-accordion-panel-heading-title-background-color-when
   https://stackoverflow.com/questions/35605772/active-state-on-bootstrap-acccordion-click
@@ -22,7 +22,7 @@
 - Styling
 - Add accounts under groups
 - Display some message if a group is empty
-- Think of things to display on the groups/collections 
+- Think of things to display on the groups/collections
   - icon
   - edit settings
   - remove group
@@ -55,30 +55,30 @@
 <div class="accordion panel-group" id="{{count}}" >
     <div class="panel panel-default" *ngFor="let node of treeData ">
       <div class="custom-header-panel panel-heading" >
-        
+
 
         <!-- group button depending on group type -->
-        <img  class="custom-panel-icon" 
-              *ngIf="node.GroupType == 'BackupGroup'" 
-              src="../../../assets/images/environment.png">
-  
         <img  class="custom-panel-icon"
-              *ngIf="node.GroupType == 'AdminGroup'" 
+              *ngIf="node.GroupType == 'BackupGroup'"
+              src="../../../assets/images/environment.png">
+
+        <img  class="custom-panel-icon"
+              *ngIf="node.GroupType == 'AdminGroup'"
               src="../../../assets/images/GroupCollection.png">
-  
+
         <!-- name of the group -->
-        <a  data-toggle="collapse" 
-            aria-expanded="false" 
+        <a  data-toggle="collapse"
+            aria-expanded="false"
             class="collapsed"
-            *ngIf="node.GroupType == 'BackupGroup'" 
-            href="#{{node.Id}}" 
+            *ngIf="node.GroupType == 'BackupGroup'"
+            href="#{{node.Id}}"
             (click)="getBackupAccountsForGroup(node.Name, node.Id)">{{node.Name | uppercase}}</a>
-        
+
         <!-- name of the collection -->
-        <a  data-toggle="collapse" 
-            aria-expanded="false" 
+        <a  data-toggle="collapse"
+            aria-expanded="false"
             class="collapsed"
-            *ngIf="node.GroupType == 'AdminGroup'" 
+            *ngIf="node.GroupType == 'AdminGroup'"
             href="#{{node.Id}}">{{node.Name | uppercase}}</a>
 
 
@@ -88,21 +88,21 @@
           class="custom-panel-button-icon custom-preferences-button"
           (click)="groupSettingsButtonClicked(node.Name, node.Id)">
         </button>
-  
+
         <!-- remove group button -->
         <button
           type="button"
           class="custom-panel-button-icon custom-remove-button"
           (click)="removeGroupButtonClicked(node.Name, node.Id)">
         </button>
-  
+
         <!-- add group button if current group is a collection-->
         <button *ngIf="node.GroupType == 'AdminGroup'"
           type="button"
           class="custom-panel-button-icon custom-add-button"
           (click)="addGroupButtonClicked(node.Name, node.Id)">
         </button>
-  
+
       </div>
 
 
@@ -113,8 +113,12 @@
 
         <div *ngIf="node.GroupType == 'BackupGroup'">
           <!-- accounts get populated here -->
-          <app-account-list></app-account-list>
-      </div>
+          <div *ngIf="!accounts && accountsLoading">LOADING...</div>
+
+          <app-account-list
+            *ngIf="!!accounts"
+            [accountList]="accounts"
+          ></app-account-list>
+        </div>
     </div>
   </div>
-      

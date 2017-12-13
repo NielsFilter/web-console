@@ -142,33 +142,7 @@ export class DataService {
 
 
 
-  getAccountsForGroup(groupId: number): any[] {
-    console.log(`Data Service - Fetching accounts for group ${groupId}`);
-
-    let response: any;
-
-    // tslint:disable-next-line:max-line-length
-    const url = `http://192.168.20.198:8080/https://${this.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
-
-    const headers = new HttpHeaders({
-      'Authorization': this.currentConsoleUser.encryptedCredentials,
-      'Content-Type': 'application/json',
-    });
-
-
-    this.http.get(url, { headers }).subscribe(
-      data => {
-        console.log('Data Service - Fetching accounts successful');
-        console.log(data);
-        response = data;
-      },
-      err => {
-        console.log('Data Service - Something went wrong when fetching accounts!');
-      }
-    );
-
-
-    // mock data
+  getAccountsForGroup(groupId: number) {
     const accountListMock = [
       {
       'Id': 1,
@@ -353,11 +327,58 @@ export class DataService {
       'LastBackupMessage': null
     }];
 
-    // console.log(accountListMock);
-     response = accountListMock;
-     console.log('res');
-     console.log(response);
-    return response;
+    // return this.http.get(url, { headers })
+    //   .toPromise()
+
+
+    return new Promise((resolve, reject) => {
+
+      // Google "Angular 4 http observables"
+
+      console.log(`Data Service - Fetching accounts for group ${groupId}`);
+
+          // tslint:disable-next-line:max-line-length
+          const url = `http://192.168.20.198:8080/https://${this.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
+
+          const headers = new HttpHeaders({
+            'Authorization': this.currentConsoleUser.encryptedCredentials,
+            'Content-Type': 'application/json',
+          });
+
+          this.http.get(url, { headers }).subscribe(
+            data => {
+              // resolve(data);
+              resolve(accountListMock);
+            },
+            error => {
+              console.log(error);
+              resolve(accountListMock);
+              // reject(error);
+            }
+          );
+    })
+
+
+    // .subscribe(
+    //   data => {
+    //     console.log('Data Service - Fetching accounts successful');
+    //     console.log(data);
+    //     response = data;
+    //   },
+    //   err => {
+    //     console.log('Data Service - Something went wrong when fetching accounts!');
+    //   }
+    // );
+
+
+    // mock data
+
+
+    // // console.log(accountListMock);
+    //  response = accountListMock;
+    //  console.log('res');
+    //  console.log(response);
+    // return response;
   }
 
 

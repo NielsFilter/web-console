@@ -21,6 +21,8 @@ export class ManagementPageComponent implements OnInit {
 
 // testing
 
+  currentUser: any;
+
   mockGroups: any[] = [
     {
       'Id': 2,
@@ -340,14 +342,25 @@ export class ManagementPageComponent implements OnInit {
 
   constructor(private dataService: DataService) {
     // testing
-    this.dataService.currentConsoleUser = new ConsoleUser('Admin', 'Basic QWRtaW46cGFzc3dvcmQ=', 'jono-pc', 1 , 'Collection 0', []);
-    const p = this.dataService.getNestedChildren(this.mockGroups, this.dataService.currentConsoleUser.rootBackupGroupId);
-    const x = _.orderBy(p, function(e){return e.GroupType; }, ['asc']);
-    this.dataService.structuredGroupData = x;
+
 
     // real
     // this.dataService.fetchGroups();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.currentUser = this.dataService.currentConsoleUser;
+
+    if (!this.currentUser || this.currentUser === undefined || this.currentUser === null) {
+      // this.router.navigate['login'];
+      console.log("NO CURRENT USER!!!");
+      return;
+    }
+
+    this.dataService.currentConsoleUser = new ConsoleUser('Admin', 'Basic QWRtaW46cGFzc3dvcmQ=', 'jono-pc', 1 , 'Collection 0', []);
+    const p = this.dataService.getNestedChildren(this.mockGroups, this.dataService.currentConsoleUser.rootBackupGroupId);
+    const x = _.orderBy(p, function(e){return e.GroupType; }, ['asc']);
+    this.dataService.structuredGroupData = x;
+  }
 }
