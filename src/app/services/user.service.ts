@@ -25,8 +25,7 @@ export class UserService {
    isUserLoggedIn(){
     if (!this.currentConsoleUser || !this.currentConsoleUser === undefined || this.currentConsoleUser === null) {
       this.logger.WARN(this.CONTEXT, 'user.not.logged.in.rerouting');
-      // https://stackoverflow.com/questions/35936535/angular-2-ngoninit-not-called ??
-      this.ngZone.run(() => this.router.navigateByUrl('/login'))      
+      this.ngZone.run(() => this.router.navigateByUrl('/login'))      // https://stackoverflow.com/questions/35936535/angular-2-ngoninit-not-called ??
       return false;
     }
     return true;

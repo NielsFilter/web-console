@@ -16,13 +16,10 @@ export class BackupAccountManagementPageComponent implements OnInit {
   CONTEXT:string = 'Backup Account Management Page';
   /**
    * TODO
-   *  rename this to 'account-management-page'
    * add the Root level as a 'collection'
    * https://codepen.io/aanjulena/pen/ZLZjzV
    */
 
-
-// testing
 
 
 

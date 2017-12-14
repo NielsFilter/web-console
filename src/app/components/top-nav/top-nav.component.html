@@ -14,15 +14,40 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link active" routerLink="/dashboard" routerLinkActive="active">Dashboard<span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link"  routerLink="/accountmanagement" routerLinkActive="active">Backup Acount Management</a>
-        <a class="nav-item nav-link" routerLink="/servermanagement" routerLinkActive="active">Server Management</a>
-        <a class="nav-item nav-link disabled">Remote Client</a>
-      </div>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" 
+            data-toggle="collapse" 
+            data-target=".navbar-collapse.show">
+
+          <a class="nav-link active" 
+              routerLink="/dashboard" 
+              routerLinkActive="active">Dashboard<span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item" 
+            data-toggle="collapse" 
+            data-target=".navbar-collapse.show">
+          <a clas s="nav-link" routerLink="/accountmanagement" routerLinkActive="active" >Backup Acount Management</a>
+        </li>
+        <li class="nav-item"
+            data-toggle="collapse" 
+            data-target=".navbar-collapse.show">
+          <a class="nav-link" routerLink="/servermanagement" routerLinkActive="active" >Server Management</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled">Remote Client</a>
+        </li>
+      </ul>
+
+      <!-- <div class="navbar-nav mr-auto">
+          <a class="nav-item nav-link active" routerLink="/dashboard" routerLinkActive="active" data-toggle="collapse" data-target=".navbar-collapse.show">Dashboard<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" routerLink="/accountmanagement" routerLinkActive="active"  data-toggle="collapse" data-target=".navbar-collapse.show">Backup Acount Management</a>
+          <a class="nav-item nav-link" routerLink="/servermanagement" routerLinkActive="active"  data-toggle="collapse" data-target=".navbar-collapse.show">Server Management</a>
+          <a class="nav-item nav-link disabled">Remote Client</a>
+        </div> -->
+
 
       <div class="navbar-nav ml-auto">
-
         <div class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle" 
               href="#" 
@@ -36,7 +61,7 @@
           </a>
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item " href="#">Settings</a>
             <a class="dropdown-item" href="#">LOG OUT</a>
           </div>
         </div>

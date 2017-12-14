@@ -1,5 +1,5 @@
 #login-logo{
-    margin: 10% 0 0;
+    /* margin: 10% 0 0; */
     background-image: url('/assets/images/logo_black.svg');
     background-repeat: no-repeat;
     background-position: center;
@@ -10,7 +10,7 @@
 
 
 #input-form{
-    margin-top: 1em!important;
+    /* margin-top: 1em!important; */
     display: block;
     margin: auto;
 }
@@ -19,7 +19,9 @@ p{
     height: 1em;
     text-align: center;
 }
-
+#login-text{  
+    margin-bottom: 1em;
+}
 
 
  /* FADE IN FOR LOGIN PAGE*/
@@ -31,9 +33,7 @@ p{
 
 #login-window{  
     position: relative;
-    margin-top: 15%;
-
-    
+    margin-top: 10%;
 
     /* fade in animation */
     animation: fadein 2s;

@@ -81,7 +81,7 @@ export class DataService {
                   userInformation: response
                 } ;
 
-                // might need to change this to show when someone is logged in
+                // TODO advanced caching of user
                 this.userService.currentConsoleUser = user;
                 this.userService.loggedIn = true;
                 this.router.navigate(['/dashboard']);
@@ -119,8 +119,6 @@ export class DataService {
     // TESTING URL
     const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/backup/Groups`;
     const headers = this.userService.getHttpHeaders();
-   
-
 
     this.http.get(url, { headers }).subscribe(
       data => {
