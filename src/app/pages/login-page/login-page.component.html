@@ -1,9 +1,9 @@
 
-<div *ngIf="loading" id="loading">
+<div *ngIf="loading" class="loading">
   <app-loading-screen></app-loading-screen>
 </div>
 
-<div *ngIf="!loading">
+<div id="login-window" *ngIf="!loading">
   
   <div id="login-logo"></div>
 
@@ -44,21 +44,16 @@
       id="loginButton"
       type="button"
       class="custom-button-red" 
-      [disabled]="isDisabled"
+      [disabled]="waitingForRequest"
       (click)="doLogin(username, password, platformAddress)">LOGIN
     </button>
 
-
-    <div class="container">
-      <pre>
-        //For testing purposes
-        SP Address: {{platformAddress}}
-        Username: {{username}}
-        Password : {{password}}
-
-        Available usernames : 'Admin', 'GroupAdmin'
-        password is always 'password'
-      </pre>
+    <!-- TEMP LOADING IMAGE -->
+    <div *ngIf="waitingForRequest" id="waiting-spinner">
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
     </div>
 
   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { AccountListComponent } from '../account-list/account-list.component';
 import { DataService } from '../../services/data.service';
+import { LoggerService } from '../../services/logger.service';
 
 @Component({
   selector: 'app-tree',
@@ -8,12 +9,13 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./tree.component.css']
 })
 export class TreeComponent implements OnInit {
+  CONTEXT = 'Tree Component';
 
   @Input() treeData: any;
   accounts: any;
   accountsLoading = false;
 
-  constructor(private dataService: DataService) { }
+  constructor(private logger: LoggerService, private dataService: DataService) { }
 
 
   ngOnInit() {
@@ -24,28 +26,32 @@ export class TreeComponent implements OnInit {
   }
 
   addGroupButtonClicked(name: string, id: number){
-    console.log(`Tree Component - addGroupButtonClicked() was called for ${id}(${name})`);
+    this.logger.TRACE(this.CONTEXT,`addGroupButtonClicked() was called for ${id}(${name})`);
   }
+
   removeGroupButtonClicked(name: string, id: number){
-    console.log(`Tree Component - removeGroupButtonClicked() was called for ${id}(${name})`);
+    this.logger.TRACE(this.CONTEXT,`removeGroupButtonClicked() was called for ${id}(${name})`);
   }
+
   groupSettingsButtonClicked(name: string, id: number){
-    console.log(`Tree Component - groupSettingsButtonClicked() was called for ${id}(${name})`);
+    this.logger.TRACE(this.CONTEXT,`groupSettingsButtonClicked() was called for ${id}(${name})`);
   }
+  
   getBackupAccountsForGroup(name: string, id: number) {
-    console.log(`Tree Component - User queried group with id ${id}(${name}) for backup accounts`);
+    this.logger.TRACE(this.CONTEXT,`User queried group with id ${id}(${name}) for backup accounts`);
 
     this.accountsLoading = true;
 
     this.dataService.getAccountsForGroup(id)
       .then(response => {
-        console.log('Tree Component - Fetching accounts successful');
-        console.log(response);
+        this.logger.DEBUG(this.CONTEXT, 'tree.fetching.accounts.successful');
+        
         // @ts-ignore: this has some data under the res
         this.accounts = response.data;
+        //this.accounts = response; // for building purposes
       })
       .catch(ex => {
-        console.log('Tree Component - Fetching accounts unsuccessful');
+        this.logger.ERROR(this.CONTEXT, 'tree.fetching.accounts.unsuccessful');
       })
       .then(() => {
         this.accountsLoading = false;

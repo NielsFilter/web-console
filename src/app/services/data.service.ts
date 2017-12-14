@@ -27,7 +27,6 @@ export class DataService {
 
   structuredGroupData: any;
 
-
   constructor(public logger:LoggerService, public http: HttpClient, public router: Router, public userService: UserService ) {
   }
 
@@ -47,18 +46,25 @@ export class DataService {
     this.logger.INFO(this.CONTEXT, 'data.service.sending.login.request',[platformAddress]);
     return this.http.get(url, { headers })
             .toPromise()
-            .then( res => {
-                this.logger.INFO(this.CONTEXT, 'data.service.login.successful',[username]);
+            .then( response => {
+              this.logger.INFO(this.CONTEXT, 'data.service.login.successful',[username]);
+              // @ts-ignore: this has some data under the response
+              const data = response.data;
+              //const data; //for building purposes
+
+              // If no root is specified, use the root group which is 1
+              let root = 1;
+              let rootName = 'Storage Platform';
+              // Gets the root group for the current user
+
+              for (const i in data) {
+                if (data[i].Name === username) {
+                  root = data[i].AdminBackupGroupId;
+                  this.logger.TRACE(this.CONTEXT, `User root level is ${root}`);
+                  }
+              }
                 
-                // If no root is specified, use the root group which is 1
-                let root = 1;
-                let rootName = 'Storage Platform';
-                // Gets the root group for the current user
-                for (const i in res) {
-                  if (res[i].Name === username) {
-                    root = res[i].AdminBackupGroupId;
-                    }
-                }
+
 
                 // TODO : check for non-root group
                 // if (rootNameTemp.includes('\\')) {
@@ -72,7 +78,7 @@ export class DataService {
                   encryptedCredentials: credentials,
                   rootBackupGroupId: root,
                   rootBackupGroupName: rootName,
-                  userInformation: res
+                  userInformation: response
                 } ;
 
                 // might need to change this to show when someone is logged in
@@ -112,21 +118,23 @@ export class DataService {
     
     // TESTING URL
     const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/backup/Groups`;
-
-    const headers = new HttpHeaders({
-      'Authorization': this.userService.currentConsoleUser.encryptedCredentials,
-      'Content-Type': 'application/json',
-    });
+    const headers = this.userService.getHttpHeaders();
+   
 
 
     this.http.get(url, { headers }).subscribe(
       data => {
         this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.groups.successful');
+        this.logger.TRACE(this.CONTEXT, 'Received data : \n\n' + JSON.stringify(data));
         this.structuredGroupData =  this.getNestedChildren(data, this.userService.currentConsoleUser.rootBackupGroupId);
+        this.logger.TRACE(this.CONTEXT, 'Structured data : \n\n' + JSON.stringify(this.structuredGroupData));
 
         this.logger.DEBUG(this.CONTEXT, 'data.service.ordering.groups');
-        const x = _.orderBy(this.structuredGroupData, function(e){return e.GroupType; }, ['asc']);
-        this.structuredGroupData = x;
+        const orderedGroups = _.orderBy(this.structuredGroupData, function(e){return e.GroupType; }, ['asc']);
+        this.logger.TRACE(this.CONTEXT, 'Ordered data : \n\n' + JSON.stringify(orderedGroups));
+
+        this.structuredGroupData = orderedGroups;
+        this.logger.TRACE(this.CONTEXT, 'Structured data : \n\n' + JSON.stringify(this.structuredGroupData));
         this.logger.DEBUG(this.CONTEXT, 'data.service.ordering.groups.successful');
       },
       err => {
@@ -159,26 +167,8 @@ export class DataService {
     // TESTING URL
     const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
     
-    const headers = new HttpHeaders({
-      'Authorization': this.userService.currentConsoleUser.encryptedCredentials,
-      'Content-Type': 'application/json',
-    });
-
-
+    const headers = this.userService.getHttpHeaders();
     return this.http.get(url, { headers })
       .toPromise()
-
-
-
-    // .subscribe(
-    //   data => {
-    //     console.log('Data Service - Fetching accounts successful');
-    //     console.log(data);
-    //     response = data;
-    //   },
-    //   err => {
-    //     console.log('Data Service - Something went wrong when fetching accounts!');
-    //   }
-    // );
   }
 }

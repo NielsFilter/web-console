@@ -9,15 +9,15 @@
             <!-- group button depending on group type -->
 
         <img  class="custom-panel-icon"
-            *ngIf="account.AccountType == 1"
+            *ngIf="account.TypeId == 1"
             src="../../../assets/images/client_dl.png">
 
         <img  class="custom-panel-icon"
-            *ngIf="account.Generation == 2"
+            *ngIf="account.TypeId == 2"
             src="../../../assets/images/client_se.png">
 
         <img  class="custom-panel-icon"
-            *ngIf="account.Generation == 3"
+            *ngIf="account.TypeId == 3"
             src="../../../assets/images/client_ese.png">
 
 

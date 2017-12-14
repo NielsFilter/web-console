@@ -2,21 +2,24 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LoggerService {
+  private TRACE_ENABLED= false;
+
+  // styles for levels
   STYLE_LEVEL_INFO:string = 'color: blue;';
   STYLE_LEVEL_DEBUG:string = 'color: green;';
   STYLE_LEVEL_WARN:string = 'color: orange;';
   STYLE_LEVEL_ERROR:string = 'color: red; font-weight: bold;';
+  STYLE_LEVEL_TRACE:string = 'color: plum; font-style: italic;';
 
+  // logging levels
   TITLE_INFO = 'INFO';
   TITLE_DEBUG = 'DEBUG';
   TITLE_WARN = 'WARN';
   TITLE_ERROR = 'ERROR';
+  TITLE_TRACE = 'TRACE';
 
-  p1 = '';
-  p2 = '';
-  p3 = '';
-
-  stringResources = {
+  // string resources 
+  loggerStringResources = {
     'test.params': 'This is a test message with parameter {0} and {1}',
     'test':'this is a test message',
 
@@ -33,6 +36,10 @@ export class LoggerService {
     'data.service.ordering.groups.successful':'Ordering groups successful',
     'data.service.fetching.accounts.for.group':'Fetching accounts for group {0}',
 
+
+
+    'tree.fetching.accounts.successful': 'Fetching accounts successful',
+    'tree.fetching.accounts.unsuccessful': 'Fetching accounts failed',
   };
 
   constructor() { }
@@ -68,16 +75,29 @@ export class LoggerService {
     const messageText = this.getStringResource(messageKey, messageParameters);
     const builtMessage = `${context} - ${messageText}`;
 
-
     this.printMessage(this.TITLE_ERROR, 
                       builtMessage, 
                       this.STYLE_LEVEL_ERROR);
   }
 
+  TRACE(context: string, messageKey: string, messageParameters:string[] = []){
+    const messageText = this.getStringResource(messageKey, messageParameters);
+    const builtMessage = `${context} - ${messageText}`;
+
+    // only print if trace is enabled
+    if(this.TRACE_ENABLED){
+    this.printMessage(this.TITLE_TRACE, 
+                      builtMessage, 
+                      this.STYLE_LEVEL_TRACE);
+    }
+  }
+
+  // print the message
   private printMessage(title:string, message: string, style: string){
     console.log("%c" + `${this.getCurrentTime()} ${title} ${message}`, style);
   }
 
+  // gets the current time of the logged message
   private getCurrentTime():string {
     const utcTime = new Date() ;
     // utcTime.toUTCString();
@@ -88,17 +108,19 @@ export class LoggerService {
 
   private getStringResource(messageKey: string, messageParameters:string[]): string{
     // If the key is not present, return the key
-    if(this.stringResources[messageKey] === undefined || this.stringResources[messageKey] === null || this.stringResources[messageKey] === ''){
+    if(this.loggerStringResources[messageKey] === undefined || this.loggerStringResources[messageKey] === null || this.loggerStringResources[messageKey] === ''){
       return messageKey;
     }
+
     //If the key is present and there are no parameters
     if(messageParameters.length === 0){
-      return this.stringResources[messageKey];
+      return this.loggerStringResources[messageKey];
     }
+
     //If the key is present and there are parameters
     else{
       let count = 0;
-      let message = this.stringResources[messageKey];
+      let message = this.loggerStringResources[messageKey];
       let temp = message;
       for (let param of messageParameters) {
         const p = `{${count}}`;

@@ -17,39 +17,35 @@ import { LoggerService } from '../../services/logger.service';
 
 export class LoginPageComponent implements OnInit {
   CONTEXT:string = 'Login Page';
-
-
+  waitingForRequest = false;
+  loading = true;
+  
   username: string;
   password: string;
   platformAddress: string;
 
-  isDisabled = false;
 
-  loading = false;
-  
 
 /**
  * TODO:
  *  adjust width of login component correctly instead of hardcoded
- *  proper way to handle if a user is logged in
  *  cache logged in user details
- *  find a better way to preserve error message height in HTML
  *  localize error messages to the login page instead of the data service
- *  Spinner while waiting for http request to complete
- *  Before loading the page, have a placeholder image (loading-screen component already generated)
  */
 
 
   constructor(private logger: LoggerService, private router: Router, private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit() {
-    this.logger.DEBUG(this.CONTEXT, 'page.loaded');
-    this.logger.ERROR(this.CONTEXT, 'test.params', ['test 1', 'test 2']);
+    setTimeout(()=>{  this.loading = false; 
+                      this.logger.DEBUG(this.CONTEXT, 'page.loaded');}, 
+                      5000);    
   }
 
   doLogin(): void {
     this.dataService.errorOccurred.occurred = false;
-    this.isDisabled = true;
+    this.waitingForRequest = true;
+    
     // Handle empty fields
     if (  (this.username === undefined || (this.username.trim().length === 0)) ||
           (this.password === undefined || (this.password.trim().length === 0)) ||
@@ -59,20 +55,21 @@ export class LoginPageComponent implements OnInit {
 
       this.dataService.errorOccurred.occurred = true;
       this.dataService.errorOccurred.errorMessage = 'Please complete all the fields above';
-      this.isDisabled = false;
+      this.waitingForRequest = false;
       return;
     }
 
-    // Do login
+    // Send login request login
     this.dataService.login(this.username, this.password, this.platformAddress)
     .then(result => {
-      this.isDisabled = false;
     })
     .catch(ex => {
       this.dataService.errorOccurred.occurred = true;
       this.dataService.errorOccurred.errorMessage = 'An error occurred';
       this.logger.WARN(this.CONTEXT, ex);
-      this.isDisabled = false;
+      
+    }).then(() =>{
+      this.waitingForRequest = false;
     });
   }
 }
