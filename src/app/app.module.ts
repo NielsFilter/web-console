@@ -11,6 +11,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { ManagementPageComponent } from './pages/management-page/management-page.component';
 
 import { DataService } from './services/data.service';
+import { UserService } from "./services/user.service";
 import { TreeComponent } from './components/tree/tree.component';
 
 
@@ -19,6 +20,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { AccountListComponent } from './components/account-list/account-list.component';
+import { LoggerService } from './services/logger.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -45,7 +47,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [ RouterModule ],
-  providers: [DataService],
+  providers: [LoggerService, DataService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

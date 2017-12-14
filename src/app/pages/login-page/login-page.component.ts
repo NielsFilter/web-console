@@ -7,6 +7,7 @@ import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { DataService } from '../../services/data.service';
 import { ConsoleUser } from '../../classes/consoleUser';
+import { LoggerService } from '../../services/logger.service';
 
 @Component({
   selector: 'app-login-page',
@@ -15,6 +16,9 @@ import { ConsoleUser } from '../../classes/consoleUser';
 })
 
 export class LoginPageComponent implements OnInit {
+  CONTEXT:string = 'Login Page';
+
+
   username: string;
   password: string;
   platformAddress: string;
@@ -22,6 +26,7 @@ export class LoginPageComponent implements OnInit {
   isDisabled = false;
 
   loading = false;
+  
 
 /**
  * TODO:
@@ -35,10 +40,11 @@ export class LoginPageComponent implements OnInit {
  */
 
 
-  constructor(private router: Router, private http: HttpClient, private dataService: DataService) { }
+  constructor(private logger: LoggerService, private router: Router, private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit() {
-
+    this.logger.DEBUG(this.CONTEXT, 'page.loaded');
+    this.logger.ERROR(this.CONTEXT, 'test.params', ['test 1', 'test 2']);
   }
 
   doLogin(): void {
@@ -48,7 +54,9 @@ export class LoginPageComponent implements OnInit {
     if (  (this.username === undefined || (this.username.trim().length === 0)) ||
           (this.password === undefined || (this.password.trim().length === 0)) ||
           (this.platformAddress === undefined || (this.platformAddress.trim().length === 0)) ) {
-      console.log('Login Page - Not all required fields were present');
+
+      this.logger.WARN(this.CONTEXT, 'login.page.empty.fields');
+
       this.dataService.errorOccurred.occurred = true;
       this.dataService.errorOccurred.errorMessage = 'Please complete all the fields above';
       this.isDisabled = false;
@@ -63,7 +71,7 @@ export class LoginPageComponent implements OnInit {
     .catch(ex => {
       this.dataService.errorOccurred.occurred = true;
       this.dataService.errorOccurred.errorMessage = 'An error occurred';
-      console.log(ex);
+      this.logger.WARN(this.CONTEXT, ex);
       this.isDisabled = false;
     });
   }

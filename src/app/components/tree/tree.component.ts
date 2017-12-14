@@ -41,6 +41,7 @@ export class TreeComponent implements OnInit {
       .then(response => {
         console.log('Tree Component - Fetching accounts successful');
         console.log(response);
+        // @ts-ignore: this has some data under the res
         this.accounts = response.data;
       })
       .catch(ex => {

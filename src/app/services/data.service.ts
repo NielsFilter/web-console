@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConsoleUser } from '../classes/consoleUser';
+import { UserService } from "./user.service";
 
 import { HttpClient, HttpParams, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
@@ -13,12 +14,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
 import { asTextData } from '@angular/core/src/view';
-
+import { LoggerService } from './logger.service';
 
 @Injectable()
 export class DataService {
-  currentConsoleUser: ConsoleUser;
-  loggedIn: Boolean = false;
+  CONTEXT = "Data Service"
 
   errorOccurred = {
     occurred: false,
@@ -28,10 +28,10 @@ export class DataService {
   structuredGroupData: any;
 
 
-  constructor(public http: HttpClient, public router: Router ) {
+  constructor(public logger:LoggerService, public http: HttpClient, public router: Router, public userService: UserService ) {
   }
 
-
+  // Attempts to log into the AS using the provided credentials
   login(username: string, password: string, platformAddress: string): Promise<any> {
     const credentials = 'Basic ' + btoa(`${username}:${password}`);
     //const url = `http://192.168.20.198:8080/https://${platformAddress}/api/access/Users`;
@@ -44,11 +44,12 @@ export class DataService {
       'Content-Type': 'application/json',
     });
 
-    console.log(`Data Service - Sending login request to '${platformAddress}'`);
+    this.logger.INFO(this.CONTEXT, 'data.service.sending.login.request',[platformAddress]);
     return this.http.get(url, { headers })
             .toPromise()
             .then( res => {
-                console.log(`Data Service - Login Successful, logging is as ${username}`);
+                this.logger.INFO(this.CONTEXT, 'data.service.login.successful',[username]);
+                
                 // If no root is specified, use the root group which is 1
                 let root = 1;
                 let rootName = 'Storage Platform';
@@ -75,13 +76,13 @@ export class DataService {
                 } ;
 
                 // might need to change this to show when someone is logged in
-                this.currentConsoleUser = user;
-                this.loggedIn = true;
+                this.userService.currentConsoleUser = user;
+                this.userService.loggedIn = true;
                 this.router.navigate(['/dashboard']);
               },
               (err: HttpErrorResponse) => {
-                console.log('Data Service - Login Unsuccessful');
-                console.log(`${err.status} - Error : ${err.statusText}`);
+                this.logger.ERROR(this.CONTEXT, 'data.service.login.unsuccessful',[err.status.toString()]);
+  
                 this.errorOccurred.occurred = true;
 
                 switch (err.status) {
@@ -106,30 +107,30 @@ export class DataService {
 
 
   fetchGroups(): void {
-    console.log('Data Service - Fetching groups');
+    this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.groups');
     //const url = `http://192.168.20.198:8080/https://${this.currentConsoleUser.platformAddress}/api/backup/Groups`;
     
     // TESTING URL
-    const url = `http://${this.currentConsoleUser.platformAddress}/api/backup/Groups`;
+    const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/backup/Groups`;
 
     const headers = new HttpHeaders({
-      'Authorization': this.currentConsoleUser.encryptedCredentials,
+      'Authorization': this.userService.currentConsoleUser.encryptedCredentials,
       'Content-Type': 'application/json',
     });
 
 
     this.http.get(url, { headers }).subscribe(
       data => {
-        console.log('Data Service - Fetching groups successful');
-        this.structuredGroupData =  this.getNestedChildren(data, this.currentConsoleUser.rootBackupGroupId);
+        this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.groups.successful');
+        this.structuredGroupData =  this.getNestedChildren(data, this.userService.currentConsoleUser.rootBackupGroupId);
 
-        console.log('Data Service - Ordering groups...');
+        this.logger.DEBUG(this.CONTEXT, 'data.service.ordering.groups');
         const x = _.orderBy(this.structuredGroupData, function(e){return e.GroupType; }, ['asc']);
         this.structuredGroupData = x;
-        console.log('Data Service - Ordering groups successful');
+        this.logger.DEBUG(this.CONTEXT, 'data.service.ordering.groups.successful');
       },
       err => {
-        console.log('Data Service - Something went wrong when fetching groups!');
+        this.logger.ERROR(this.CONTEXT, 'data.service.fetching.groups.unsuccessful');
       }
     );
 
@@ -152,15 +153,14 @@ export class DataService {
 
 
   getAccountsForGroup(groupId: number) {
-    console.log(`Data Service - Fetching accounts for group ${groupId}`);
-
+    this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.accounts.for.group', [groupId.toString()]);
     //const url = `http://192.168.20.198:8080/https://${this.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
     
     // TESTING URL
-    const url = `http://${this.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
+    const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
     
     const headers = new HttpHeaders({
-      'Authorization': this.currentConsoleUser.encryptedCredentials,
+      'Authorization': this.userService.currentConsoleUser.encryptedCredentials,
       'Content-Type': 'application/json',
     });
 
