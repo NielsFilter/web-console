@@ -10,6 +10,7 @@
 
 
 #input-form{
+    margin-top: 1em!important;
     display: block;
     margin: auto;
 }
@@ -24,11 +25,17 @@ p{
  /* FADE IN FOR LOGIN PAGE*/
 .loading {
     position: absolute;
-    top: 50%;
+    top: 40%;     /*   because  the navbar*/
     left: 50%;
 }
 
-#login-window{    
+#login-window{  
+    position: relative;
+    margin-top: 15%;
+
+    
+
+    /* fade in animation */
     animation: fadein 2s;
     -moz-animation: fadein 2s; /* Firefox */
     -webkit-animation: fadein 2s; /* Safari and Chrome */

@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 
+/* FONTS */
+
 @font-face {
     font-family: Roboto-Regular;
     src: url("../res/fonts/Roboto-Regular.ttf");
@@ -15,7 +17,10 @@
     font-family: Roboto-Light;
     src: url("../res/fonts/Roboto-Light.ttf");
 }
+
+/* MAIN COMPONENT STYLES */
 body{
+    padding-top: 70px!important;
     font-family: Roboto-Light!important;
     color:#464646;
 }
@@ -101,7 +106,7 @@ button:focus {
     color: white;
     outline: none;
     border: none;
-    padding: 15px 32px;
+    padding: 8px 24px;
     text-align: center;
     text-decoration: none;
     display: inline-block;

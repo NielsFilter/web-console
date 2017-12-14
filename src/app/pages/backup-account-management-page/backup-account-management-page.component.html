@@ -1,10 +1,6 @@
-<div class="container" *ngIf="!!currentUser">
+<div class="container" *ngIf="this.userService.isUserLoggedIn()">
   <div class="col">
-      <br>
-      <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Library</li>
-      </ol>
+     
 
     <br>
     <input type="text" class="custom-input-text custom-input-search">
@@ -13,8 +9,7 @@
     <!-- How to!!!  -->
     <!-- https://stackoverflow.com/questions/35733186/angular2-ul-li-json-tree-recursive-in-ngfor -->
 
-    <div class="">
-
+    <div class="root-group-header">
         <p>{{this.userService.currentConsoleUser.rootBackupGroupName}}</p>
     </div>
 

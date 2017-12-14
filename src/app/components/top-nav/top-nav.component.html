@@ -1,31 +1,49 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div *ngIf="dataService.loggedIn">
-    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+  <div *ngIf="this.userService.loggedIn">
+
+    <button class="navbar-toggler" 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#navbarNavAltMarkup" 
+            aria-controls="navbarNavAltMarkup" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+
+    <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav mr-auto">
+        <a class="nav-item nav-link active" routerLink="/dashboard" routerLinkActive="active">Dashboard<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link"  routerLink="/accountmanagement" routerLinkActive="active">Backup Acount Management</a>
+        <a class="nav-item nav-link" routerLink="/servermanagement" routerLinkActive="active">Server Management</a>
+        <a class="nav-item nav-link disabled">Remote Client</a>
+      </div>
+
+      <div class="navbar-nav ml-auto">
+
+        <div class="nav-item dropdown" >
+          <a class="nav-link dropdown-toggle" 
+              href="#" 
+              id="navbarDropdownMenuLink" 
+              data-toggle="dropdown" 
+              aria-haspopup="true" 
+              aria-expanded="false">
+
+            <img src="../../../assets/images/icon_white.png" width="30" height="30" class="d-inline-block align-top" alt="">
+              {{this.userService.currentConsoleUser.username}}
           </a>
+
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#">Settings</a>
             <a class="dropdown-item" href="#">LOG OUT</a>
           </div>
-        </li>
-      </ul>
+        </div>
+
+      </div>
+
+
     </div>
   </div>
 </nav>
