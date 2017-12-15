@@ -20,8 +20,13 @@
 
 /* MAIN COMPONENT STYLES */
 body{
-    padding-top: 70px!important;
+    padding-top: 4em!important;
     font-family: Roboto-Light!important;
+    color:#464646;
+}
+
+h1, h2, h3, h4{
+    font-family: Roboto-Light;
     color:#464646;
 }
 

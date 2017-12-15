@@ -20,9 +20,9 @@ export class LoginPageComponent implements OnInit {
   waitingForRequest = false;
   loading = true;
   
-  username: string;
-  password: string;
-  platformAddress: string;
+  username: string='admin';
+  password: string ='password';
+  platformAddress: string = '192.168.1.2:3000';
 
 
 

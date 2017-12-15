@@ -48,7 +48,7 @@ export class TreeComponent implements OnInit {
         
         // @ts-ignore: this has some data under the res
         this.accounts = response.data;
-        //this.accounts = response; // for building purposes
+        // this.accounts = response; // for building purposes
       })
       .catch(ex => {
         this.logger.ERROR(this.CONTEXT, 'tree.fetching.accounts.unsuccessful');
