@@ -3,31 +3,39 @@ a{
     text-decoration: none;
 }
 
-
-
-.custom-header-panel{
-    height: 3em;
-    border: 1px solid #dedede;
-    padding: 8px 8px 8px 16px;
-    background-color: #ffffff;
+.card{
+    border: none;
 }
 
-.custom-header-panel:hover{
-  background-color: #FAFAFA;
+.card-header{
+    border: none;
+    background-color: #ffffff!important;
+}
+
+.card-header:hover{
+    background-color: #FAFAFA!important;
+}
+
+
+.custom-active{
+    background-color: #E0E0E0!important;
+}
+.custom-active:hover{
+    background-color: #E0E0E0!important;
 }
 
 
 
-[data-toggle="collapse"]:not(.collapsed) {
-    background-color: #dedede;
-  }
 
-
-div a:not(.collapsed) { 
-    background-color: #dedede!important;
+.custom-card-h-header{
+    display: inline-block!important;
+    /* background-color: red; */
+    width: 85%;
 }
 
-.active{
-    background-color: #dedede;
+.custom-panel-icon{
+    display: inline-block!important;
 }
-
+.custom-panel-button-icon {
+    display: inline-block!important;
+}

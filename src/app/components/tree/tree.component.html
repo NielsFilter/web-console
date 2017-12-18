@@ -42,8 +42,9 @@
                     *ngIf="node.GroupType == 'AdminGroup'"
                     src="../../../assets/images/GroupCollection.png">  
 
-              <h5 class="mb-0">
+              <h5 class="mb-0 custom-card-h-header">
                 <a  *ngIf="node.GroupType == 'AdminGroup'" 
+                    (click)="adminGroupClicked(node.Name, node.Id, $event)"
                     data-toggle="collapse" 
                     [attr.data-parent]="dataParentId" 
                     href="#{{node.Id}}">

@@ -3,6 +3,7 @@ import { AccountListComponent } from '../account-list/account-list.component';
 import { DataService } from '../../services/data.service';
 import { LoggerService } from '../../services/logger.service';
 
+
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
@@ -25,7 +26,13 @@ export class TreeComponent implements OnInit {
 
 
   ngOnInit() {
-
+  //   $('.panel-heading a').click(function() {
+  //     $('.panel-heading').removeClass('active');
+      
+  //     //If the panel was open and would be closed by this click, do not active it
+  //     if(!$(this).closest('.panel').find('.panel-collapse').hasClass('in'))
+  //         $(this).parents('.panel-heading').addClass('active');
+  //  });
   }
 
   getRandomId(): string{
@@ -44,23 +51,39 @@ export class TreeComponent implements OnInit {
     this.logger.TRACE(this.CONTEXT,`groupSettingsButtonClicked() was called for ${id}(${name})`);
   }
   
-  getBackupAccountsForGroup(name: string, id: number, event) {
-    const target = event.target || event.srcElement || event.currentTarget;
-    const idAttr = target.attributes.id;
-    // https://stackoverflow.com/questions/33092386/how-to-determine-if-a-bootstrap-collapse-is-opening-or-closing
-    //const value = idAttr.nodeValue;
-    //var isExpanded = $(collapsableRegion).attr("aria-expanded");
-    console.log(`target is ${target}`);
-    console.log((idAttr).attr("aria-expanded"));
-    if(!idAttr.getAttribute("aria-expanded")){
+  adminGroupClicked(name: string, id: number, event: Event){
+    const htmlElement = this.getEventElementId(event);
+    
+      // checks if the 'show' class is added. if it is, the group is being closed and should not send an unnecessary http request
+      if(htmlElement.classList.contains("show")){
+        htmlElement.parentElement.firstElementChild.classList.remove('custom-active');
+        
+        this.logger.TRACE(this.CONTEXT, 'Closing Collection');
+        return;
+      }
+      this.activeClass();
+      htmlElement.parentElement.firstElementChild.classList.add('custom-active');
+
+      // TODO some caching and http request to update groups?
+  }
+
+
+
+  getBackupAccountsForGroup(name: string, id: number, event: Event) {
+    const htmlElement = this.getEventElementId(event);
+  
+    // checks if the 'show' class is added. if it is, the group is being closed and should not send an unnecessary http request
+    if(htmlElement.classList.contains("show")){
+      htmlElement.parentElement.firstElementChild.classList.remove('custom-active');
+      
       this.logger.TRACE(this.CONTEXT, 'Closing group');
       return;
     }
-
+    this.activeClass();
+    htmlElement.parentElement.firstElementChild.classList.add('custom-active');
 
 
     this.logger.TRACE(this.CONTEXT,`User queried group with id ${id}(${name}) for backup accounts`);
-
     this.accountsLoading = true;
 
     this.dataService.getAccountsForGroup(id)
@@ -77,5 +100,36 @@ export class TreeComponent implements OnInit {
       .then(() => {
         this.accountsLoading = false;
       });
+  }
+
+
+  getEventElementId(event: Event): HTMLElement{
+    const target = event.target || event.srcElement || event.currentTarget;
+    const targetString = target.toString();
+
+    const n = targetString.lastIndexOf('/#');
+    const groupAssignedId = targetString.substring(n + 2);
+
+    const e = document.getElementById(groupAssignedId);
+    this.logger.TRACE(this.CONTEXT, `Found element id ${groupAssignedId}`);
+    this.logger.TRACE(this.CONTEXT, 'Attributes : \n\n' + JSON.stringify(document.getElementById(groupAssignedId).attributes));
+    this.logger.TRACE(this.CONTEXT, 'Classes : \n\n' + JSON.stringify(e.classList));
+    return e;
+  }
+
+
+  activeClass(){
+    // var expanded_elements = document.getElementsByClassName('show');
+    var expanded_elements = document.getElementsByClassName('custom-active');
+
+    for (var i = 0; i < expanded_elements.length; ++i) {
+        var item = expanded_elements[i];  
+  
+        if(!item.lastElementChild.classList.contains('show')){
+          item.classList.remove('custom-active');
+        }
+        
+    }
+
   }
 }
