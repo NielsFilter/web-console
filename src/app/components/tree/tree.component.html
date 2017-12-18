@@ -20,105 +20,90 @@
 
 <!-- TODO:
 - Styling
-- Add accounts under groups
-- Display some message if a group is empty
 - Think of things to display on the groups/collections
-  - icon
-  - edit settings
-  - remove group
   - disabled
   - size?
-  - other info -->
+  - other info 
+    - size?
+    - errors?
+-->
 
-<!-- <div class="container">
-  <div class="panel-group">
-    <div class="panel panel-default" *ngFor="let node of treeData ">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" href="#{{node.Id}}">{{node.Name | uppercase}}</a>
-        </h4>
+
+<div class="container">
+  <div id="{{accordionGroup}}" role="tablist" aria-multiselectable="true">
+      <div class="card" *ngFor="let node of treeData ">
+          <div class="card-header" role="tab" id="headingOne"  data-toggle="collapse" [attr.data-parent]="dataParentId" data-target="#collapseOne">
+              <!-- group button depending on group type -->
+              <img  class="custom-panel-icon"
+                    *ngIf="node.GroupType == 'BackupGroup'"
+                    src="../../../assets/images/environment.png">
+
+              <img  class="custom-panel-icon"
+                    *ngIf="node.GroupType == 'AdminGroup'"
+                    src="../../../assets/images/GroupCollection.png">  
+
+              <h5 class="mb-0">
+                <a  *ngIf="node.GroupType == 'AdminGroup'" 
+                    data-toggle="collapse" 
+                    [attr.data-parent]="dataParentId" 
+                    href="#{{node.Id}}">
+                    {{node.Name | uppercase}}
+                </a>
+
+                <a  *ngIf="node.GroupType == 'BackupGroup'"
+                    (click)="getBackupAccountsForGroup(node.Name, node.Id, $event)"
+                    data-toggle="collapse" 
+                    [attr.data-parent]="dataParentId" 
+                    href="#{{node.Id}}">
+                    {{node.Name | uppercase}}
+                  </a>
+
+
+              </h5>
+
+
+            <!-- change group settings button -->
+            <button
+            type="button"
+            class="custom-panel-button-icon custom-preferences-button"
+            (click)="groupSettingsButtonClicked(node.Name, node.Id)">
+            </button>
+
+            <!-- remove group button -->
+            <button
+            type="button"
+            class="custom-panel-button-icon custom-remove-button"
+            (click)="removeGroupButtonClicked(node.Name, node.Id)">
+            </button>
+
+            <!-- add group button if current group is a collection-->
+            <button *ngIf="node.GroupType == 'AdminGroup'"
+            type="button"
+            class="custom-panel-button-icon custom-add-button"
+            (click)="addGroupButtonClicked(node.Name, node.Id)">
+            </button>
+
+
+          </div>
+
+          <div id="{{node.Id}}" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="card-block">
+
+                <!-- recursively create collection/group structure here -->
+                <app-tree [treeData]="node.children" ></app-tree>
+
+                <!-- check if backup group -->
+                <div *ngIf="node.GroupType == 'BackupGroup'">
+                    <!-- accounts get populated here -->
+                    <div *ngIf="!accounts && accountsLoading">LOADING...</div>
+          
+                    <app-account-list
+                      *ngIf="!!accounts"
+                      [accountList]="accounts">
+                    </app-account-list>
+                </div>
+              </div>
+          </div>
       </div>
-      <div id="{{node.Id}}" class="panel-collapse collapse">
-        <ul class="list-group">
-          <li class="list-group-item">
-              <app-tree [treeData]="node.children"></app-tree>
-          </li>
-        </ul>
-        <div *ngIf="node.GroupType == 'BackupGroup'"><p>Accounts coming soon...</p></div>
-      </div>
-    </div>
   </div>
-</div> -->
-
-
-
-<div class="accordion panel-group" id="{{count}}" >
-    <div class="panel panel-default" *ngFor="let node of treeData ">
-      <div class="custom-header-panel panel-heading" >
-
-
-        <!-- group button depending on group type -->
-        <img  class="custom-panel-icon"
-              *ngIf="node.GroupType == 'BackupGroup'"
-              src="../../../assets/images/environment.png">
-
-        <img  class="custom-panel-icon"
-              *ngIf="node.GroupType == 'AdminGroup'"
-              src="../../../assets/images/GroupCollection.png">
-
-        <!-- name of the group -->
-        <a  data-toggle="collapse"
-            aria-expanded="false"
-            class="collapsed"
-            *ngIf="node.GroupType == 'BackupGroup'"
-            href="#{{node.Id}}"
-            (click)="getBackupAccountsForGroup(node.Name, node.Id)">{{node.Name | uppercase}}</a>
-
-        <!-- name of the collection -->
-        <a  data-toggle="collapse"
-            aria-expanded="false"
-            class="collapsed"
-            *ngIf="node.GroupType == 'AdminGroup'"
-            href="#{{node.Id}}">{{node.Name | uppercase}}</a>
-
-
-        <!-- change group settings button -->
-        <button
-          type="button"
-          class="custom-panel-button-icon custom-preferences-button"
-          (click)="groupSettingsButtonClicked(node.Name, node.Id)">
-        </button>
-
-        <!-- remove group button -->
-        <button
-          type="button"
-          class="custom-panel-button-icon custom-remove-button"
-          (click)="removeGroupButtonClicked(node.Name, node.Id)">
-        </button>
-
-        <!-- add group button if current group is a collection-->
-        <button *ngIf="node.GroupType == 'AdminGroup'"
-          type="button"
-          class="custom-panel-button-icon custom-add-button"
-          (click)="addGroupButtonClicked(node.Name, node.Id)">
-        </button>
-
-      </div>
-
-
-      <div id="{{node.Id}}" class="panel-body panel-collapse collapse">
-
-        <!-- recursively create collection/group structure here -->
-        <app-tree [treeData]="node.children" ></app-tree>
-
-        <div *ngIf="node.GroupType == 'BackupGroup'">
-          <!-- accounts get populated here -->
-          <div *ngIf="!accounts && accountsLoading">LOADING...</div>
-
-          <app-account-list
-            *ngIf="!!accounts"
-            [accountList]="accounts"
-          ></app-account-list>
-        </div>
-    </div>
-  </div>
+</div>

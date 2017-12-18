@@ -1,0 +1,9 @@
+.custom-header-panel{
+    height: 3em;
+    border: 1px solid #dedede;
+    padding: 8px 8px 8px 16px;
+}
+
+.custom-header-panel:hover{
+  background-color: #FAFAFA;
+}

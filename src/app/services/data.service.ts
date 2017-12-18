@@ -52,18 +52,18 @@ export class DataService {
               const data = response.data;
               //const data; //for building purposes
 
-              // If no root is specified, use the root group which is 1
+              // If no root is specified, use the root group 1 (Storage Platform level)
               let root = 1;
               let rootName = 'Storage Platform';
-              // Gets the root group for the current user
 
+              // Gets the root group for the current user
+              this.logger.TRACE(this.CONTEXT, JSON.stringify(data));
               for (const i in data) {
-                if (data[i].Name === username) {
-                  root = data[i].AdminBackupGroupId;
-                  this.logger.TRACE(this.CONTEXT, `User root level is ${root}`);
+                if ((data[i].Name).toLowerCase() === username.toLowerCase()) {
+                    root = data[i].AdminBackupGroupId;
                   }
               }
-                
+              this.logger.TRACE(this.CONTEXT, `User root level is ${root}`);
 
 
                 // TODO : check for non-root group

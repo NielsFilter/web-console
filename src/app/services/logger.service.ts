@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LoggerService {
-  private TRACE_ENABLED= false;
+  private TRACE_ENABLED= true;
 
   // styles for levels
   STYLE_LEVEL_INFO:string = 'color: blue;';

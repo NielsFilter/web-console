@@ -60,7 +60,7 @@ button:focus {
 
 
 
-/*  INPUT */
+/*  CUSTOM INPUT */
 
 .custom-input-text{
     color:#464646;
@@ -103,7 +103,7 @@ button:focus {
 }
 
 
-/*  BUTTONS */
+/*  CUSTOM BUTTONS */
 
 
 .custom-button-red {
@@ -129,10 +129,6 @@ button:focus {
 }
 
 
-
-
-
-
 .custom-button-white {
     background-color: #ffffff;
     color: #464646;
@@ -149,7 +145,6 @@ button:focus {
 
     display: table;
     margin: 8px auto;
-
 }
 
 

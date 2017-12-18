@@ -2,22 +2,20 @@ a{
     color:#464646;
     text-decoration: none;
 }
-.panel-group{
-    margin-bottom: 10px;
-}
+
+
 
 .custom-header-panel{
     height: 3em;
     border: 1px solid #dedede;
     padding: 8px 8px 8px 16px;
+    background-color: #ffffff;
 }
 
 .custom-header-panel:hover{
   background-color: #FAFAFA;
 }
 
-
-.collapsed { background: #ffffff; }
 
 
 [data-toggle="collapse"]:not(.collapsed) {
