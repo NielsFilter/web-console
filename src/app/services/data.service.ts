@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConsoleUser } from '../classes/consoleUser';
-import { UserService } from "./user.service";
+import { UserService } from './user.service';
 
 import { HttpClient, HttpParams, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
@@ -18,7 +18,7 @@ import { LoggerService } from './logger.service';
 
 @Injectable()
 export class DataService {
-  CONTEXT = "Data Service"
+  CONTEXT = 'Data Service';
 
   errorOccurred = {
     occurred: false,
@@ -33,24 +33,24 @@ export class DataService {
   // Attempts to log into the AS using the provided credentials
   login(username: string, password: string, platformAddress: string): Promise<any> {
     const credentials = 'Basic ' + btoa(`${username}:${password}`);
-    //const url = `http://192.168.20.198:8080/https://${platformAddress}/api/access/Users`;
+    const url = `http://192.168.20.198:8080/https://${platformAddress}/api/access/Users`;
 
     // TESTING URL
-    const url = `http://${platformAddress}/api/access/Users`;
-    
+    // const url = `http://${platformAddress}/api/access/Users`;
+
     const headers = new HttpHeaders({
       'Authorization': credentials,
       'Content-Type': 'application/json',
     });
 
-    this.logger.INFO(this.CONTEXT, 'data.service.sending.login.request',[platformAddress]);
+    this.logger.INFO(this.CONTEXT, 'data.service.sending.login.request', [platformAddress]);
     return this.http.get(url, { headers })
             .toPromise()
             .then( response => {
-              this.logger.INFO(this.CONTEXT, 'data.service.login.successful',[username]);
+              this.logger.INFO(this.CONTEXT, 'data.service.login.successful', [username]);
               // @ts-ignore: this has some data under the response
               const data = response.data;
-              //const data; //for building purposes
+              // const data; //for building purposes
 
               // If no root is specified, use the root group 1 (Storage Platform level)
               let root = 1;
@@ -87,8 +87,7 @@ export class DataService {
                 this.router.navigate(['/dashboard']);
               },
               (err: HttpErrorResponse) => {
-                this.logger.ERROR(this.CONTEXT, 'data.service.login.unsuccessful',[err.status.toString()]);
-  
+                this.logger.ERROR(this.CONTEXT, 'data.service.login.unsuccessful', [err.status.toString()]);
                 this.errorOccurred.occurred = true;
 
                 switch (err.status) {
@@ -114,10 +113,10 @@ export class DataService {
 
   fetchGroups(): void {
     this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.groups');
-    //const url = `http://192.168.20.198:8080/https://${this.currentConsoleUser.platformAddress}/api/backup/Groups`;
-    
+    const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/backup/Groups`;
+
     // TESTING URL
-    const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/backup/Groups`;
+    // const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/backup/Groups`;
     const headers = this.userService.getHttpHeaders();
 
     this.http.get(url, { headers }).subscribe(
@@ -160,13 +159,13 @@ export class DataService {
 
   getAccountsForGroup(groupId: number) {
     this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.accounts.for.group', [groupId.toString()]);
-    //const url = `http://192.168.20.198:8080/https://${this.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
-    
+    const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
+
     // TESTING URL
-    const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
-    
+    // const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
+
     const headers = this.userService.getHttpHeaders();
     return this.http.get(url, { headers })
-      .toPromise()
+      .toPromise();
   }
 }

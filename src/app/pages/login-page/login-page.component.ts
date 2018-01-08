@@ -19,10 +19,10 @@ export class LoginPageComponent implements OnInit {
   CONTEXT:string = 'Login Page';
   waitingForRequest = false;
   loading = true;
-  
-  username: string='admin';
-  password: string ='password';
-  platformAddress: string = '192.168.1.2:3000';
+
+  username: string = 'admin';
+  password: string = 'password';
+  platformAddress: string = '192.168.20.198';
 
 
 
@@ -37,15 +37,15 @@ export class LoginPageComponent implements OnInit {
   constructor(private logger: LoggerService, private router: Router, private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit() {
-    setTimeout(()=>{  this.loading = false; 
-                      this.logger.DEBUG(this.CONTEXT, 'page.loaded');}, 
-                      5000);    
+    setTimeout(() => {  this.loading = false;
+                      this.logger.DEBUG(this.CONTEXT, 'page.loaded');},
+                      5000);
   }
 
   doLogin(): void {
     this.dataService.errorOccurred.occurred = false;
     this.waitingForRequest = true;
-    
+
     // Handle empty fields
     if (  (this.username === undefined || (this.username.trim().length === 0)) ||
           (this.password === undefined || (this.password.trim().length === 0)) ||
@@ -67,8 +67,8 @@ export class LoginPageComponent implements OnInit {
       this.dataService.errorOccurred.occurred = true;
       this.dataService.errorOccurred.errorMessage = 'An error occurred';
       this.logger.WARN(this.CONTEXT, ex);
-      
-    }).then(() =>{
+
+    }).then(() => {
       this.waitingForRequest = false;
     });
   }

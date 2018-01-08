@@ -6,7 +6,7 @@
   <div class="panel panel-default" *ngFor="let account of accountList">
       <div class="custom-header-panel panel-heading">
 
-            <!-- group button depending on group type -->
+        <!-- group button depending on group type -->
 
         <img  class="custom-panel-icon"
             *ngIf="account.TypeId == 1"
@@ -20,11 +20,8 @@
             *ngIf="account.TypeId == 3"
             src="../../../assets/images/client_ese.png">
 
-
-
           <!-- name of the account -->
           <a >{{account.AccountName | uppercase}}</a>
-
       </div>
   </div>
 </div>
