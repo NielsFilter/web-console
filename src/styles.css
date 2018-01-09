@@ -26,6 +26,11 @@ body{
     color:#464646;
 }
 
+a{
+    color:#464646;
+    text-decoration: none!important;
+}
+
 h1, h2, h3, h4{
     font-family: Roboto-Light;
     color:#464646;

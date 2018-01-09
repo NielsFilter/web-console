@@ -27,7 +27,7 @@ export class DataService {
 
   structuredGroupData: any;
 
-  constructor(public logger:LoggerService, public http: HttpClient, public router: Router, public userService: UserService ) {
+  constructor(public logger: LoggerService, public http: HttpClient, public router: Router, public userService: UserService ) {
   }
 
   // Attempts to log into the AS using the provided credentials
@@ -49,7 +49,8 @@ export class DataService {
             .then( response => {
               this.logger.INFO(this.CONTEXT, 'data.service.login.successful', [username]);
               // @ts-ignore: this has some data under the response
-              const data = response.data;
+              // const data = response.data;
+              const data = response;
               // const data; //for building purposes
 
               // If no root is specified, use the root group 1 (Storage Platform level)
@@ -65,8 +66,8 @@ export class DataService {
               }
               this.logger.TRACE(this.CONTEXT, `User root level is ${root}`);
 
-
                 // TODO : check for non-root group
+                // check for empty group????
                 // if (rootNameTemp.includes('\\')) {
                 //   const t = rootNameTemp.indexOf('\\');
                 //   rootName = rootNameTemp.substring(0, t);
@@ -111,6 +112,22 @@ export class DataService {
   }
 
 
+
+  getGroupChildren(
+    groupId: number = this.userService.currentConsoleUser.rootBackupGroupId ,
+    platformAddress: string = this.userService.currentConsoleUser.platformAddress,
+    headers: HttpHeaders = this.userService.getHttpHeaders()): any {
+
+    this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.group.details', [groupId.toString()]);
+    const url = `http://192.168.20.198:8080/https://${platformAddress}/api/backup/Groups/${groupId}/groups`;
+
+    return this.http.get(url, { headers })
+    .toPromise();
+  }
+
+
+
+
   fetchGroups(): void {
     this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.groups');
     const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/backup/Groups`;
@@ -141,13 +158,15 @@ export class DataService {
 
   }
 
+
+
   getNestedChildren(groups, ParentId) {
     const structuredArray = [];
     for (const group in groups) {
         if (groups[group].ParentId === ParentId) {
-          const children = this.getNestedChildren(groups, groups[group].Id);
-            if (children.length) {
-                groups[group].children = children;
+          const childrenGroups = this.getNestedChildren(groups, groups[group].Id);
+            if (childrenGroups.length) {
+                groups[group].childrenGroups = childrenGroups;
             }
             structuredArray.push(groups[group]);
         }
@@ -157,12 +176,11 @@ export class DataService {
 
 
 
-  getAccountsForGroup(groupId: number) {
+  getAccountsForGroup(groupId: number): any {
     this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.accounts.for.group', [groupId.toString()]);
+    // tslint:disable-next-line:max-line-length
     const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
 
-    // TESTING URL
-    // const url = `http://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
 
     const headers = this.userService.getHttpHeaders();
     return this.http.get(url, { headers })
