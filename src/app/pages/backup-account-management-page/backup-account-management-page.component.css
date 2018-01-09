@@ -1,11 +1,12 @@
-
-#spGroups{
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    /* box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 8px 8px 0 rgba(0,0,0,0.1); */
+#account-management{
+    padding:0px!important;
 }
 
-.custom-panel-icon{
-    margin-right: 1em;
+
+#spGroups{
+    width: 100%;
+    /* box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); */
+    /* box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 8px 8px 0 rgba(0,0,0,0.1); */
 }
 
 .custom-breadcrumb{

@@ -16,7 +16,6 @@ a{
     background-color: #FAFAFA!important;
 }
 
-
 .custom-active{
     background-color: #E0E0E0!important;
 }
@@ -33,9 +32,9 @@ a{
     width: 85%;
 }
 
-.custom-panel-icon{
+.rs-list-item-icon{
     display: inline-block!important;
 }
-.custom-panel-button-icon {
+.rs-list-item-button {
     display: inline-block!important;
 }

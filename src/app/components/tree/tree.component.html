@@ -34,11 +34,11 @@
       <div class="card" *ngFor="let node of treeData ">
           <div class="card-header" role="tab" id="headingOne"  data-toggle="collapse" [attr.data-parent]="dataParentId" data-target="#collapseOne">
               <!-- group button depending on group type -->
-              <img  class="custom-panel-icon"
+              <img  class="rs-list-item-icon"
                     *ngIf="node.GroupType == 'BackupGroup'"
                     src="../../../assets/images/environment.png">
 
-              <img  class="custom-panel-icon"
+              <img  class="rs-list-item-icon"
                     *ngIf="node.GroupType == 'AdminGroup'"
                     src="../../../assets/images/GroupCollection.png">  
 
@@ -66,21 +66,21 @@
             <!-- change group settings button -->
             <button
             type="button"
-            class="custom-panel-button-icon custom-preferences-button"
+            class="rs-list-item-button rs-list-item-preferences-button"
             (click)="groupSettingsButtonClicked(node.Name, node.Id)">
             </button>
 
             <!-- remove group button -->
             <button
             type="button"
-            class="custom-panel-button-icon custom-remove-button"
+            class="rs-list-item-button rs-list-item-remove-button"
             (click)="removeGroupButtonClicked(node.Name, node.Id)">
             </button>
 
             <!-- add group button if current group is a collection-->
             <button *ngIf="node.GroupType == 'AdminGroup'"
             type="button"
-            class="custom-panel-button-icon custom-add-button"
+            class="rs-list-item-button rs-list-item-add-button"
             (click)="addGroupButtonClicked(node.Name, node.Id)">
             </button>
 

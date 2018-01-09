@@ -41,7 +41,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
       data => {
             this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.group.details.successful');
             this.logger.TRACE(this.CONTEXT, 'Received data : \n\n' + JSON.stringify(data));
-            const orderedGroups = _.orderBy(data, function(e){return e.GroupType; }, ['asc']);
+            const orderedGroups = _.orderBy(data, [function(e){return e.GroupType; }, function(e){return e.Name; }], ['asc', 'asc']);
             // console.log(orderedGroups);
             this.currentLevelGroups = orderedGroups;
           },
@@ -86,7 +86,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
      .then(data => {
            this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.group.details.successful');
            this.logger.TRACE(this.CONTEXT, 'Received data : \n\n' + JSON.stringify(data));
-           const orderedGroups = _.orderBy(data, function(e){return e.GroupType; }, ['asc']);
+           const orderedGroups = _.orderBy(data, [function(e){return e.GroupType; }, function(e){return e.Name; }], ['asc', 'asc']);
            console.log(orderedGroups);
            this.currentLevelGroups = orderedGroups;
          },
@@ -127,7 +127,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
     .then(data => {
           this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.group.details.successful');
           this.logger.TRACE(this.CONTEXT, 'Received data : \n\n' + JSON.stringify(data));
-          const orderedGroups = _.orderBy(data, function(e){return e.GroupType; }, ['asc']);
+          const orderedGroups = _.orderBy(data, [function(e){return e.GroupType; }, function(e){return e.Name; }], ['asc', 'asc']);
           console.log(orderedGroups);
           this.currentLevelGroups = orderedGroups;
         },

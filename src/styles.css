@@ -30,7 +30,9 @@ a{
     color:#464646;
     text-decoration: none!important;
 }
-
+a:hover{
+    color: inherit;
+}
 h1, h2, h3, h4{
     font-family: Roboto-Light;
     color:#464646;
@@ -56,7 +58,7 @@ button:focus {
 }
 
 
-/*  TEXT */
+/*  CUSTOM CSS */
 .custom-error-message{
     color:#CE992A;
     font-style: italic;
@@ -66,9 +68,8 @@ button:focus {
 
 
 
-/*  CUSTOM INPUT */
 
-.custom-input-text{
+.rs-input-text{
     color:#464646;
     width: 340px;
     padding: 16px 20px;
@@ -91,7 +92,7 @@ button:focus {
     transition: all .2s ease-in;
 }
 
-.custom-input-text:hover{
+.rs-input-text:hover{
     border-color: #ed9095;
 }
 
@@ -112,7 +113,7 @@ button:focus {
 /*  CUSTOM BUTTONS */
 
 
-.custom-button-red {
+.rs-button-red {
     background-color: #C92128;
     color: white;
     outline: none;
@@ -130,7 +131,7 @@ button:focus {
 
 }
 
-.custom-button-red:hover {
+.rs-button-red:hover {
     background-color: #b31d24;
 }
 
@@ -158,36 +159,65 @@ button:focus {
 
 
 
-/*  CUSTOM ICONS FOR BUTTONS */
 
+/* list row */
+.rs-list-item{
+    height: 4em;
+    background-color: #ffffff;
+}
+.rs-list-item:hover{
+    background-color: #FAFAFA;
+}
+/* left icon for list row*/
+.rs-list-item-icon{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 
-.custom-panel-icon{
+    height: 1em;
+    width: 1em;
+    float: left;
     margin-right: 1em;
+    /* display: inline-block!important; */
 }
 
-.custom-panel-button-icon {
+/* main text for list row */
+.rs-list-item-header{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: inline-block!important; 
+    max-width: 80%;
+    /* background-color: lightgreen; */
+}
+
+
+/* http://jsfiddle.net/tFLSK/1/ 
+https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers
+*/
+
+.rs-list-item-button {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    /* display: inline-block!important; */
     background-size: contain!important;
     border:none;
-    height: 1.2em;
-    width: 1.2em;
+    height: 1.1em;
+    width: 1.1em;
     float: right;
     margin: 0px 8px;
-    /*
-    position: absolute;
-    right: 0px;
-    width: 10px;
-    background-color:  #73AD21;
-    padding: 10px;*/
-
 }
-.custom-preferences-button{
+.rs-list-item-preferences-button{
     background:url('assets/images/preferences.png') no-repeat;
 }
 
-.custom-remove-button{
+.rs-list-item-remove-button{
     background:url('assets/images/delete.png') no-repeat;
 }
 
-.custom-add-button{
+.rs-list-item-add-button{
     background:url('assets/images/environment_add32.png') no-repeat;
 }

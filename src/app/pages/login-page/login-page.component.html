@@ -16,20 +16,20 @@
     <input 
       [(ngModel)]="platformAddress"
       type="text" 
-      class="custom-input-text"  
+      class="rs-input-text"  
       placeholder="Platform Address"
       autofocus>
 
     <input 
       [(ngModel)]="username"
       type="text" 
-      class="custom-input-text"  
+      class="rs-input-text"  
       placeholder="Username">
 
     <input 
       [(ngModel)]="password"
       type="password" 
-      class="custom-input-text"  
+      class="rs-input-text"  
       placeholder="Password">
 
     <span>
@@ -43,7 +43,7 @@
     <button 
       id="loginButton"
       type="button"
-      class="custom-button-red" 
+      class="rs-button-red" 
       [disabled]="waitingForRequest"
       (click)="doLogin(username, password, platformAddress)">LOGIN
     </button>
