@@ -59,13 +59,17 @@ button:focus {
 
 
 /*  CUSTOM CSS */
-.custom-error-message{
+
+.rs-error-message{
     color:#CE992A;
     font-style: italic;
+    text-align: center;
 }
 
 
-
+.center-text{
+    text-align: center;
+}
 
 
 
@@ -110,8 +114,7 @@ button:focus {
 }
 
 
-/*  CUSTOM BUTTONS */
-
+/*  buttons  */
 
 .rs-button-red {
     background-color: #C92128;
@@ -136,11 +139,11 @@ button:focus {
 }
 
 
-.custom-button-white {
+.rs-button-white {
     background-color: #ffffff;
     color: #464646;
     outline: none;
-    border: none;
+    /* border: none; */
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -148,13 +151,14 @@ button:focus {
     font-size: 16px;
     border-radius: 25px;
     border-color: #464646;
+    border-width: 1px;
     box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 8px 8px 0 rgba(0,0,0,0.1);
-
     display: table;
     margin: 8px auto;
 }
-
-
+.rs-button-white:hover {
+    background-color: #FAFAFA;
+}
 
 
 
@@ -168,6 +172,7 @@ button:focus {
 .rs-list-item:hover{
     background-color: #FAFAFA;
 }
+
 /* left icon for list row*/
 .rs-list-item-icon{
     position: relative;
@@ -191,7 +196,9 @@ button:focus {
     max-width: 80%;
     /* background-color: lightgreen; */
 }
-
+.rs-list-item-header a{
+    width: 100%;
+}
 
 /* http://jsfiddle.net/tFLSK/1/ 
 https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers

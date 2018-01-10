@@ -21,8 +21,9 @@ export class BackupAccountManagementPageComponent implements OnInit {
    */
 
   loading = false;
-  currentGroupAccounts: any;  // accounts for the current group
-  currentLevelGroups: any;    // groups and collections for the current collection
+  errorOccurred = false;
+  currentGroupAccounts: any[] = Array();  // accounts for the current group
+  currentLevelGroups: any[] = Array();    // groups and collections for the current collection
   isAdminGroup = true;        // if the current level is a collection
   currentLocationUrlBreadcrumb: any[] = Array();
   currentLocation: any;
@@ -36,19 +37,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
     if (!this.userService.isUserLoggedIn()) {
         return;
     }
-    // TODO what if receiving data fails
-    this.dataService.getGroupChildren().then(
-      data => {
-            this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.group.details.successful');
-            this.logger.TRACE(this.CONTEXT, 'Received data : \n\n' + JSON.stringify(data));
-            const orderedGroups = _.orderBy(data, [function(e){return e.GroupType; }, function(e){return e.Name; }], ['asc', 'asc']);
-            // console.log(orderedGroups);
-            this.currentLevelGroups = orderedGroups;
-          },
-          err => {
-            this.logger.ERROR(this.CONTEXT, 'data.service.fetching.group.details.unsuccessful');
-          }
-    );
+    this.updateCurrentLocation(this.userService.currentConsoleUser.rootBackupGroupId);
 
     this.currentLocation = {
       name: this.userService.currentConsoleUser.rootBackupGroupName,
@@ -80,20 +69,8 @@ export class BackupAccountManagementPageComponent implements OnInit {
       }
     }
 
-    // make the request
-     this.isAdminGroup = true;
-     this.dataService.getGroupChildren(this.currentLocation.id)
-     .then(data => {
-           this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.group.details.successful');
-           this.logger.TRACE(this.CONTEXT, 'Received data : \n\n' + JSON.stringify(data));
-           const orderedGroups = _.orderBy(data, [function(e){return e.GroupType; }, function(e){return e.Name; }], ['asc', 'asc']);
-           console.log(orderedGroups);
-           this.currentLevelGroups = orderedGroups;
-         },
-         err => {
-           this.logger.ERROR(this.CONTEXT, 'data.service.fetching.group.details.unsuccessful');
-         }
-     );
+    // make the request to update the current level groups
+    this.updateCurrentLocation(this.currentLocation.id);
   }
 
   addGroupButtonClicked(name: string, id: number) {
@@ -112,7 +89,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
     this.logger.TRACE(this.CONTEXT, `adminGroupClicked() was called for ${id}(${name})`);
 
     // breadcrumb navigation
-    console.log(this.currentLocation);
+    console.log(`Current breadcrumb location : ${this.currentLocation}`);
     this.currentLocationUrlBreadcrumb.push(this.currentLocation);
     this.currentLocation = {
         name: name,
@@ -122,7 +99,13 @@ export class BackupAccountManagementPageComponent implements OnInit {
 
 
     // get current groups
+    this.updateCurrentLocation(id);
+  }
+
+  updateCurrentLocation(id: number): void {
+    this.loading = true;
     this.isAdminGroup = true;
+    this.currentLevelGroups = [];
     this.dataService.getGroupChildren(id)
     .then(data => {
           this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.group.details.successful');
@@ -132,10 +115,12 @@ export class BackupAccountManagementPageComponent implements OnInit {
           this.currentLevelGroups = orderedGroups;
         },
         err => {
+          this.errorOccurred = true;
           this.logger.ERROR(this.CONTEXT, 'data.service.fetching.group.details.unsuccessful');
         }
-    );
+    ).then(() => {this.loading = false; });
   }
+
 
 
   // when a group is entered, gets the accounts for that group
@@ -148,7 +133,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
         name: name,
         id: id
     };
-
+    this.currentGroupAccounts = [];
     this.isAdminGroup = false;
     this.loading = true;
 
@@ -167,5 +152,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
         this.loading = false;
       });
   }
-
+  retryRequest(): void {
+    console.log('Retry');
+  }
 }

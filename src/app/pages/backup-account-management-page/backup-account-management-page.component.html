@@ -1,128 +1,115 @@
 <div id="account-management" class="container-fluid" *ngIf="this.userService.isUserLoggedIn()">
-    <br>
+  <br>
 
-    <!-- breadcrumbs -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb custom-breadcrumb">
-        <li class="breadcrumb-item" *ngFor="let nav of this.currentLocationUrlBreadcrumb">
-            <a (click)="breadcrumbNavItemClicked(nav)">{{nav.name}}</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">{{currentLocation.name}}</li>
-      </ol>
-    </nav>
+  <!-- breadcrumbs -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb rs-breadcrumb">
+      <li class="breadcrumb-item" *ngFor="let nav of this.currentLocationUrlBreadcrumb">
+        <a (click)="breadcrumbNavItemClicked(nav)" class="rs-breadcrumb-item">{{nav.name}}</a>
+      </li>
+      <li class="breadcrumb-item rs-breadcrumb-item active" aria-current="page">{{currentLocation.name}}</li>
+    </ol>
+  </nav>
 
-    <!-- search bar -->
-    <input type="text" 
-          class="rs-input-text custom-input-search"
-          placeholder="Search">
-    <br>
+  <!-- search bar -->
+  <input type="text" class="rs-input-text custom-input-search" placeholder="Search">
+  <br>
 
-    <!-- while loading -->
-    <div *ngIf="this.loading">
-        <p>LOADING...</p>
+  <!-- while loading -->
+
+  <div *ngIf="errorOccurred">
+    <app-retry-request></app-retry-request>
+  </div>
+
+  <div *ngIf="!errorOccurred">
+    <div *ngIf="loading">
+      <p>LOADING...</p>
     </div>
-
     <!-- if no groups were found -->
-    <div *ngIf="!this.currentLevelGroups && this.isAdminGroup && !this.loading">
-        <p>No groups found, please add some collections/groups </p>
+    <div *ngIf="(currentLevelGroups.length == 0) && isAdminGroup && !loading">
+      <h2 class="center-text">No backup groups or collections found</h2>
+      <br>
+      <button type="button" class="rs-button-white" (click)="addGroupButtonClicked(currentLocation.name, currentLocation.id)">Add group / collection
+      </button>
     </div>
-
     <!-- if no accounts were found -->
-    <div *ngIf="!this.currentGroupAccounts && !this.isAdminGroup && !this.loading">
-        <p>No accounts found</p>
+    <div *ngIf="(currentGroupAccounts.length == 0) && !isAdminGroup && !loading">
+
+      <h2 class="center-text">No backup accounts found</h2>
     </div>
 
 
     <!-- groups and accounts -->
-    <div id="spGroups" *ngIf="!this.loading">
+    <div id="spGroups" *ngIf="!loading && !errorOccurred">
       <div class="list-group list-group-flush">
 
         <!-- collections and groups -->
-        <div *ngIf="this.currentLevelGroups && this.isAdminGroup">
-          <div *ngFor="let group of this.currentLevelGroups">
-            <li class="list-group-item rs-list-item"> 
+        <div *ngIf="currentLevelGroups && isAdminGroup">
+          <li class="list-group-item rs-list-header">
+            <!-- TODO - ADD COLUMN TITLES -->
+          </li>
+
+          <div *ngFor="let group of currentLevelGroups">
+            <li class="list-group-item rs-list-item">
 
               <!-- group icon depending on group type -->
-              <img  class="rs-list-item-icon"
-                    *ngIf="group.GroupType == 'BackupGroup'"
-                    src="../../../assets/images/environment.png">
+              <img class="rs-list-item-icon" *ngIf="group.GroupType == 'BackupGroup'" src="../../../assets/images/environment.png">
 
-              <img  class="rs-list-item-icon"
-                    *ngIf="group.GroupType == 'AdminGroup'"
-                    src="../../../assets/images/GroupCollection.png">  
+              <img class="rs-list-item-icon" *ngIf="group.GroupType == 'AdminGroup'" src="../../../assets/images/GroupCollection.png">
               <div class="rs-list-item-header">
-                  <a  *ngIf="group.GroupType == 'AdminGroup'"
-                  class="d-inline-block text-truncate"
-                  (click)="adminGroupClicked(group.Name, group.Id, $event)"
-                  data-toggle="collapse" 
-                  [attr.data-parent]="dataParentId" 
-                  href="#{{group.Id}}">
+                <a *ngIf="group.GroupType == 'AdminGroup'" class="d-inline-block text-truncate" (click)="adminGroupClicked(group.Name, group.Id, $event)"
+                  data-toggle="collapse" [attr.data-parent]="dataParentId" href="#{{group.Id}}">
                   {{group.Name | uppercase}}
-              </a>
+                </a>
 
-              <a  *ngIf="group.GroupType == 'BackupGroup'"
-                  class="d-inline-block text-truncate"
-                  (click)="getBackupAccountsForGroup(group.Name, group.Id, $event)"
-                  data-toggle="collapse" 
-                  [attr.data-parent]="dataParentId" 
-                  href="#{{group.Id}}">
+                <a *ngIf="group.GroupType == 'BackupGroup'" class="d-inline-block text-truncate" (click)="getBackupAccountsForGroup(group.Name, group.Id, $event)"
+                  data-toggle="collapse" [attr.data-parent]="dataParentId" href="#{{group.Id}}">
                   {{group.Name | uppercase}}
-              </a>
+                </a>
               </div>
-              
+
 
 
               <!-- change group settings button -->
-              <button
-                type="button"
-                class="rs-list-item-button rs-list-item-preferences-button"
-                (click)="groupSettingsButtonClicked(group.Name, group.Id)">
+              <button type="button" class="rs-list-item-button rs-list-item-preferences-button" (click)="groupSettingsButtonClicked(group.Name, group.Id)">
               </button>
 
               <!-- remove group button -->
-              <button
-                type="button"
-                class="rs-list-item-button rs-list-item-remove-button"
-                (click)="removeGroupButtonClicked(group.Name, group.Id)">
+              <button type="button" class="rs-list-item-button rs-list-item-remove-button" (click)="removeGroupButtonClicked(group.Name, group.Id)">
               </button>
 
               <!-- add group button if current group is a collection-->
-              <button *ngIf="group.GroupType == 'AdminGroup'"
-                type="button"
-                class="rs-list-item-button rs-list-item-add-button"
-                (click)="addGroupButtonClicked(group.Name, group.Id)">
+              <button *ngIf="group.GroupType == 'AdminGroup'" type="button" class="rs-list-item-button rs-list-item-add-button" (click)="addGroupButtonClicked(group.Name, group.Id)">
               </button>
             </li>
           </div>
         </div>
 
         <!-- accounts -->
-        <div *ngIf="currentGroupAccounts && !this.isAdminGroup">
-          <div *ngFor="let account of this.currentGroupAccounts">
-            <li class="list-group-item rs-list-item"> 
-      
+        <div *ngIf="currentGroupAccounts && !isAdminGroup">
+          <div *ngFor="let account of currentGroupAccounts">
+            <li class="list-group-item rs-list-item">
+
               <!-- account icon depending on type -->
-      
-              <img  class="rs-list-item-icon"
-                  *ngIf="account.TypeId == 1"
-                  src="../../../assets/images/client_se.png">
-      
-              <img  class="rs-list-item-icon"
-                  *ngIf="account.TypeId == 0"
-                  src="../../../assets/images/client_dl.png">
-      
-              <img  class="rs-list-item-icon"
-                  *ngIf="account.TypeId == 3"
-                  src="../../../assets/images/client_ese.png">
-      
-                <!-- name of the account -->
-                <div class="rs-list-item-header">
-                    <a class="d-inline-block text-truncate">{{account.AccountName | uppercase}}</a>
-                </div>
-                
+
+              <img class="rs-list-item-icon" *ngIf="account.TypeId == 1" src="../../../assets/images/client_se.png">
+
+              <img class="rs-list-item-icon" *ngIf="account.TypeId == 0" src="../../../assets/images/client_dl.png">
+
+              <img class="rs-list-item-icon" *ngIf="account.TypeId == 3" src="../../../assets/images/client_ese.png">
+
+              <!-- name of the account -->
+              <div class="rs-list-item-header">
+                <a class="d-inline-block text-truncate">{{account.AccountName | uppercase}}</a>
+              </div>
             </li>
           </div>
         </div>
       </div>
     </div>
+
+
+
+  </div>
+
 </div>

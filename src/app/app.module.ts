@@ -23,6 +23,7 @@ import { TreeComponent } from './components/tree/tree.component';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
+import { RetryRequestComponentComponent } from './components/retry-request/retry-request.component';
 
 
 
@@ -45,7 +46,8 @@ const routes: Routes = [
     TreeComponent,
     LoadingScreenComponent,
     AccountListComponent,
-    ServerManagementComponent
+    ServerManagementComponent,
+    RetryRequestComponentComponent
   ],
   imports: [
     BrowserModule,

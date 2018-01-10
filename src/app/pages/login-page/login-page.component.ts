@@ -16,13 +16,14 @@ import { LoggerService } from '../../services/logger.service';
 })
 
 export class LoginPageComponent implements OnInit {
-  CONTEXT:string = 'Login Page';
+  CONTEXT = 'Login Page';
   waitingForRequest = false;
   loading = true;
 
-  username: string = 'admin';
-  password: string = 'password';
-  platformAddress: string = '192.168.20.198';
+  // testing purposes
+  username = 'admin';
+  password = 'password';
+  platformAddress = '192.168.20.198';
 
 
 
@@ -38,8 +39,8 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {  this.loading = false;
-                      this.logger.DEBUG(this.CONTEXT, 'page.loaded');},
-                      5000);
+                      this.logger.DEBUG(this.CONTEXT, 'page.loaded'); },
+                      2500);
   }
 
   doLogin(): void {
