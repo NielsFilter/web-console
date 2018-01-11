@@ -18,8 +18,9 @@ export class BackupAccountManagementPageComponent implements OnInit {
    * TODO
    * add the Root level as a 'collection'
    * https://codepen.io/aanjulena/pen/ZLZjzV
+   * https://www.jonathanbriehl.com/2015/12/15/bootstrap-4-vertical-menu/
    */
-
+  accountDetails: any[] = Array();
   loading = false;
   errorOccurred = false;
   currentGroupAccounts: any[] = Array();  // accounts for the current group
@@ -95,12 +96,34 @@ export class BackupAccountManagementPageComponent implements OnInit {
         name: name,
         id: id
     };
-
-
-
     // get current groups
     this.updateCurrentLocation(id);
   }
+
+  accountItemClicked(name: string, id: number): void {
+    // alert(`Clicked :  ${id}-${name}`);
+
+    this.dataService.getAccountDetails(id)
+    .then(data => {
+        this.logger.DEBUG(this.CONTEXT, 'fetching.account.details.successful', [id.toString()]);
+        // @ts-ignore: this has some data under the res
+        this.accountDetails = data.value[0];
+        console.log(data.value[0]);
+        $('#backupAccountExtendedDetails').modal();
+      })
+      .catch(ex => {
+        // todo : if there was an error
+        this.logger.ERROR(this.CONTEXT, 'fetching.account.details.unsuccessful',  [id.toString()]);
+      })
+      .then(() => {
+        this.loading = false;
+      });
+
+
+
+  }
+
+
 
   updateCurrentLocation(id: number): void {
     this.loading = true;

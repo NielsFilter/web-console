@@ -1,0 +1,47 @@
+<!-- Large modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->
+
+<div id="backupAccountExtendedDetails" 
+  class="modal fade bd-example-modal-lg" 
+  tabindex="-1" 
+  role="dialog" 
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Details for account : {{accountDetails.AccountName}}</h5>
+       
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <ul>
+              <li>Account Guid : {{accountDetails.Guid}}</li>
+              <li>Backup Group : {{accountDetails.BackupGroup}}</li>
+              <li>Backup Limit : {{accountDetails.Limit}}</li>
+              <li>Overlimit : {{accountDetails.OverLimit}}</li>
+              <li>Mirror Server : {{accountDetails.MirrorServer}}</li>
+              <li>Last backup : {{accountDetails.LastBackupDate}}</li>
+            </ul>
+            <div id="exampleAccordion" data-children=".item">
+                <div class="item">
+                  <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion1" role="button" aria-expanded="false" aria-controls="exampleAccordion1">
+                    View extended detials
+                  </a>
+                  <div id="exampleAccordion1" class="collapse" role="tabpanel">
+                      <ul>
+                          <li>Created on : {{accountDetails.CreatedOn}}</li>
+                        </ul>
+                  </div>
+                </div>
+              </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -37,8 +37,10 @@ export class LoggerService {
     'data.service.fetching.groups.unsuccessful': 'Fetching groups failed',
     'data.service.ordering.groups': 'Ordering groups',
     'data.service.ordering.groups.successful': 'Ordering groups successful',
-    'data.service.fetching.accounts.for.group': 'Fetching accounts for group {0}',
-
+    'fetching.accounts.for.group': 'Fetching accounts for group {0}',
+    'fetching.account.details': 'Fetching details for account {0}',
+    'fetching.account.details.unsuccessful': 'Fetching details for account {0} failed',
+    'fetching.account.details.successful': 'Fetching details for account {0} successful',
 
     'tree.fetching.accounts.successful': 'Fetching accounts successful',
     'tree.fetching.accounts.unsuccessful': 'Fetching accounts failed',
@@ -120,10 +122,8 @@ export class LoggerService {
     // If the key is present and there are no parameters
     if (messageParameters.length === 0) {
       return this.loggerStringResources[messageKey];
-    }
-
-    // If the key is present and there are parameters
-    else {
+    } else {
+      // If the key is present and there are parameters
       let count = 0;
       let message = this.loggerStringResources[messageKey];
       let temp = message;

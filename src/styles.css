@@ -99,7 +99,9 @@ button:focus {
 .rs-input-text:hover{
     border-color: #ed9095;
 }
-
+ol .active{
+    cursor: default!important;
+}
 
 .custom-input-search{
     width: 100%;
@@ -188,12 +190,13 @@ button:focus {
 
 /* main text for list row */
 .rs-list-item-header{
+    cursor: pointer;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
 
     display: inline-block!important; 
-    max-width: 80%;
+    max-width: 75%;
     /* background-color: lightgreen; */
 }
 .rs-list-item-header a{
@@ -205,6 +208,8 @@ https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-al
 */
 
 .rs-list-item-button {
+    /* display: inline-block; */
+    cursor: pointer;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
