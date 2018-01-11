@@ -30,7 +30,10 @@ export class DashboardPageComponent implements OnInit {
       title: 'Backup accounts over limit',
       subtitle: 'This includes softlimit',
       displayType: 'LIST',
-      data: []
+      data: [
+        {name: 'Account 1', size: '1gb', overlimit: '1.5gb'},
+        {name: 'Account 2', size: '20gb', overlimit: '5gb'},
+        {name: 'Account 3', size: '1.4gb', overlimit: '4gb'}]
     }, {
       title: 'Backup accounts by type',
       subtitle: '',

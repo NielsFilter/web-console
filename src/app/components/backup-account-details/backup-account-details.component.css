@@ -1,0 +1,11 @@
+.rs-custom-progress{
+    overflow: auto;
+    max-width: 30%;
+}
+
+.rs-progress-bar-foreground{
+    background-color: #C92128;
+}
+.rs-progress-bar-background{
+    background-color: #f5f5f5;
+}

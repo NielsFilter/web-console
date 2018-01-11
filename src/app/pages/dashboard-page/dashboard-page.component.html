@@ -20,7 +20,21 @@
 
                             <!-- display a list  -->
                             <div *ngIf="widget.displayType == 'LIST'" class="rs-widget-type-list">
-                                <p class="card-text">{{widget.data}}</p>
+                                <table style="width:100%">
+                                    <div *ngFor="let entry of widget.data">
+                                        <tr>
+                                            <td>
+                                                {{entry.name}}
+                                            </td>
+                                            <td>
+                                                    {{entry.size}}
+                                            </td>
+                                            <td>
+                                                {{entry.overlimit}}
+                                            </td>
+                                        </tr>
+                                    </div>
+                                </table>
                             </div>
 
                             <!-- display a chart  -->

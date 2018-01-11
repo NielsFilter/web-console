@@ -10,6 +10,14 @@ export class BackupAccountDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const percent = this.getCapacityUsed();
+    console.log(percent);
+   // $('.progress-bar').css('width', `${percent}%`);
+  }
+  getCapacityUsed(): number {
+    const used = this.accountDetails.ProtectedSizeAll / 1073741824);
+    const limit = this.accountDetails.Limit / 1024);
+    return (used / limit * 100);
   }
 
 }
