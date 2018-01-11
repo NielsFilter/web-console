@@ -1,5 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-
 
 /* FONTS */
 
@@ -21,7 +19,7 @@
 /* MAIN COMPONENT STYLES */
 body{
     background-color: #ffffff;
-    padding-top: 4em!important;
+    padding-top: 2em!important;
     font-family: Roboto-Light!important;
     color:#464646;
 }
@@ -118,45 +116,44 @@ ol .active{
 
 /*  buttons  */
 
-.rs-button-red {
-    background-color: #C92128;
-    color: white;
-    outline: none;
-    border: none;
-    padding: 8px 24px;
+.rs-button{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    border-radius: 25px;
-    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 8px 8px 0 rgba(0,0,0,0.1);
-
+    font-size: 1em;
+    outline: none;
     display: table;
     margin: 8px auto;
+    border-radius: 25px;
+    border-width: 1px;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 8px 8px 0 rgba(0,0,0,0.1);
+}
 
+.rs-button-thin{
+    padding: 8px 24px;
+}
+
+.rs-button-thick{
+    padding: 16px 32px;
+}
+
+
+.rs-button-red {
+    background-color: #C92128;
+    color: white;
+    border: none;
 }
 
 .rs-button-red:hover {
     background-color: #b31d24;
 }
 
-
 .rs-button-white {
     background-color: #ffffff;
     color: #464646;
     outline: none;
-    /* border: none; */
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 25px;
     border-color: #464646;
-    border-width: 1px;
-    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.1), 0 8px 8px 0 rgba(0,0,0,0.1);
-    display: table;
-    margin: 8px auto;
+    
 }
 .rs-button-white:hover {
     background-color: #FAFAFA;
@@ -202,6 +199,12 @@ ol .active{
 .rs-list-item-header a{
     width: 100%;
 }
+.rs-list-item-subtitle{
+    font-size: 0.8em;
+    color: #9E9E9E;
+}
+
+
 
 /* http://jsfiddle.net/tFLSK/1/ 
 https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers
@@ -232,4 +235,32 @@ https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-al
 
 .rs-list-item-add-button{
     background:url('assets/images/environment_add32.png') no-repeat;
+}
+
+
+.rs-list-item-disabled{
+    background-color: #f5f5f5;
+    color:#9E9E9E;
+}
+
+
+.rs-list-detail{
+    display:inline-block;
+    margin-right:0.1em; 
+    width:150px; 
+    /* background-color:lightseagreen; */
+}
+
+.rs-list-value{
+    display:inline-block; 
+    widows: 400px;
+    /* background-color:lightcoral; */
+}
+
+
+
+
+.rs-modal-title{
+    display:block;
+    width: auto;
 }

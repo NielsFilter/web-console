@@ -12,9 +12,8 @@
   </nav>
 
   <!-- search bar -->
-  <input type="text" class="rs-input-text custom-input-search" placeholder="Search">
+  <input type="text" class="rs-input-text custom-input-search" placeholder="Search for backup account...">
   <br>
-
   <!-- if an error occurred -->
   <div *ngIf="errorOccurred">
     <app-retry-request></app-retry-request>
@@ -27,15 +26,15 @@
     </div>
     <!-- if no groups were found -->
     <div *ngIf="(currentLevelGroups.length == 0) && isAdminGroup && !loading">
-      <h4 class="center-text">No backup groups or collections found</h4>
+      <h3 class="center-text">No backup groups or collections found</h3>
       <br>
-      <button type="button" class="rs-button-white" (click)="addGroupButtonClicked(currentLocation.name, currentLocation.id)">Add group / collection
+      <button type="button" class="rs-button rs-button-thick rs-button-white" (click)="addGroupButtonClicked(currentLocation.name, currentLocation.id)">Add group / collection
       </button>
     </div>
     <!-- if no accounts were found -->
     <div *ngIf="(currentGroupAccounts.length == 0) && !isAdminGroup && !loading">
 
-      <h4 class="center-text">No backup accounts found</h4>
+      <h3 class="center-text">No backup accounts found</h3>
     </div>
 
 
@@ -86,15 +85,14 @@
           </li>
 
           <div *ngFor="let group of currentLevelGroups">
-            <li class="list-group-item rs-list-item">
+            <li class="list-group-item rs-list-item" [ngClass]="{'rs-list-item-disabled':group.Disabled}">
 
               <!-- group icon depending on group type -->
               <img class="rs-list-item-icon" *ngIf="group.GroupType == 'BackupGroup' && !group.Disabled" src="../../../assets/images/environment.png">
               <img class="rs-list-item-icon" *ngIf="group.GroupType == 'BackupGroup' && group.Disabled" src="../../../assets/images/environment_error32.png">
-
-
               <img class="rs-list-item-icon" *ngIf="group.GroupType == 'AdminGroup'" src="../../../assets/images/GroupCollection.png">
-              <div class="rs-list-item-header">
+
+              <div class="rs-list-item-header" >
                 <a *ngIf="group.GroupType == 'AdminGroup'" class="d-inline-block text-truncate" (click)="adminGroupClicked(group.Name, group.Id, $event)">
                   {{group.Name | uppercase}}
                 </a>
@@ -124,9 +122,13 @@
             </li>
           </div>
         </div>
-
+  
         <!-- accounts -->
         <div *ngIf="currentGroupAccounts && !isAdminGroup">
+
+
+  
+          
           <div *ngFor="let account of currentGroupAccounts">
             <li class="list-group-item rs-list-item">
 
@@ -136,11 +138,18 @@
               <img class="rs-list-item-icon" *ngIf="account.TypeId == 1" src="../../../assets/images/client_se.png">
 
               <img class="rs-list-item-icon" *ngIf="account.TypeId == 3" src="../../../assets/images/client_ese.png">
-
+              
               <!-- name of the account -->
               <div class="rs-list-item-header">
-                <a class="d-inline-block text-truncate" 
-                  (click)="accountItemClicked(account.AccountName, account.Id)">{{account.AccountName | uppercase}}</a>
+                <div>
+                    <span class="d-inline-block text-truncate" 
+                    (click)="accountItemClicked(account.AccountName, account.Id)">{{account.AccountName | uppercase}}</span>
+                </div>
+                <div>
+                   <span class="rs-list-item-subtitle">
+                      {{(account.Limit / 1024).toFixed(2)}}GB
+                   </span>
+                </div>
               </div>
             </li>
           </div>

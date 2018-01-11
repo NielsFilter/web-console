@@ -32,6 +32,7 @@ p{
 }
 
 #login-window{  
+    padding-top: 4em;
     position: relative;
     margin-top: 10%;
 

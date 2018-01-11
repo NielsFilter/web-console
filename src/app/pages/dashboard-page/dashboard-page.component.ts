@@ -27,8 +27,8 @@ export class DashboardPageComponent implements OnInit {
       displayType: 'VALUE',
       data: 24
     }, {
-      title: 't',
-      subtitle: '',
+      title: 'Backup accounts over limit',
+      subtitle: 'This includes softlimit',
       displayType: 'LIST',
       data: []
     }, {
