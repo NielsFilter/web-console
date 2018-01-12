@@ -1,4 +1,4 @@
-<div id="account-management" class="container-fluid" *ngIf="this.userService.isUserLoggedIn()">
+<div id="account-management" class="container-fluid col-md-offset-2 col-md-8" *ngIf="this.userService.isUserLoggedIn()">
   <br>
   <app-backup-account-details [accountDetails]="accountDetails"></app-backup-account-details>
   <!-- breadcrumbs -->
@@ -38,127 +38,92 @@
     </div>
 
 
-
-
-    <!-- 
-    <table class="table table-responsive rs-custom-table">
+    <!-- class="table table-responsive rs-custom-table" -->
+    <table id="rs-management-table">
       <thead>
+          <div *ngIf="currentLevelGroups && isAdminGroup">
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th class="rs-management-table-icon-column">Icon</th>
+          <th class="rs-management-table-details-column">Name</th>
+          <th class="rs-management-table-buttons-column">User buttons</th>
         </tr>
+      </div>
+      <div *ngIf="currentGroupAccounts && !isAdminGroup">
+          <tr>
+              <th class="rs-management-table-icon-column">Icon</th>
+              <th class="rs-management-table-details-column">Name</th>
+              <th class="rs-management-table-buttons-column">adsasd</th>
+            </tr>
+      </div>
+
+
       </thead>
       <tbody>
-          <div *ngFor="let group of currentLevelGroups">
-              <tr>
-                  <td>
-                      <img class="rs-list-item-icon" *ngIf="group.GroupType == 'BackupGroup' && !group.Disabled" src="../../../assets/images/environment.png">
-                      <img class="rs-list-item-icon" *ngIf="group.GroupType == 'BackupGroup' && group.Disabled" src="../../../assets/images/environment_error32.png">
-                      
-                      <img class="rs-list-item-icon" *ngIf="group.GroupType == 'AdminGroup'" src="../../../assets/images/GroupCollection.png">
-
-                  </td>
-                  <td>{{group.Name}}</td>
-                  <td>{{group.MaxSizeGB}}</td>
-                  <td>{{group.MaxUsers}}</td>
-                  <td>{{group.DefaultLimitMB}}</td>
-                  <td>{{group.MirroringEnabled}}</td>
-                  
-                </tr>
-          </div>
-     
-      </tbody>
-    </table> -->
-
-
-
-
-    <!-- groups and accounts -->
-    <div id="spGroups" *ngIf="!loading && !errorOccurred">
-      <div class="list-group list-group-flush">
-
-        <!-- collections and groups -->
         <div *ngIf="currentLevelGroups && isAdminGroup">
-          <li class="list-group-item rs-list-header">
-            <!-- TODO - ADD COLUMN TITLES -->
-          </li>
+          <tr class="rs-table-row" *ngFor="let group of currentLevelGroups">
+            <td class="rs-management-table-icon-column">
+              <img class="rs-table-centered-icon" *ngIf="group.GroupType == 'BackupGroup' && !group.Disabled" src="../../../assets/images/environment.png">
+              <img class="rs-table-centered-icon" *ngIf="group.GroupType == 'BackupGroup' && group.Disabled" src="../../../assets/images/environment_error32.png">
+              <img class="rs-table-centered-icon" *ngIf="group.GroupType == 'AdminGroup'" src="../../../assets/images/GroupCollection.png">
 
-          <div *ngFor="let group of currentLevelGroups">
-            <li class="list-group-item rs-list-item" [ngClass]="{'rs-list-item-disabled':group.Disabled}">
+            </td>
+            <td class="rs-management-table-details-column">
+              <div class="">
+                <div>
+                  <a *ngIf="group.GroupType == 'AdminGroup'" class="d-inline-block text-truncate" (click)="adminGroupClicked(group.Name, group.Id, $event)">
+                    {{group.Name | uppercase}}
+                  </a>
 
-              <!-- group icon depending on group type -->
-              <img class="rs-list-item-icon" *ngIf="group.GroupType == 'BackupGroup' && !group.Disabled" src="../../../assets/images/environment.png">
-              <img class="rs-list-item-icon" *ngIf="group.GroupType == 'BackupGroup' && group.Disabled" src="../../../assets/images/environment_error32.png">
-              <img class="rs-list-item-icon" *ngIf="group.GroupType == 'AdminGroup'" src="../../../assets/images/GroupCollection.png">
-
-              <div class="rs-list-item-header" >
-                <a *ngIf="group.GroupType == 'AdminGroup'" class="d-inline-block text-truncate" (click)="adminGroupClicked(group.Name, group.Id, $event)">
-                  {{group.Name | uppercase}}
-                </a>
-
-                <a *ngIf="group.GroupType == 'BackupGroup'" class="d-inline-block text-truncate" (click)="getBackupAccountsForGroup(group.Name, group.Id, $event)">
-                  {{group.Name | uppercase}}
-                </a>
+                  <a *ngIf="group.GroupType == 'BackupGroup'" class="d-inline-block text-truncate" (click)="getBackupAccountsForGroup(group.Name, group.Id, $event)">
+                    {{group.Name | uppercase}}
+                  </a>
+                </div>
+                <div>
+                  <span class="rs-list-item-subtitle">Temporary text
+                  </span>
+                </div>
               </div>
+            </td>
 
-
-
-              <!-- change group settings button -->
-              <button type="button" class="rs-list-item-button rs-list-item-preferences-button" (click)="groupSettingsButtonClicked(group.Name, group.Id)">
+            <td class="rs-management-table-buttons-column">
+              <button type="button" class="rs-table-button rs-list-item-preferences-button" (click)="groupSettingsButtonClicked(group.Name, group.Id)">
               </button>
-
-              <!-- remove group button -->
-              <button type="button" class="rs-list-item-button rs-list-item-remove-button" (click)="removeGroupButtonClicked(group.Name, group.Id)">
+              <button type="button" class="rs-table-button rs-list-item-remove-button" (click)="removeGroupButtonClicked(group.Name, group.Id)">
               </button>
-
-              <!-- add group button if current group is a collection-->
-              <button 
-                *ngIf="group.GroupType == 'AdminGroup'" 
-                type="button" 
-                class="rs-list-item-button rs-list-item-add-button" 
-                (click)="addGroupButtonClicked(group.Name, group.Id)">
+              <button *ngIf="group.GroupType == 'AdminGroup'" type="button" class="rs-table-button rs-list-item-add-button" (click)="addGroupButtonClicked(group.Name, group.Id)">
               </button>
-            </li>
-          </div>
+            </td>
+          </tr>
         </div>
-  
+
+
         <!-- accounts -->
         <div *ngIf="currentGroupAccounts && !isAdminGroup">
 
+          <tr class="rs-table-row" *ngFor="let account of currentGroupAccounts">
+            <td class="rs-management-table-icon-column">
+              <img class="rs-table-centered-icon" *ngIf="account.TypeId == 0" src="../../../assets/images/client_dl.png">
+              <img class="rs-table-centered-icon" *ngIf="account.TypeId == 1" src="../../../assets/images/client_se.png">
+              <img class="rs-table-centered-icon" *ngIf="account.TypeId == 3" src="../../../assets/images/client_ese.png">
+            </td>
 
-  
-          
-          <div *ngFor="let account of currentGroupAccounts">
-            <li class="list-group-item rs-list-item">
 
-              <!-- account icon depending on type -->
-              <img class="rs-list-item-icon" *ngIf="account.TypeId == 0" src="../../../assets/images/client_dl.png">
-
-              <img class="rs-list-item-icon" *ngIf="account.TypeId == 1" src="../../../assets/images/client_se.png">
-
-              <img class="rs-list-item-icon" *ngIf="account.TypeId == 3" src="../../../assets/images/client_ese.png">
-              
-              <!-- name of the account -->
-              <div class="rs-list-item-header">
+            <td class="rs-management-table-details-column">
+              <div class="">
                 <div>
-                    <span class="d-inline-block text-truncate" 
-                    (click)="accountItemClicked(account.AccountName, account.Id)">{{account.AccountName | uppercase}}</span>
+                  <span class="" (click)="accountItemClicked(account.AccountName, account.Id)">{{account.AccountName | uppercase}}</span>
                 </div>
                 <div>
-                   <span class="rs-list-item-subtitle">
-                      {{(account.Limit / 1024).toFixed(2)}}GB
-                   </span>
+                  <span class="rs-list-item-subtitle">
+                    {{(account.Limit / 1024).toFixed(2)}}GB
+                  </span>
                 </div>
               </div>
-            </li>
+            </td>
+          </tr>
           </div>
-        </div>
-      </div>
+
+      </tbody>
+    </table>
     </div>
-
-
-
   </div>
-
-</div>

@@ -1,90 +1,130 @@
 <!-- Large modal -->
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->
 
-<div id="backupAccountExtendedDetails" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+<div id="backupAccountExtendedDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="accountDetailsModal"
   aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title rs-modal-title" ><span contenteditable>{{accountDetails.AccountName}}</span></h3>
-
+        <h3 class="modal-title rs-modal-title">
+          <span contenteditable>{{accountDetails.AccountName}}</span>
+        </h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="">
-<div>
-    <div class="rs-list-detail">Account Usage</div>
-  
-    <div class="rs-custom-progress">
-        <div class="progress rs-progress-bar-background">
-            <div class="progress-bar rs-progress-bar-foreground" role="progressbar"   [style.width.%]="getCapacityUsed()"  aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-    </div>
-       
-    </div>
- 
-        <!-- <div>{{getCapacityUsed()}}%</div> -->
           <div>
-            <div class="rs-list-detail">Guid</div>
+            <div class="rs-list-detail rs-unselectable">Account Usage</div>
+
+            <div class="rs-custom-progress rs-list-value">
+              <div class="progress rs-progress-bar-background">
+                <div class="progress-bar rs-progress-bar-foreground" role="progressbar" [style.width.%]="getCapacityUsed()" aria-valuenow="50"
+                  aria-valuemin="0" aria-valuemax="100"></div>
+                  
+              </div>
+            </div>
+
+          </div>
+
+          <!-- <div>{{getCapacityUsed()}}%</div> -->
+          <div>
+            <div class="rs-list-detail rs-unselectable">GUID</div>
             <div class="rs-list-value">{{accountDetails.Guid}}</div>
           </div>
           <div>
-            <div class="rs-list-detail">Backup Limit</div>
-            <div class="rs-list-value"><span contenteditable>{{(accountDetails.Limit / 1024).toFixed(2)}}</span>GB</div>
-
+            <div class="rs-list-detail rs-unselectable">Client Version</div>
+            <div class="rs-list-value">{{accountDetails.ClientVersion}}</div>
           </div>
           <div>
-            <div class="rs-list-detail">Overlimit</div>
+            <div class="rs-list-detail rs-unselectable">Last Known Address</div>
+            <div class="rs-list-value">{{accountDetails.ClientLastIP}}</div>
+          </div>
+          <div>
+            <div class="rs-list-detail rs-unselectable">Size</div>
+            <div class="rs-list-value">
+              <span contenteditable>{{(accountDetails.Limit / 1024).toFixed(2)}}</span>GB</div>
+          </div>
+          <div>
+            <div class="rs-list-detail rs-unselectable">Overlimit</div>
             <div class="rs-list-value">{{accountDetails.OverLimit}}</div>
           </div>
           <div>
-            <div class="rs-list-detail">Mirror Server</div>
-            <div class="rs-list-value">{{accountDetails.MirrorServer}}</div>
+            <div class="rs-list-detail rs-unselectable">Storage Server</div>
+            <div class="rs-list-value">{{accountDetails.StorageServer}}:{{accountDetails.StorageServerPort}}</div>
           </div>
           <div>
-            <div class="rs-list-detail">Last backup</div>
-            <div class="rs-list-value">{{accountDetails.LastBackupDate}}</div>
+            <div class="rs-list-detail rs-unselectable">Mirror Server</div>
+            <div class="rs-list-value" *ngIf="accountDetails.MirrorServer">{{accountDetails.MirrorServer}}:{{accountDetails.MirrorServerPort}}</div>
           </div>
-
+          <div>
+            <div class="rs-list-detail rs-unselectable">Last backup</div>
+            <!-- https://angular.io/api/common/DatePipe -->
+            <div class="rs-list-value">{{accountDetails.LastBackupDate | date: 'dd/MM/yyyy h:mm a'}}</div>
+          </div>
+          <div>
+            <div class="rs-list-detail rs-unselectable">Backups</div>
+            <div class="rs-list-value">{{accountDetails.BackupCount}}</div>
+          </div>
 
         </div>
 
         <br>
-     
-        <div id="exampleAccordion" data-children=".item">
-            <div class="item">
-              <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion1" role="button" aria-expanded="false" aria-controls="exampleAccordion1">
-                  View extended details
-              </a>
-              <div id="exampleAccordion1" class="collapse" role="tabpanel">
-                <p class="mb-3">
-                    Created on : {{accountDetails.CreatedOn}}
-                </p>
+
+        <div id="accountDetails" data-children=".item">
+          <div class="item">
+            <a data-toggle="collapse" data-parent="#accountDetails" href="#extendedDetailsAccordion" role="button" aria-expanded="false"
+              aria-controls="extendedDetailsAccordion">
+              View extended details
+            </a>
+            <div id="extendedDetailsAccordion" class="collapse" role="tabpanel">
+              <div>
+                <div class="rs-list-detail rs-unselectable">Created Date</div>
+                <div class="rs-list-value">{{accountDetails.CreatedOn | date: 'dd/MM/yyyy h:mm a'}}</div>
+              </div>
+              <div>
+                <div class="rs-list-detail rs-unselectable">Files Selected</div>
+                <div class="rs-list-value">{{accountDetails.SelectedCount}}</div>
+              </div>
+              <div>
+                <div class="rs-list-detail rs-unselectable">Protected file count</div>
+                <div class="rs-list-value">{{accountDetails.ProtectedCountLB}}</div>
+              </div>
+              <div>
+                <div class="rs-list-detail rs-unselectable">Protected folder count</div>
+                <div class="rs-list-value">{{accountDetails.ProtectedFolderCountLB}}</div>
               </div>
             </div>
-            <div class="item">
-              <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion2" role="button" aria-expanded="false" aria-controls="exampleAccordion2">
-                View last backup details
-              </a>
-              <div id="exampleAccordion2" class="collapse" role="tabpanel">
-                <p class="mb-3">
-                  Donec at ipsum dignissim, rutrum turpis scelerisque, tristique lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus nec dui turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                </p>
-              </div>
-            </div>
-            <div class="item">
-                <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion3" role="button" aria-expanded="false" aria-controls="exampleAccordion3">
-                  View backup history
-                </a>
-                <div id="exampleAccordion3" class="collapse" role="tabpanel">
-                  <p class="mb-3">
-                    Donec at ipsum dignissim, rutrum turpis scelerisque, tristique lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus nec dui turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                  </p>
-                </div>
-              </div>
+
           </div>
+          <div class="item">
+            <a data-toggle="collapse" data-parent="#accountDetails" href="#lastBackupResultsAccordion" role="button" aria-expanded="false"
+              aria-controls="lastBackupResultsAccordion">
+              View last backup details
+            </a>
+            <div id="lastBackupResultsAccordion" class="collapse" role="tabpanel">
+              <p class="mb-3">
+                Donec at ipsum dignissim, rutrum turpis scelerisque, tristique lectus. Pellentesque habitant morbi tristique senectus et
+                netus et malesuada fames ac turpis egestas. Vivamus nec dui turpis. Orci varius natoque penatibus et magnis
+                dis parturient montes, nascetur ridiculus mus.
+              </p>
+            </div>
+          </div>
+          <div class="item">
+            <a data-toggle="collapse" data-parent="#accountDetails" href="#backupHistoryAccordion" role="button" aria-expanded="false"
+              aria-controls="backupHistoryAccordion">
+              View backup history
+            </a>
+            <div id="backupHistoryAccordion" class="collapse" role="tabpanel">
+              <p class="mb-3">
+                Donec at ipsum dignissim, rutrum turpis scelerisque, tristique lectus. Pellentesque habitant morbi tristique senectus et
+                netus et malesuada fames ac turpis egestas. Vivamus nec dui turpis. Orci varius natoque penatibus et magnis
+                dis parturient montes, nascetur ridiculus mus.
+              </p>
+            </div>
+          </div>
+        </div>
 
 
       </div>

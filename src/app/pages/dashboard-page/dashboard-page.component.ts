@@ -13,6 +13,8 @@ export class DashboardPageComponent implements OnInit {
   CONTEXT = 'Dashboard Page';
   constructor(private logger: LoggerService, private router: Router, private userService: UserService) { }
 
+  errorsPresent = true;
+
   // https://stackoverflow.com/questions/14387673/odata-date-greater-than-filter
   // mock data
   widgets = [

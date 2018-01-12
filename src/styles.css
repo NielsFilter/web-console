@@ -33,19 +33,17 @@ a:hover{
 }
 h1, h2, h3, h4{
     font-family: Roboto-Light;
+    text-align: center;
     color:#464646;
 }
 
 h1{
     font-size: 1.6em;
-    margin: 24px;
-    text-align: center;
-
+    margin: 1em;
 }
 h4{
     font-size: 1em;
     font-weight: none;
-    text-align: center;
 }
 
 button{
@@ -53,6 +51,10 @@ button{
 }
 button:focus {
     outline:0;
+}
+
+.center-text{
+    text-align: center;
 }
 
 
@@ -65,17 +67,10 @@ button:focus {
 }
 
 
-.center-text{
-    text-align: center;
-}
-
-
-
 .rs-input-text{
     color:#464646;
-    width: 340px;
+    width: 100%;
     padding: 16px 20px;
-
     box-sizing: border-box;
     border-style:solid;
     border-width:1px;
@@ -137,7 +132,6 @@ ol .active{
     padding: 16px 32px;
 }
 
-
 .rs-button-red {
     background-color: #C92128;
     color: white;
@@ -178,12 +172,14 @@ ol .active{
     top: 50%;
     transform: translateY(-50%);
 
-    height: 1em;
-    width: 1em;
+    height: 1.2em;
+    width: 1.2em;
     float: left;
     margin-right: 1em;
     /* display: inline-block!important; */
 }
+
+
 
 /* main text for list row */
 .rs-list-item-header{
@@ -211,18 +207,16 @@ https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-al
 */
 
 .rs-list-item-button {
-    /* display: inline-block; */
+    display: inline-block;
     cursor: pointer;
-    position: relative;
     top: 50%;
     transform: translateY(-50%);
 
-    /* display: inline-block!important; */
     background-size: contain!important;
     border:none;
     height: 1.1em;
     width: 1.1em;
-    float: right;
+   
     margin: 0px 8px;
 }
 .rs-list-item-preferences-button{
@@ -247,20 +241,26 @@ https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-al
 .rs-list-detail{
     display:inline-block;
     margin-right:0.1em; 
-    width:150px; 
+    font-weight: bold;
+    width:200px; 
     /* background-color:lightseagreen; */
 }
 
 .rs-list-value{
     display:inline-block; 
-    widows: 400px;
+    width: 400px;
     /* background-color:lightcoral; */
 }
-
-
 
 
 .rs-modal-title{
     display:block;
     width: auto;
+}
+
+.rs-unselectable{
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }

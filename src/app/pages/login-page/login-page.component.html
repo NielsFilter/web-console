@@ -7,34 +7,34 @@
   
   <div id="login-logo"></div>
 
-  <div id="login-text">
+  <div id="login-text" class="rs-unselectable">
     <h1>Redstor Pro Cloud Console</h1>
     <h4>Welcome! To continue, please login.</h4>
   </div>
 
-  <div id="input-form" (keydown.enter)="doLogin()">
+  <div id="input-form" (keydown.enter)="doLogin()" class="col-md-offset-5 col-md-4">
     <input 
       [(ngModel)]="platformAddress"
       type="text" 
-      class="rs-input-text"  
+      class="rs-input-text login-input"  
       placeholder="Platform Address"
       autofocus>
 
     <input 
       [(ngModel)]="username"
       type="text" 
-      class="rs-input-text"  
+      class="rs-input-text login-input"  
       placeholder="Username">
 
     <input 
       [(ngModel)]="password"
       type="password" 
-      class="rs-input-text"  
+      class="rs-input-text login-input"  
       placeholder="Password">
 
     <span>
         <p [hidden]="this.dataService.errorOccurred.occurred" class="rs-error-message"></p>
-        <p [hidden]="!this.dataService.errorOccurred.occurred" class="rs-error-message">
+        <p [hidden]="!this.dataService.errorOccurred.occurred" class="rs-error-message rs-unselectable">
         {{this.dataService.errorOccurred.errorMessage}}
         </p>
     </span>
@@ -43,7 +43,7 @@
     <button 
       id="loginButton"
       type="button"
-      class="rs-button rs-button-thin rs-button-red" 
+      class="rs-button rs-button-thin rs-button-red rs-unselectable" 
       [disabled]="waitingForRequest"
       (click)="doLogin(username, password, platformAddress)">LOGIN
     </button>

@@ -17,3 +17,60 @@
 .rs-breadcrumb-item{
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+#rs-management-table{
+    width: 100%;
+    /* background-color: lightgreen; */
+}
+.rs-management-table-icon-column{
+    width: 4em;
+    /* background-color: pink; */
+}
+.rs-management-table-details-column{
+    width: 100%;
+    /* background-color: lightskyblue */
+}
+.rs-management-table-buttons-column{
+    width: 8em;
+    display: flex;
+    flex-direction: row-reverse;
+    /* background-color: yellow; */
+}
+
+.rs-table-row{
+    height: 4em;
+}
+
+.rs-table-row:hover{
+    background-color: #FAFAFA;
+}
+
+.rs-table-centered-icon{
+    height: 1.2em;
+    width: 1.2em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rs-table-button{
+ 
+    height: 1.1em;
+    width: 1.1em;
+    margin-left: auto;
+    margin-right: auto;
+
+    background-size: contain!important;
+    border:none;
+ 
+   
+    margin: 0px 8px;
+}

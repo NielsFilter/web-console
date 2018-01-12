@@ -24,6 +24,13 @@ p{
 }
 
 
+.login-input{
+    max-width: 400px;
+    min-width: 200px;
+}
+
+
+
  /* FADE IN FOR LOGIN PAGE*/
 .loading {
     position: absolute;
@@ -32,7 +39,7 @@ p{
 }
 
 #login-window{  
-    padding-top: 4em;
+    padding-top: 2em;
     position: relative;
     margin-top: 10%;
 
