@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoggerService } from '../../services/logger.service';
 import { UserService } from '../../services/user.service';
 import { Title } from '@angular/platform-browser/src/browser/title';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -45,13 +46,24 @@ export class DashboardPageComponent implements OnInit {
     }
   ];
 
+
+
+
+
+
+
+
   ngOnInit() {
     this.logger.DEBUG(this.CONTEXT, 'page.loaded');
 
     // checks if user is logged in
     if (!this.userService.isUserLoggedIn()) {
       return;
-  }
+    }
+
+
+
+
   }
 
 }

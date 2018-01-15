@@ -44,6 +44,7 @@ export class LoggerService {
 
     'tree.fetching.accounts.successful': 'Fetching accounts successful',
     'tree.fetching.accounts.unsuccessful': 'Fetching accounts failed',
+    'search.for.accounts': 'Searching for accounts that contain "{0}"'
   };
 
   constructor() { }

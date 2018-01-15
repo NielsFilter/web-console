@@ -15,9 +15,10 @@ export class BackupAccountDetailsComponent implements OnInit {
    // $('.progress-bar').css('width', `${percent}%`);
   }
   getCapacityUsed(): number {
-    const used = this.accountDetails.ProtectedSizeAll / 1073741824);
-    const limit = this.accountDetails.Limit / 1024);
+    const used = this.accountDetails.ProtectedSizeAll / 1073741824;
+    const limit = this.accountDetails.Limit / 1024;
     return (used / limit * 100);
+    // return 1;
   }
 
 }

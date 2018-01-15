@@ -21,21 +21,28 @@
 
 
 
-
-
-
-
-
 #rs-management-table{
     width: 100%;
     /* background-color: lightgreen; */
 }
+
+.rs-table-header{
+    font-family: Roboto-Thin;
+    font-size: 1em;
+    color:#9E9E9E;
+}
+
 .rs-management-table-icon-column{
+    position: relative;
+    height: 100%;
     width: 4em;
+    padding-right: 1em;
+    padding-left: 1em;
     /* background-color: pink; */
 }
 .rs-management-table-details-column{
     width: 100%;
+    max-width: 15em;
     /* background-color: lightskyblue */
 }
 .rs-management-table-buttons-column{
@@ -54,8 +61,8 @@
 }
 
 .rs-table-centered-icon{
-    height: 1.2em;
-    width: 1.2em;
+    height: 1em;
+    width: 1em;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -63,14 +70,20 @@
 
 .rs-table-button{
  
-    height: 1.1em;
-    width: 1.1em;
-    margin-left: auto;
-    margin-right: auto;
-
+    height: 1em;
+    width: 1em;
     background-size: contain!important;
     border:none;
- 
-   
     margin: 0px 8px;
+
+}
+
+.rs-table-row-title{
+    cursor: pointer; 
+    width: 100%;
+}
+
+
+.rs-account-used-size-small-progress{
+    background-color: #C92128;
 }

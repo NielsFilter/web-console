@@ -23,6 +23,7 @@ import { TreeComponent } from './components/tree/tree.component';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
+import { Chart } from 'chart.js';
 import { RetryRequestComponentComponent } from './components/retry-request/retry-request.component';
 import { BackupAccountDetailsComponent } from './components/backup-account-details/backup-account-details.component';
 

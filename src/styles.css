@@ -16,6 +16,21 @@
     src: url("../res/fonts/Roboto-Light.ttf");
 }
 
+
+
+
+::selection {
+    background: #E0E0E0; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+    background: #E0E0E0; /* Gecko Browsers */
+}
+
+
+
+
+
+
 /* MAIN COMPONENT STYLES */
 body{
     background-color: #ffffff;

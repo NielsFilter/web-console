@@ -195,6 +195,20 @@ export class DataService {
       .toPromise();
   }
 
+  searchForAccounts(filter: string): any {
+    this.logger.TRACE(this.CONTEXT, 'search.for.accounts', [filter.toString()]);
+    // tslint:disable-next-line:max-line-length
+    // const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/backup/Accounts/${accountId}`;
+   //  const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=${filter}`;
+   // group also
+   // const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=contains(AccountName,${filter}) eq true and contains(BackupGroup,${group})`;
+    const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=contains(AccountName,'${filter}') eq true`;
+    const headers = this.userService.getHttpHeaders();
+    return this.http.get(url, { headers })
+      .toPromise();
+  }
+
+
 
   // value, decimal points
   //function formatBytes(a,b){if(0==a)return"0 Bytes";var c=1024,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]}

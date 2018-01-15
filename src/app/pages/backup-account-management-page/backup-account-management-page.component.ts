@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { DataService } from '../../services/data.service';
 import { TreeComponent } from '../../components/tree/tree.component';
@@ -6,6 +6,8 @@ import { ConsoleUser } from '../../classes/consoleUser';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { LoggerService } from '../../services/logger.service';
+
+// import { Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-management-page',
@@ -21,6 +23,15 @@ export class BackupAccountManagementPageComponent implements OnInit {
    * https://www.jonathanbriehl.com/2015/12/15/bootstrap-4-vertical-menu/
    */
   accountDetails: any[] = Array();
+
+
+  private _searchPhrase;
+  @Input() set searchPhrase(value: string) {
+       this._searchPhrase = value;
+       this.searchForItem(this._searchPhrase);
+    }
+  searchResults: any[] = Array();
+
   loading = false;
   errorOccurred = false;
   currentGroupAccounts: any[] = Array();  // accounts for the current group
@@ -31,6 +42,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
 
   constructor(private logger: LoggerService, private router: Router, private dataService: DataService, private userService: UserService) {
   }
+
 
   ngOnInit() {
     this.logger.DEBUG(this.CONTEXT, 'page.loaded');
@@ -178,4 +190,33 @@ export class BackupAccountManagementPageComponent implements OnInit {
   retryRequest(): void {
     console.log('Retry');
   }
+
+  searchForItem(searchPhrase: string): void {
+    // console.log('Errors : ' + this.errorOccurred);
+    // console.log('searchPhrase : ' + this.searchPhrase);
+    // console.log('_searchPhrase : ' + this._searchPhrase);
+
+
+
+    if (searchPhrase.length === 0) {
+      console.log('length was 0');
+      return;
+    }
+    this.loading = true;
+    this.dataService.searchForAccounts(searchPhrase)
+    .then(data => {
+        this.logger.DEBUG(this.CONTEXT, 'Searching for account');
+        // @ts-ignore: this has some data under the res
+        console.log(data.value);
+        this.searchResults = data.value;
+      })
+      .catch(ex => {
+        // todo : if there was an error
+        this.logger.ERROR(this.CONTEXT, 'Searching for item unsuccessful');
+      })
+      .then(() => {
+        this.loading = false;
+      });
+  }
+
 }
