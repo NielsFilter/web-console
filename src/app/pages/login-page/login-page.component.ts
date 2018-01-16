@@ -27,20 +27,14 @@ export class LoginPageComponent implements OnInit {
 
 
 
-/**
- * TODO:
- *  adjust width of login component correctly instead of hardcoded
- *  cache logged in user details
- *  localize error messages to the login page instead of the data service
- */
-
-
   constructor(private logger: LoggerService, private router: Router, private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit() {
-    setTimeout(() => {  this.loading = false;
-                      this.logger.DEBUG(this.CONTEXT, 'page.loaded'); },
-                      2500);
+    // loading runner
+    setTimeout(() => {
+      this.loading = false;
+      this.logger.DEBUG(this.CONTEXT, 'page.loaded'); },
+      3000);
   }
 
   doLogin(): void {

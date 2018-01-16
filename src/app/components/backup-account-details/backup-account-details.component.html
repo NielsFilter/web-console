@@ -22,7 +22,7 @@
               <div class="progress rs-progress-bar-background">
                 <div class="progress-bar rs-progress-bar-foreground" role="progressbar" [style.width.%]="getCapacityUsed()" aria-valuenow="50"
                   aria-valuemin="0" aria-valuemax="100"></div>
-                  
+
               </div>
             </div>
 
@@ -74,9 +74,7 @@
 
         <div id="accountDetails" data-children=".item">
           <div class="item rs-collapse-text">
-            <a 
-              class=""
-            data-toggle="collapse" data-parent="#accountDetails" href="#extendedDetailsAccordion" role="button" aria-expanded="false"
+            <a class="" data-toggle="collapse" data-parent="#accountDetails" href="#extendedDetailsAccordion" role="button" aria-expanded="false"
               aria-controls="extendedDetailsAccordion">
               View extended details
             </a>
@@ -114,16 +112,46 @@
             </div>
           </div>
           <div class="item rs-collapse-text">
-            <a data-toggle="collapse" data-parent="#accountDetails" href="#backupHistoryAccordion" role="button" aria-expanded="false"
-              aria-controls="backupHistoryAccordion">
+            <a (click)="getBackupHistoryData(accountDetails.Id)" data-toggle="collapse" data-parent="#accountDetails" href="#backupHistoryAccordion"
+              role="button" aria-expanded="false" aria-controls="backupHistoryAccordion">
               View backup history
             </a>
             <div id="backupHistoryAccordion" class="collapse" role="tabpanel">
-              <p class="mb-3">
-                Donec at ipsum dignissim, rutrum turpis scelerisque, tristique lectus. Pellentesque habitant morbi tristique senectus et
-                netus et malesuada fames ac turpis egestas. Vivamus nec dui turpis. Orci varius natoque penatibus et magnis
-                dis parturient montes, nascetur ridiculus mus.
-              </p>
+
+              <div *ngIf="!backupHistoryFound">
+                <h3 class="center-text">No backup history was found on the storage platform</h3>
+              </div>
+
+              <div class="container" *ngIf="backupHistoryFound">
+                <div>
+                  <span>View </span>
+                  <select #selectedCategory class="form-control" (change)="getBackupHistoryData(accountDetails.Id, selectedCategory.value)">
+                    <option [value]="7">last 7 backups</option>
+                    <option [value]="30">last 30 backups</option>
+                    <option [value]="0">All backups</option>
+                  </select>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-6 rs-chart-wrapper">
+                    <canvas id="backupFileCountChart" class="rs-backup-history-chart"></canvas>
+                  </div>
+                  <div class="col-md-6 rs-chart-wrapper">
+                    <canvas id="backupDurationChart" class="rs-backup-history-chart"></canvas>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-6 rs-chart-wrapper">
+                    <canvas id="backupSizeChart" class="rs-backup-history-chart"></canvas>
+                  </div>
+                  <div class="col-md-6 rs-chart-wrapper">
+                    <canvas id="backupSentSizeChart" class="rs-backup-history-chart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+
             </div>
           </div>
         </div>

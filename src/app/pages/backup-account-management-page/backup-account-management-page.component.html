@@ -20,57 +20,68 @@
   type="text" class="rs-input-text custom-input-search" placeholder="Search for backup account...">
   <br>
 
-  <div *ngIf="!errorOccurred && _searchPhrase">
+  <div *ngIf="!errorOccurred && _searchPhrase && !loading">
       <div *ngIf="searchResults.length === 0">
-          <h3 class="center-text">No results matching '{{searchPhrase}}'</h3>
+          <h3 class="center-text">No results matching '{{_searchPhrase}}'</h3>
         </div>
     <div *ngIf="searchResults.length != 0">
 
-    </div>
-
-      <p>{{searchPhrase}}</p>
-
-      <table id="rs-management-table">
-          <thead class="rs-table-header">
-            <div>
-              <tr>
-                <th class="rs-management-table-icon-column"> </th>
-                <th class="rs-management-table-details-column">Name</th>
-                <th class="rs-management-table-buttons-column"></th>
-              </tr>
-            </div>    
-          </thead>
-          <tbody>
-    <div>
-        <tr class="rs-table-row" *ngFor="let result of searchResults" [ngClass]="{'rs-list-item-disabled':!result.Active}">
-            <td class="rs-management-table-icon-column rs-unselectable">
-              <img class="rs-table-centered-icon" *ngIf="result.TypeId == 0" src="../../../assets/images/client_dl.png">
-              <img class="rs-table-centered-icon" *ngIf="result.TypeId == 1" src="../../../assets/images/client_se.png">
-              <img class="rs-table-centered-icon" *ngIf="result.TypeId == 3" src="../../../assets/images/client_ese.png">
-            </td>
-            <td class="rs-management-table-details-column">
-              <div class="">
-                <div>
-                  <span class="d-inline-block text-truncate rs-table-row-title" (click)="accountItemClicked(result.AccountName, result.Id)">{{result.AccountName | uppercase}}</span>
-                </div>
-                <div>
-                  <span class="rs-list-item-subtitle">
-                    {{(result.Limit / 1024).toFixed(2)}}GB
-                  </span>
-  
-                  <!-- small progress bar for account usage -->
-                  <div style="width:100px;">
-                      <div class="progress" style="height: 4px;">
-                          <div class="progress-bar rs-account-used-size-small-progress" role="progressbar" [style.width.%]="((result.ProtectedSizeAll / 1073741824) / (result.Limit / 1024)) * 100" aria-valuenow="25" aria-valuemin="0" aria-valuemax="result.Limit"></div>
-                      </div>
+    <!-- while loading -->
+      <div *ngIf="loading">
+        <!-- TODO ADD PROPER LOADING ICON-->
+        <p>LOADING...</p>
+      </div>
+      <div *ngIf="!loading">
+        <div>
+          <h5 *ngIf="searchResults.length === 1">Found {{searchResults.length}} result</h5>
+          <h5 *ngIf="searchResults.length > 1">Found {{searchResults.length}} results</h5>
+        </div>
+        <table id="rs-management-table">
+            <thead class="rs-table-header">
+              <div>
+                <tr>
+                  <th class="rs-management-table-icon-column"> </th>
+                  <th class="rs-management-table-details-column">Name</th>
+                  <th class="rs-management-table-buttons-column"></th>
+                </tr>
+              </div>    
+            </thead>
+            <tbody>
+      <div>
+          <tr class="rs-table-row" *ngFor="let result of searchResults" [ngClass]="{'rs-list-item-disabled':!result.Active}">
+              <td class="rs-management-table-icon-column rs-unselectable">
+                <img class="rs-table-centered-icon" *ngIf="result.TypeId == 0" src="../../../assets/images/client_dl.png">
+                <img class="rs-table-centered-icon" *ngIf="result.TypeId == 1" src="../../../assets/images/client_se.png">
+                <img class="rs-table-centered-icon" *ngIf="result.TypeId == 3" src="../../../assets/images/client_ese.png">
+              </td>
+              <td class="rs-management-table-details-column">
+                <div class="">
+                  <div>
+                    <span class="d-inline-block text-truncate rs-table-row-title" (click)="accountItemClicked(result.AccountName, result.Id)">{{result.AccountName | uppercase}}</span>
+                  </div>
+                  <div>
+                    <span class="rs-list-item-subtitle">
+                      {{(result.Limit / 1024).toFixed(2)}}GB
+                    </span>
+    
+                    <!-- small progress bar for account usage -->
+                    <div style="width:100px;">
+                        <div class="progress" style="height: 4px;">
+                            <div class="progress-bar rs-account-used-size-small-progress" role="progressbar" [style.width.%]="((result.ProtectedSizeAll / 1073741824) / (result.Limit / 1024)) * 100" aria-valuenow="25" aria-valuemin="0" aria-valuemax="result.Limit"></div>
+                        </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
+      </div>
+      </tbody>
+    </table>
+  </div>
+  
+
+
     </div>
-    </tbody>
-  </table>
 
 
 

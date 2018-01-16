@@ -6,8 +6,8 @@ import { ConsoleUser } from '../../classes/consoleUser';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { LoggerService } from '../../services/logger.service';
+import Chart from 'chart.js';
 
-// import { Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-management-page',
@@ -192,14 +192,8 @@ export class BackupAccountManagementPageComponent implements OnInit {
   }
 
   searchForItem(searchPhrase: string): void {
-    // console.log('Errors : ' + this.errorOccurred);
-    // console.log('searchPhrase : ' + this.searchPhrase);
-    // console.log('_searchPhrase : ' + this._searchPhrase);
-
-
-
     if (searchPhrase.length === 0) {
-      console.log('length was 0');
+      console.log('length was 0, search will be skipped');
       return;
     }
     this.loading = true;

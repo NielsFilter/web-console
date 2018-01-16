@@ -15,6 +15,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
 import { asTextData } from '@angular/core/src/view';
 import { LoggerService } from './logger.service';
+import { SelectControlValueAccessor } from '@angular/forms/src/directives/select_control_value_accessor';
 
 @Injectable()
 export class DataService {
@@ -208,9 +209,30 @@ export class DataService {
       .toPromise();
   }
 
+  getBackupHistory(accountId: string, numRecords: string ): any {
+
+    let selectedRecords = '';
+    if ( numRecords === '0' || numRecords === undefined) {
+    } else {
+      selectedRecords = `&$top=${numRecords}`;
+    }
+
+    // tslint:disable-next-line:max-line-length
+    const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Backups?$filter=AccountId%20eq%20${accountId}${selectedRecords}&$orderby=BackupTime%20desc`;
+    console.log(url);
+    const headers = this.userService.getHttpHeaders();
+    return this.http.get(url, { headers })
+      .toPromise();
+  }
 
 
   // value, decimal points
-  //function formatBytes(a,b){if(0==a)return"0 Bytes";var c=1024,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]}
-
+  formatBytes(a,b){if(0===a)return'0 Bytes';let c=1024,d=b||2,e=['Bytes','KB','MB','GB','TB','PB','EB','ZB','YB'],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+' '+e[f]}
+  
+  formatTime(time) {
+    return new Date(time).toLocaleString();
+  }
+  bytesToGB(value: number) {
+    return (value / 1073741824).toFixed(2);
+  }
 }

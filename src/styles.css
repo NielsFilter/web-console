@@ -27,7 +27,7 @@
 }
 
 
-
+html,body { height: 100%; }
 
 
 
@@ -46,18 +46,16 @@ a{
 a:hover{
     color: inherit;
 }
-h1, h2, h3, h4{
+h1, h2, h3, h4, h5, h6{
     font-family: Roboto-Light;
     text-align: center;
     color:#464646;
 }
 
 h1{
-    font-size: 1.6em;
     margin: 1em;
 }
 h4{
-    font-size: 1em;
     font-weight: none;
 }
 
@@ -114,11 +112,12 @@ ol .active{
 .custom-input-search{
     width: 100%;
     padding: 16px 24px 16px 42px; 
-
+  
     /*
     Icon
     */
     background: url("/assets/images/search.png");
+    /* background-size: 1.2em; */
     background-repeat: no-repeat;
     background-position: 8px 8px;
 }

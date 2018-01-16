@@ -44,7 +44,12 @@ export class LoggerService {
 
     'tree.fetching.accounts.successful': 'Fetching accounts successful',
     'tree.fetching.accounts.unsuccessful': 'Fetching accounts failed',
-    'search.for.accounts': 'Searching for accounts that contain "{0}"'
+    'search.for.accounts': 'Searching for accounts that contain "{0}"',
+
+    'fetch.backup.history': 'Fetching backup history for account {0}',
+    'fetch.backup.history.successful': 'Fetching backup history successful',
+    'fetch.backup.history.unsuccessful': 'Fetching backup history failed'
+
   };
 
   constructor() { }
