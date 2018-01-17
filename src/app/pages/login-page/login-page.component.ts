@@ -5,6 +5,7 @@ import { HttpParams } from '@angular/common/http';
 import { Http } from '@angular/http';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
+import { UserService } from '../../services/user.service';
 import { DataService } from '../../services/data.service';
 import { ConsoleUser } from '../../classes/consoleUser';
 import { LoggerService } from '../../services/logger.service';
@@ -25,46 +26,102 @@ export class LoginPageComponent implements OnInit {
   password = 'password';
   platformAddress = '192.168.20.198';
 
+  errorOccurred = false;
+  errorMessage = '';
 
-
-  constructor(private logger: LoggerService, private router: Router, private http: HttpClient, private dataService: DataService) { }
+  constructor(
+    private logger: LoggerService,
+    private router: Router,
+    private http: HttpClient,
+    private dataService: DataService,
+    public userService: UserService) {
+  }
 
   ngOnInit() {
-    // loading runner
+    // loading
     setTimeout(() => {
       this.loading = false;
-      this.logger.DEBUG(this.CONTEXT, 'page.loaded'); },
+      this.logger.DEBUG(this.CONTEXT, 'page.loaded');
+    },
       3000);
   }
 
   doLogin(): void {
-    this.dataService.errorOccurred.occurred = false;
+    this.errorOccurred = false;
     this.waitingForRequest = true;
 
     // Handle empty fields
-    if (  (this.username === undefined || (this.username.trim().length === 0)) ||
-          (this.password === undefined || (this.password.trim().length === 0)) ||
-          (this.platformAddress === undefined || (this.platformAddress.trim().length === 0)) ) {
+    if (
+      (this.username === undefined || (this.username.trim().length === 0)) ||
+      (this.password === undefined || (this.password.trim().length === 0)) ||
+      (this.platformAddress === undefined || (this.platformAddress.trim().length === 0))) {
 
       this.logger.WARN(this.CONTEXT, 'login.page.empty.fields');
-
-      this.dataService.errorOccurred.occurred = true;
-      this.dataService.errorOccurred.errorMessage = 'Please complete all the fields above';
+      this.errorOccurred = true;
+      this.errorMessage = 'Please complete all the fields above';
       this.waitingForRequest = false;
       return;
     }
-
+    const credentials = 'Basic ' + btoa(`${this.username}:${this.password}`);
     // Send login request login
-    this.dataService.login(this.username, this.password, this.platformAddress)
-    .then(result => {
-    })
-    .catch(ex => {
-      this.dataService.errorOccurred.occurred = true;
-      this.dataService.errorOccurred.errorMessage = 'An error occurred';
-      this.logger.WARN(this.CONTEXT, ex);
+    this.dataService.login(credentials, this.platformAddress)
+      .then(response => {
+        this.logger.INFO(this.CONTEXT, 'login.successful', [this.username]);
 
-    }).then(() => {
-      this.waitingForRequest = false;
-    });
+        const data = response;
+
+        // If no root is specified, use the root group 1 (Storage Platform level)
+        let root = 1;
+        const rootName = 'Storage Platform';
+
+        // Get the root group for the current user
+        // this.logger.TRACE(this.CONTEXT, JSON.stringify(data));
+        for (const i in data) {
+          if ((data[i].Name).toLowerCase() === this.username.toLowerCase()) {
+            root = data[i].AdminBackupGroupId;
+          }
+        }
+
+        this.logger.TRACE(this.CONTEXT, `User root level is ${root}`);
+        const user: ConsoleUser = {
+          username: this.username,
+          platformAddress: this.platformAddress,
+          encryptedCredentials: credentials,
+          rootBackupGroupId: root,
+          rootBackupGroupName: rootName,
+          userInformation: response
+        };
+        // TODO advanced caching of user
+        this.userService.currentConsoleUser = user;
+        this.userService.loggedIn = true;
+        this.router.navigate(['/dashboard']);
+
+      },
+      (err: HttpErrorResponse) => {
+        this.logger.ERROR(this.CONTEXT, 'login.unsuccessful', [err.status.toString()]);
+        switch (err.status) {
+          case 400:
+            this.errorMessage = 'Sorry, your login request failed';
+            break;
+
+          case 401:
+            this.errorMessage = 'Sorry, you are unauthorized to make this request';
+            break;
+
+          case 404:
+            this.errorMessage = `Sorry, we couldn't find the server you specified`;
+            break;
+
+          default:
+            this.errorMessage = `Sorry, we could not log you in`;
+            break;
+        }
+        this.errorOccurred = true;
+      }).catch(ex => {
+        this.errorMessage = `Oops, something went wrong...`;
+        this.errorOccurred = true;
+      }).then(() => {
+        this.waitingForRequest = false;
+      });
   }
 }

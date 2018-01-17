@@ -17,7 +17,7 @@
 }
 
 
-
+ /* SELECTION */
 
 ::selection {
     background: #E0E0E0; /* WebKit/Blink Browsers */
@@ -55,9 +55,7 @@ h1, h2, h3, h4, h5, h6{
 h1{
     margin: 1em;
 }
-h4{
-    font-weight: none;
-}
+
 
 button{
     font-family: Roboto-Light;
@@ -66,7 +64,7 @@ button:focus {
     outline:0;
 }
 
-.center-text{
+.rs-center-text{
     text-align: center;
 }
 
@@ -74,9 +72,9 @@ button:focus {
 /*  CUSTOM CSS */
 
 .rs-error-message{
+    height: 1em;
     color:#CE992A;
     font-style: italic;
-    text-align: center;
 }
 
 

@@ -1,24 +1,17 @@
 #login-logo{
-    /* margin: 10% 0 0; */
     background-image: url('/assets/images/logo_black.svg');
     background-repeat: no-repeat;
     background-position: center;
-
     height: 60px;
     display: block;
 }
 
-
 #input-form{
-    /* margin-top: 1em!important; */
     display: block;
     margin: auto;
 }
 
-p{
-    height: 1em;
-    text-align: center;
-}
+
 #login-text{  
     margin-bottom: 1em;
 }
@@ -28,8 +21,6 @@ p{
     max-width: 400px;
     min-width: 200px;
 }
-
-
 
  /* FADE IN FOR LOGIN PAGE*/
 .loading {
@@ -83,12 +74,10 @@ p{
 }
 
 
-
  /* TEMP LOADING IMAGE */
 
   #waiting-spinner{
-      margin-top: 2em!important;
-    /* background-color: rebeccapurple; */
+    margin-top: 2em!important;
     display: table;
     margin: 0 auto;
   }

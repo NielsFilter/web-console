@@ -20,16 +20,22 @@ export class LoggerService {
 
   // string resources
   loggerStringResources = {
+    // test
     'test.params': 'This is a test message with parameter {0} and {1}',
     'test': 'this is a test message',
 
+    // general
     'user.not.logged.in.rerouting': 'User not logged in, re-routing to login page',
     'page.loaded': 'loaded',
+
+    // login page
     'login.page.empty.fields': 'Not all required fields were present',
+    'login.successful': 'Login Successful, logging is as {0}',
+    'login.unsuccessful': 'Login failed with status code {0}',
+
+    // data service
     'data.service.sending.login.request': 'Sending login request to {0}',
-    'data.service.login.successful': 'Login Successful, logging is as {0}',
-    'data.service.login.unsuccessful': 'Login failed with status code {0}',
-    'data.service.fetching.group.details': 'Fetching details for group {0}',
+    'data.service.fetching.group.details': 'Fetching details for group with id "{0}"',
     'data.service.fetching.group.details.successful': 'Fetching group details successful',
     'data.service.fetching.group.details.unsuccessful': 'Fetching group details failed',
     'data.service.fetching.groups': 'Fetching groups from platform',
@@ -131,9 +137,9 @@ export class LoggerService {
     } else {
       // If the key is present and there are parameters
       let count = 0;
-      let message = this.loggerStringResources[messageKey];
+      const message = this.loggerStringResources[messageKey];
       let temp = message;
-      for (let param of messageParameters) {
+      for (const param of messageParameters) {
         const p = `{${count}}`;
         temp = temp.replace(p, param);
         count++;

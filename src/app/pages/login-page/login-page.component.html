@@ -33,9 +33,9 @@
       placeholder="Password">
 
     <span>
-        <p [hidden]="this.dataService.errorOccurred.occurred" class="rs-error-message"></p>
-        <p [hidden]="!this.dataService.errorOccurred.occurred" class="rs-error-message rs-unselectable">
-        {{this.dataService.errorOccurred.errorMessage}}
+        <p [hidden]="errorOccurred" class="rs-error-message"></p>
+        <p [hidden]="!errorOccurred" class="rs-error-message rs-unselectable">
+        {{errorMessage}}
         </p>
     </span>
 

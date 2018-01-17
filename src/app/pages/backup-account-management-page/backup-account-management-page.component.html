@@ -22,7 +22,7 @@
 
   <div *ngIf="!errorOccurred && _searchPhrase && !loading">
       <div *ngIf="searchResults.length === 0">
-          <h3 class="center-text">No results matching '{{_searchPhrase}}'</h3>
+          <h3 class="rs-center-text">No results matching '{{_searchPhrase}}'</h3>
         </div>
     <div *ngIf="searchResults.length != 0">
 
@@ -110,7 +110,7 @@
 
     <!-- if no groups were found -->
     <div *ngIf="(currentLevelGroups.length == 0) && isAdminGroup && !loading">
-      <h3 class="center-text">No backup groups or collections found</h3>
+      <h3 class="rs-center-text">No backup groups or collections found</h3>
       <br>
       <button 
         type="button" 
@@ -123,7 +123,7 @@
 
     <!-- if no accounts were found -->
     <div *ngIf="(currentGroupAccounts.length == 0) && !isAdminGroup && !loading">
-      <h3 class="center-text">No backup accounts found</h3>
+      <h3 class="rs-center-text">No backup accounts found</h3>
     </div>
     <div>
 
