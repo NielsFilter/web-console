@@ -1,11 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { LoggerService } from '../../services/logger.service';
 import { UserService } from '../../services/user.service';
 import { Title } from '@angular/platform-browser/src/browser/title';
-// import { Chart } from 'chart.js';
 import Chart from 'chart.js';
-import { ViewChild, ElementRef } from '@angular/core';
+
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
@@ -13,9 +11,13 @@ import { ViewChild, ElementRef } from '@angular/core';
 })
 export class DashboardPageComponent implements OnInit, AfterViewInit {
   CONTEXT = 'Dashboard Page';
-  constructor(private logger: LoggerService, private router: Router, private userService: UserService) { }
-
   errorsPresent = true;
+
+  constructor(
+      private logger: LoggerService,
+      private userService: UserService ) { }
+
+
 
   // https://stackoverflow.com/questions/14387673/odata-date-greater-than-filter
   // mock data
@@ -56,7 +58,9 @@ export class DashboardPageComponent implements OnInit, AfterViewInit {
       return;
     }
   }
-
+  widgetClicked(){
+      console.log('Widget clicked');
+  }
 
   ngAfterViewInit() {
     // LOAD CHARTS HERE
@@ -64,7 +68,7 @@ export class DashboardPageComponent implements OnInit, AfterViewInit {
 
     const ctx = document.getElementById('myChart');
     const myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'doughnut',
         data: {
             labels: ['ESE', 'SE', 'DL'],
             datasets: [{
@@ -83,15 +87,6 @@ export class DashboardPageComponent implements OnInit, AfterViewInit {
                 ],
                 borderWidth: 1
             }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
         }
     });
 

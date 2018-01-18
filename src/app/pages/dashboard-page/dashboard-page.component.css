@@ -3,10 +3,8 @@
     height: 100%;
 }
 
-
 #welcome-header{
-    padding: 4em 0em 4em 0em;
-    width: 100%;
+    padding: 2em 0em 2em 0em;
     text-align: center;
     margin: 2em 0em;
 }
@@ -28,6 +26,5 @@
     text-align: center;
 }
 .rs-widget-type-chart{
-    size: 5em;
-    text-align: center;
+
 }

@@ -42,21 +42,21 @@ export class DataService {
       .toPromise();
   }
 
-
-
+  // retrieve a list of groups and collections under a specific group / collection
   getGroupChildren(
     groupId: number = this.userService.currentConsoleUser.rootBackupGroupId,
     platformAddress: string = this.userService.currentConsoleUser.platformAddress,
     headers: HttpHeaders = this.userService.getHttpHeaders()): any {
 
-    this.logger.DEBUG(this.CONTEXT, 'data.service.fetching.group.details', [groupId.toString()]);
+    this.logger.DEBUG(this.CONTEXT, 'retrieve.group.children.details', [groupId.toString()]);
     const url = `http://192.168.20.198:8080/https://${platformAddress}/api/backup/Groups/${groupId}/groups`;
     return this.http.get(url, { headers })
       .toPromise();
   }
 
+  // retrieve a list of accounts under a specific group
   getAccountsForGroup(groupId: number): any {
-    this.logger.DEBUG(this.CONTEXT, 'fetching.accounts.for.group', [groupId.toString()]);
+    this.logger.DEBUG(this.CONTEXT, 'retrieve.accounts.for.group', [groupId.toString()]);
     // tslint:disable-next-line:max-line-length
     const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
     const headers = this.userService.getHttpHeaders();
@@ -64,8 +64,9 @@ export class DataService {
       .toPromise();
   }
 
+  // get the details for a specific account
   getAccountDetails(accountId: number): any {
-    this.logger.DEBUG(this.CONTEXT, 'fetching.account.details', [accountId.toString()]);
+    this.logger.DEBUG(this.CONTEXT, 'retrieve.account.details', [accountId.toString()]);
     // tslint:disable-next-line:max-line-length
     const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=Id%20eq%20${accountId}`;
     const headers = this.userService.getHttpHeaders();
@@ -88,6 +89,7 @@ export class DataService {
 
   // get the backup history for an account
   getBackupHistory(accountId: string, numRecords: string): any {
+    this.logger.DEBUG(this.CONTEXT, 'retrieve.backup.history', [numRecords, accountId]);
     let selectedRecords = '';
     if (numRecords === '0' || numRecords === undefined) {
     } else {
@@ -95,7 +97,6 @@ export class DataService {
     }
     // tslint:disable-next-line:max-line-length
     const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Backups?$filter=AccountId%20eq%20${accountId}${selectedRecords}&$orderby=BackupTime%20desc`;
-    console.log(url);
     const headers = this.userService.getHttpHeaders();
     return this.http.get(url, { headers })
       .toPromise();
@@ -116,6 +117,6 @@ export class DataService {
   }
 
   bytesToGB(value: number) {
-    return (value / 1073741824).toFixed(2);
+    return (value / 1073741824).toFixed(4);
   }
 }

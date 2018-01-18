@@ -24,37 +24,45 @@ export class LoggerService {
     'test.params': 'This is a test message with parameter {0} and {1}',
     'test': 'this is a test message',
 
+
     // general
     'user.not.logged.in.rerouting': 'User not logged in, re-routing to login page',
     'page.loaded': 'loaded',
+
 
     // login page
     'login.page.empty.fields': 'Not all required fields were present',
     'login.successful': 'Login Successful, logging is as {0}',
     'login.unsuccessful': 'Login failed with status code {0}',
 
+
+    // dashboard page
+
+
+    // backup management page
+    'retrieve.group.details.successful': 'Retrieving details for group with id "{0}" successful',
+    'retrieve.group.details.unsuccessful': 'Retrieving details for group with id "{0}" failed',
+    'retrieve.accounts.for.group.successful': 'Retrieving accounts under group {0} successful',
+    'retrieve.accounts.for.group.unsuccessful': ' Retrieving accounts under group {0} failed',
+    'retrieve.account.details.successful': 'Retrieving details for account {0} successful',
+    'retrieve.account.details.unsuccessful': 'Retrieving details for account {0} failed',
+    'search.for.item.skipped': 'search will be skipped for current item',
+    'search.for.item.successful': 'Searching for item successful',
+    'search.for.item.unsuccessful': 'Searching for item failed',
+
+
+    // backup account details component
+    'retrieve.backup.history.successful': 'Retrieving backup history for account with id {0} successful',
+    'retrieve.backup.history.unsuccessful': 'Retrieving backup history for account with id {0} failed',
+
+
     // data service
-    'data.service.sending.login.request': 'Sending login request to {0}',
-    'data.service.fetching.group.details': 'Fetching details for group with id "{0}"',
-    'data.service.fetching.group.details.successful': 'Fetching group details successful',
-    'data.service.fetching.group.details.unsuccessful': 'Fetching group details failed',
-    'data.service.fetching.groups': 'Fetching groups from platform',
-    'data.service.fetching.groups.successful': 'Fetching groups successful',
-    'data.service.fetching.groups.unsuccessful': 'Fetching groups failed',
-    'data.service.ordering.groups': 'Ordering groups',
-    'data.service.ordering.groups.successful': 'Ordering groups successful',
-    'fetching.accounts.for.group': 'Fetching accounts for group {0}',
-    'fetching.account.details': 'Fetching details for account {0}',
-    'fetching.account.details.unsuccessful': 'Fetching details for account {0} failed',
-    'fetching.account.details.successful': 'Fetching details for account {0} successful',
-
-    'tree.fetching.accounts.successful': 'Fetching accounts successful',
-    'tree.fetching.accounts.unsuccessful': 'Fetching accounts failed',
+    'data.service.sending.login.request': 'Sending login request to "{0}"',
+    'retrieve.group.children.details': 'Retrieving details for group with id "{0}"',
+    'retrieve.accounts.for.group': 'Retrieving accounts for group with id "{0}"',
+    'retrieve.account.details': 'Retrieving details for account "{0}"',
     'search.for.accounts': 'Searching for accounts that contain "{0}"',
-
-    'fetch.backup.history': 'Fetching backup history for account {0}',
-    'fetch.backup.history.successful': 'Fetching backup history successful',
-    'fetch.backup.history.unsuccessful': 'Fetching backup history failed'
+    'retrieve.backup.history': 'Retrieving {0} backup history records for account {1}'
 
   };
 

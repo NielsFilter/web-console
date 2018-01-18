@@ -1,49 +1,45 @@
-
 <div *ngIf="loading" class="loading">
   <app-loading-screen></app-loading-screen>
 </div>
 
 <div id="login-window" *ngIf="!loading">
-  
   <div id="login-logo"></div>
 
-  <div id="login-text" class="rs-unselectable">
-    <h1>Redstor Pro Cloud Console</h1>
-    <h6 class="center-text" >Welcome! To continue, please login.</h6>
+  <div class="rs-unselectable">
+    <h1 class="rs-center-text">Redstor Pro Cloud Console</h1>
+    <h6 class="rs-center-text">Welcome! To continue, please login.</h6>
+    <br>
   </div>
 
   <div id="input-form" (keydown.enter)="doLogin()" class="col-md-offset-5 col-md-4">
     <input 
       [(ngModel)]="platformAddress"
-      type="text" 
-      class="rs-input-text login-input"  
+      type="text"
+      class="rs-input-text login-input"
       placeholder="Platform Address"
       autofocus>
 
-    <input 
+    <input
       [(ngModel)]="username"
-      type="text" 
-      class="rs-input-text login-input"  
+      type="text"
+      class="rs-input-text login-input"
       placeholder="Username">
 
-    <input 
+    <input
       [(ngModel)]="password"
-      type="password" 
-      class="rs-input-text login-input"  
+      type="password"
+      class="rs-input-text login-input"
       placeholder="Password">
 
     <span>
-        <p [hidden]="errorOccurred" class="rs-error-message"></p>
-        <p [hidden]="!errorOccurred" class="rs-error-message rs-unselectable">
-        {{errorMessage}}
-        </p>
+      <p [hidden]="errorOccurred" class="rs-error-message rs-center-text"></p>
+      <p [hidden]="!errorOccurred" class="rs-error-message rs-center-text rs-unselectable">{{errorMessage}}</p>
     </span>
 
-
     <button 
-      id="loginButton"
+      id="loginButton" 
       type="button"
-      class="rs-button rs-button-thin rs-button-red rs-unselectable" 
+      class="rs-button rs-button-thin rs-button-red rs-unselectable"
       [disabled]="waitingForRequest"
       (click)="doLogin(username, password, platformAddress)">LOGIN
     </button>

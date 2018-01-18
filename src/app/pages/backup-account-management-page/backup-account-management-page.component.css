@@ -1,7 +1,11 @@
-#account-management{
-    padding:0px!important;
+.page{
+    position: relative;
 }
 
+#account-management{
+    padding: 0px;
+
+}
 
 #spGroups{
     width: 100%;

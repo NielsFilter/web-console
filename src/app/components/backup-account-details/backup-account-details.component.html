@@ -1,6 +1,7 @@
 <!-- Large modal -->
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->
 
+
 <div id="backupAccountExtendedDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="accountDetailsModal"
   aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -112,7 +113,7 @@
             </div>
           </div>
           <div class="item rs-collapse-text">
-            <a (click)="getBackupHistoryData(accountDetails.Id)" data-toggle="collapse" data-parent="#accountDetails" href="#backupHistoryAccordion"
+            <a data-toggle="collapse" data-parent="#accountDetails" href="#backupHistoryAccordion"
               role="button" aria-expanded="false" aria-controls="backupHistoryAccordion">
               View backup history
             </a>
@@ -132,26 +133,29 @@
                   </select>
 
                 </div>
+                <br>
                 <div class="row">
-                  <div class="col-md-6 rs-chart-wrapper">
+                  <div class="col-md-offset-2 col-md-8 rs-chart-wrapper">
                     <canvas id="backupFileCountChart" class="rs-backup-history-chart"></canvas>
                   </div>
-                  <div class="col-md-6 rs-chart-wrapper">
+                </div>
+                <div class="row">
+                  <div class="col-md-offset-2 col-md-8 rs-chart-wrapper">
                     <canvas id="backupDurationChart" class="rs-backup-history-chart"></canvas>
                   </div>
 
                 </div>
                 <div class="row">
-                  <div class="col-md-6 rs-chart-wrapper">
+                  <div class="col-md-offset-2 col-md-8 rs-chart-wrapper">
                     <canvas id="backupSizeChart" class="rs-backup-history-chart"></canvas>
                   </div>
-                  <div class="col-md-6 rs-chart-wrapper">
+                </div>
+                <div class="row">
+                  <div class="col-md-offset-2 col-md-8 rs-chart-wrapper">
                     <canvas id="backupSentSizeChart" class="rs-backup-history-chart"></canvas>
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>

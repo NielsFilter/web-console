@@ -12,3 +12,9 @@
 .rs-collapse-text{
     padding: 0.5em 0em;
 }
+
+.rs-chart-wrapper{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -57,6 +57,86 @@ h1{
 }
 
 
+/* CUSTOM MEDIEA QUERIES */
+
+
+ /* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.99px) { 
+    h1{
+        font-size: 1.7em;
+    }
+    h2{
+        font-size: 1.5em;
+    }
+    h3{
+        font-size: 1.3em;
+    }
+    h4{
+        font-size: 1.1em;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+    h1{
+        font-size: 2em;
+    }
+    h2{
+        font-size: 1.8em;
+    }
+    h3{
+        font-size: 1.6em;
+    }
+    h4{
+        font-size: 1.4em;
+    }
+}
+
+    /* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    h1{
+        font-size: 2.5em;
+    }
+    h2{
+        font-size: 2em;
+    }
+    h3{
+        font-size: 1.8em;
+    }
+    h4{
+        font-size: 1.6em;
+    }
+}
+
+    /* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    /* h1{
+        font-size: 3em;
+    }
+    h2{
+        font-size: 2.2em;
+    }
+    h3{
+        font-size: 1.8em;
+    }
+    h4{
+        font-size: 1.6em;
+    } */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 button{
     font-family: Roboto-Light;
 }
@@ -158,7 +238,7 @@ ol .active{
     background-color: #ffffff;
     color: #464646;
     outline: none;
-    border-color: #464646;
+    border: 1px solid #464646;
     
 }
 .rs-button-white:hover {

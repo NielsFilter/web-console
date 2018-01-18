@@ -1,63 +1,52 @@
 <div id="dashboard-body">
-    <!-- TODO insert welcome header -->
     <div id="welcome-header" class="rs-unselectable">
-        <h2>Welcome to your dashboard, {{userService.currentConsoleUser.username}}!</h2>
-        <br>
+        <h1>Welcome to your dashboard, {{userService.currentConsoleUser.username}}!</h1>
         <div *ngIf="errorsPresent">
             <h4>There are some items that need your attention.</h4>
         </div>
     </div>
 
+    <div class="card-columns">
+        <div class="container" *ngFor="let widget of widgets">
+            <div class="card rs-card">
+                <div class="card-body" (click)="widgetClicked()">
+                    <h3 class="card-title rs-widget-title">{{widget.title}}</h3>
+                    <h6 class="card-subtitle mb-2 text-muted rs-widget-subtitle">{{widget.subtitle}}</h6>
+                    <div class="rs-card-body-content">
 
-    <div>
-        <div class="card-columns">
+                        <!-- display a value -->
+                        <div *ngIf="widget.displayType == 'VALUE'" class="rs-widget-type-value">
+                            <p class="card-text">{{widget.data}}</p>
+                        </div>
 
-            <div class="container" *ngFor="let widget of widgets">
+                        <!-- display a list  -->
+                        <div *ngIf="widget.displayType == 'LIST'" class="rs-widget-type-list">
+                            <table style="width:100%">
+                                <div *ngFor="let entry of widget.data">
+                                    <tr>
+                                        <td>
+                                            {{entry.name}}
+                                        </td>
+                                        <td>
+                                            {{entry.size}}
+                                        </td>
+                                        <td>
+                                            {{entry.overlimit}}
+                                        </td>
+                                    </tr>
+                                </div>
+                            </table>
+                        </div>
 
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title rs-widget-title">{{widget.title}}</h3>
-                        <h6 class="card-subtitle mb-2 text-muted rs-widget-subtitle">{{widget.subtitle}}</h6>
-                        <div class="rs-card-body-content">
-                            <!-- display a value -->
-                            <div *ngIf="widget.displayType == 'VALUE'" class="rs-widget-type-value">
-                                <p class="card-text">{{widget.data}}</p>
-                            </div>
-
-                            <!-- display a list  -->
-                            <div *ngIf="widget.displayType == 'LIST'" class="rs-widget-type-list">
-                                <table style="width:100%">
-                                    <div *ngFor="let entry of widget.data">
-                                        <tr>
-                                            <td>
-                                                {{entry.name}}
-                                            </td>
-                                            <td>
-                                                {{entry.size}}
-                                            </td>
-                                            <td>
-                                                {{entry.overlimit}}
-                                            </td>
-                                        </tr>
-                                    </div>
-                                </table>
-                            </div>
-
-                            <!-- display a chart  -->
-                            <div *ngIf="widget.displayType == 'CHART'" class="rs-widget-type-chart">
-                               
-                                    <div>
-                                            <canvas id="myChart" width="400" height="400"></canvas>
-                                           
-                                    </div>
-                                
-
+                        <!-- display a chart  -->
+                        <div *ngIf="widget.displayType == 'CHART'" class="rs-widget-type-chart">
+                            <div>
+                                <canvas id="myChart" ></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
-import { AccountListComponent } from './components/account-list/account-list.component';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -17,8 +16,6 @@ import { ServerManagementComponent } from './pages/server-management/server-mana
 import { LoggerService } from './services/logger.service';
 import { DataService } from './services/data.service';
 import { UserService } from './services/user.service';
-import { TreeComponent } from './components/tree/tree.component';
-
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -45,9 +42,7 @@ const routes: Routes = [
     TopNavComponent,
     DashboardPageComponent,
     BackupAccountManagementPageComponent,
-    TreeComponent,
     LoadingScreenComponent,
-    AccountListComponent,
     ServerManagementComponent,
     RetryRequestComponentComponent,
     BackupAccountDetailsComponent

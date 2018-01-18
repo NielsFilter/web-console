@@ -1,10 +1,12 @@
+<!-- modals for groups & accounts -->
+<app-backup-account-details [accountDetails]="accountDetails" (accountItemClickedEvent)="getBackupHistoryData($event)"></app-backup-account-details>
+
+
+
 <div id="account-management" class="container-fluid col-md-offset-2 col-md-8" *ngIf="this.userService.isUserLoggedIn()">
-  <br>
-  <!-- modals for groups & accounts -->
-  <app-backup-account-details [accountDetails]="accountDetails"></app-backup-account-details>
 
 
-  <!-- breadcrumbs -->
+  <!-- breadcrumbs navigation -->
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb rs-breadcrumb">
       <li class="breadcrumb-item" *ngFor="let nav of currentLocationUrlBreadcrumb">
@@ -14,10 +16,12 @@
     </ol>
   </nav>
 
-
   <!-- search bar -->
-  <input [(ngModel)]="searchPhrase" 
-  type="text" class="rs-input-text custom-input-search" placeholder="Search for backup account...">
+  <input 
+    [(ngModel)]="searchPhrase"
+    type="text"
+    class="rs-input-text custom-input-search"
+    placeholder="Search for backup account...">
   <br>
 
   <div *ngIf="!errorOccurred && _searchPhrase && !loading">
