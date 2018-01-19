@@ -21,10 +21,10 @@ export class LoginPageComponent implements OnInit {
   waitingForRequest = false;
   loading = true;
 
-  // testing purposes
-  // username = 'admin';
-  // password = 'password';
-  // platformAddress = '192.168.20.198';
+  
+  username: string; // 'admin';
+  password: string; // 'password';
+  platformAddress: string; // '192.168.20.198';
 
   errorOccurred = false;
   errorMessage = '';

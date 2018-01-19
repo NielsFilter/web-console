@@ -24,6 +24,8 @@ import 'rxjs/add/operator/filter';
 import { RetryRequestComponentComponent } from './components/retry-request/retry-request.component';
 import { BackupAccountDetailsComponent } from './components/backup-account-details/backup-account-details.component';
 
+import * as $ from 'jquery';
+import * as bootstrap from "bootstrap";
 
 
 
