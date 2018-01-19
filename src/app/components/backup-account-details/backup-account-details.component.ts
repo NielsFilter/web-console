@@ -72,8 +72,7 @@ export class BackupAccountDetailsComponent implements OnInit, AfterViewInit {
     this.ctx_backupFileCount = document.getElementById('backupFileCountChart');
     this.ctx_backupDuration = document.getElementById('backupDurationChart');
 
-    Chart.defaults.global.defaultColor = 'rgba(201,33,40,0.2)';
-    Chart.defaults.global.borderColor = 'rgba(179,29,36,1)';
+    Chart.defaults.global.defaultColor = 'rgba(179,29,36,1)';// 'rgba(201,33,40,0.2)';
     Chart.defaults.global.borderWidth =  1;
 
     this.backupFileCountChart = new Chart(this.ctx_backupFileCount, {
@@ -114,6 +113,10 @@ export class BackupAccountDetailsComponent implements OnInit, AfterViewInit {
 
 
 
+    this.logger.TRACE(this.CONTEXT, 'updating.charts');
+    this.backupFileCountChart.update();
+    this.backupSelectedSizeChart.update();
+    this.backupSentSizeChart.update();
  }
 
 
@@ -125,7 +128,6 @@ PatchSizeLB
 */
 
 
-
   getCapacityUsed(): number {
     const used = this.accountDetails.ProtectedSizeAll / 1073741824;
     const limit = this.accountDetails.Limit / 1024;
@@ -134,55 +136,61 @@ PatchSizeLB
 
   // gets the backup information for a given account
   getBackupHistoryData(backupAccountId: string, numRecords: string = '7'): void {
-    console.log('**********************************************');
     this.dataService.getBackupHistory(backupAccountId, numRecords)
       .then(data => {
         this.logger.DEBUG(this.CONTEXT, 'retrieve.backup.history.successful', [backupAccountId]);
         console.log(data.value);
 
+        if (data.value.length === 0) {
+          this.logger.DEBUG(this.CONTEXT, 'backup.history.length.was.zero');
+          this.backupHistoryFound = false;
+          return;
+        }
+        this.backupHistoryFound = true;
         this.backupHistoryData = data.value;
+        this.backupHistoryData.reverse();
         this.logger.TRACE(this.CONTEXT, 'Received data : \n\n' + JSON.stringify(this.backupHistoryData));
-        (this.backupHistoryData.length === 0) ? this.backupHistoryFound = false : this.backupHistoryFound = true;
+
+
+
+        // EXTRACT DATA FOR GRAPHS
+        const backupDates = this.backupHistoryData.map(a => this.dataService.formatTime(a.BackupTime));
+        const selectedFileCount = this.backupHistoryData.map(a => a.SelectedCount);
+        const backupDuration = this.backupHistoryData.map(a => a.BackupTime);
+
+        const backupTransferSize = this.backupHistoryData.map(a => this.dataService.bytesToGB(a.TotReceivedSizeCompLB));
+        const selectedSize = this.backupHistoryData.map(a => this.dataService.bytesToGB(a.SelectedSize));
+        const averageTransferSpeed = this.backupHistoryData.map(a => this.dataService.formatBytes(a.BytesRecvPerSec, 2));
+
+
+        // ASSIGN DATA
+
+        // number of files selected
+        this.backupFileCountChart.data.labels = backupDates;
+        this.backupFileCountChart.data.datasets[0].data = selectedFileCount;
+
+        // size of files in selection
+        this.backupSelectedSizeChart.data.labels = backupDates;
+        this.backupSelectedSizeChart.data.datasets[0].data = selectedSize;
+
+        // size of data transferred
+        this.backupSentSizeChart.data.labels = backupDates;
+        this.backupSentSizeChart.data.datasets[0].data = backupTransferSize;
+
+
+        // UPDATE GRAPHS
+        this.logger.TRACE(this.CONTEXT, 'updating.charts');
+        this.backupFileCountChart.update();
+        this.backupSelectedSizeChart.update();
+        this.backupSentSizeChart.update();
+
+
       })
       .catch(ex => {
         this.errorOccurred = true;
         this.logger.ERROR(this.CONTEXT, 'retrieve.backup.history.unsuccessful', [backupAccountId]);
       })
       .then(() => {});
-
-      // EXTRACT DATA FOR GRAPHS
-      const backupDates = this.backupHistoryData.map(a => this.dataService.formatTime(a.BackupTime));
-      const selectedFileCount = this.backupHistoryData.map(a => a.SelectedCount);
-      const backupDuration = this.backupHistoryData.map(a => a.BackupTime);
-
-      const backupTransferSize = this.backupHistoryData.map(a => this.dataService.bytesToGB(a.TotReceivedSizeCompLB));
-      const selectedSize = this.backupHistoryData.map(a => this.dataService.bytesToGB(a.SelectedSize));
-      const averageTransferSpeed = this.backupHistoryData.map(a => this.dataService.formatBytes(a.BytesRecvPerSec, 2));
-
-
-      // ASSIGN DATA
-
-      // number of files selected
-      this.backupFileCountChart.data.labels = backupDates;
-      this.backupFileCountChart.data.datasets[0].data = selectedFileCount;
-
-      // size of files in selection
-      this.backupSelectedSizeChart.data.labels = backupDates;
-      this.backupSelectedSizeChart.data.datasets[0].data = selectedSize;
-
-      // size of data transferred
-      this.backupSentSizeChart.data.labels = backupDates;
-      this.backupSentSizeChart.data.datasets[0].data = backupTransferSize;
-
-      setTimeout(() => {
-
-      },
-        200);
-      // UPDATE GRAPHS
-      this.backupFileCountChart.update();
-      this.backupSelectedSizeChart.update();
-      this.backupSentSizeChart.update();
-
 
 
       // console.log('after : ' + this.backupFileCountChart.data.labels);

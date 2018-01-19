@@ -54,7 +54,8 @@ export class LoggerService {
     // backup account details component
     'retrieve.backup.history.successful': 'Retrieving backup history for account with id {0} successful',
     'retrieve.backup.history.unsuccessful': 'Retrieving backup history for account with id {0} failed',
-
+    'updating.charts': 'Updating charts',
+    'backup.history.length.was.zero': 'Retrieved backups length was 0',
 
     // data service
     'data.service.sending.login.request': 'Sending login request to "{0}"',

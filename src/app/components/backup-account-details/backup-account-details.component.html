@@ -7,9 +7,9 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title rs-modal-title">
+        <h4 class="d-inline-block text-truncate modal-title rs-modal-title ">
           <span contenteditable>{{accountDetails.AccountName}}</span>
-        </h3>
+        </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -36,7 +36,10 @@
           </div>
           <div>
             <div class="rs-list-detail rs-unselectable">Client Version</div>
-            <div class="rs-list-value">{{accountDetails.ClientVersion}}</div>
+            <div class="rs-list-value">
+              <span *ngIf="accountDetails.TypeId === 3">ESE</span>
+              <span *ngIf="accountDetails.TypeId === 1">SE</span>
+              <span *ngIf="accountDetails.TypeId === 0">DL</span> {{accountDetails.ClientVersion}}</div>
           </div>
           <div>
             <div class="rs-list-detail rs-unselectable">Last Known Address</div>
@@ -123,14 +126,15 @@
                 <h3 class="rs-center-text">No backup history was found on the storage platform</h3>
               </div>
 
-              <div class="container" *ngIf="backupHistoryFound">
+              <div class="container" [hidden]="!backupHistoryFound">
                 <div>
-                  <span>View </span>
+                  <br>
+                  <span>View 
                   <select #selectedCategory class="form-control" (change)="getBackupHistoryData(accountDetails.Id, selectedCategory.value)">
                     <option [value]="7">last 7 backups</option>
                     <option [value]="30">last 30 backups</option>
                     <option [value]="0">All backups</option>
-                  </select>
+                  </select></span>
 
                 </div>
                 <br>

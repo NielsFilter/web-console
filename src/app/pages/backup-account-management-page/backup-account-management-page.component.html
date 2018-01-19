@@ -1,5 +1,5 @@
 <!-- modals for groups & accounts -->
-<app-backup-account-details [accountDetails]="accountDetails" (accountItemClickedEvent)="getBackupHistoryData($event)"></app-backup-account-details>
+<app-backup-account-details #AccountDetailsComp [accountDetails]="accountDetails" (accountItemClickedEvent)="getBackupHistoryData($event)"></app-backup-account-details>
 
 
 
@@ -222,7 +222,7 @@
             <td class="rs-management-table-details-column">
               <div class="">
                 <div>
-                  <span class="d-inline-block text-truncate rs-table-row-title" (click)="accountItemClicked(account.AccountName, account.Id)">{{account.AccountName | uppercase}}</span>
+                  <span class="d-inline-block text-truncate rs-table-row-title" (click)="accountItemClicked(account.AccountName, account.Id); AccountDetailsComp.getBackupHistoryData(account.Id)">{{account.AccountName | uppercase}}</span>
                 </div>
                 <div>
                   <span class="rs-list-item-subtitle">

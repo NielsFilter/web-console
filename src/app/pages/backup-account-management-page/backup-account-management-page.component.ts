@@ -1,4 +1,4 @@
-import { Input, Output, Component, OnInit, EventEmitter } from '@angular/core';
+import { Input, Output, Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { UserService } from '../../services/user.service';
 import { LoggerService } from '../../services/logger.service';
@@ -13,7 +13,6 @@ import { BackupAccountDetailsComponent } from '../../components/backup-account-d
 })
 export class BackupAccountManagementPageComponent implements OnInit {
   CONTEXT = 'Backup Account Management Page';
-  @Output() accountItemClickedEvent = new EventEmitter<string>();
 
 
   @Input()
@@ -65,11 +64,17 @@ export class BackupAccountManagementPageComponent implements OnInit {
     };
     // get all the groups & collections under the root level
     this.updateCurrentLocation(this.userService.currentConsoleUser.rootBackupGroupId);
+
+    // $('#myModal').on('hidden.bs.modal', function (e) {
+    //   // do something...
+    // })
+
   }
 
 
   // clicking a breadcrumb item
   breadcrumbNavItemClicked(navItem: any) {
+    this.errorOccurred = false;
     this.logger.TRACE(this.CONTEXT, `Breadcrumb item '${navItem.name}' clicked`);
 
     // changes the current location to the clicked item
@@ -98,6 +103,7 @@ export class BackupAccountManagementPageComponent implements OnInit {
 
   // clicking on a collection, navigate into that collection and get its groups & collections
   adminGroupClicked(name: string, id: number) {
+    this.errorOccurred = false;
     this.logger.TRACE(this.CONTEXT, `adminGroupClicked() was called for ${id}(${name})`);
 
     // update breadcrumb navigation
@@ -136,10 +142,6 @@ export class BackupAccountManagementPageComponent implements OnInit {
         this.logger.DEBUG(this.CONTEXT, 'retrieve.account.details.successful', [id.toString()]);
         this.accountDetails = data.value[0];
         this.logger.TRACE(this.CONTEXT, `Received data : \n\n ${JSON.stringify(this.accountDetails)}`);
-
-        console.log('emitting event');
-        this.accountItemClickedEvent.emit(id.toString());
-        console.log('opening modal');
         $('#backupAccountExtendedDetails').modal();
       })
       .catch(ex => {

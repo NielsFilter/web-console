@@ -22,9 +22,9 @@ export class LoginPageComponent implements OnInit {
   loading = true;
 
   // testing purposes
-  username = 'admin';
-  password = 'password';
-  platformAddress = '192.168.20.198';
+  // username = 'admin';
+  // password = 'password';
+  // platformAddress = '192.168.20.198';
 
   errorOccurred = false;
   errorMessage = '';
