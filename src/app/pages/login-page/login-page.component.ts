@@ -8,7 +8,7 @@ import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { DataService } from '../../sp-comms/data.service';
 import { ConsoleUser } from '../../classes/consoleUser';
-import { LoggerService } from '../../services/logger.service';
+import { LoggerService } from '../../logger/logger.service';
 
 @Component({
   selector: 'app-login-page',

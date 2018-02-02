@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { ConsoleUser } from '../classes/consoleUser';
-import { LoggerService } from './logger.service';
+import { LoggerService } from '../logger/logger.service';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 

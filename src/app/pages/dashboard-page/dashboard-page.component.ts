@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { LoggerService } from '../../services/logger.service';
+import { LoggerService } from '../../logger/logger.service';
 import { UserService } from '../../services/user.service';
 import { Title } from '@angular/platform-browser/src/browser/title';
 import Chart from 'chart.js';

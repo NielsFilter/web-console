@@ -1,7 +1,7 @@
 import { Input, Output, Component, OnInit } from '@angular/core';
 import { DataService } from '../../sp-comms/data.service';
 import { UserService } from '../../services/user.service';
-import { LoggerService } from '../../services/logger.service';
+import { LoggerService } from '../../logger/logger.service';
 import * as _ from 'lodash';
 import Chart from 'chart.js';
 import { BackupAccountDetailsComponent } from '../../components/backup-account-details/backup-account-details.component';

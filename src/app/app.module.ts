@@ -13,7 +13,6 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { BackupAccountManagementPageComponent } from './pages/backup-account-management-page/backup-account-management-page.component';
 import { ServerManagementComponent } from './pages/server-management/server-management.component';
 
-import { LoggerService } from './services/logger.service';
 import { UserService } from './services/user.service';
 
 import 'rxjs/add/operator/map';
@@ -28,6 +27,7 @@ import * as bootstrap from "bootstrap";
 
 // our custom modules
 import { SpCommsModule } from './sp-comms/sp-comms.module';
+import { LoggerModule } from './logger/logger.module';
 
 
 const routes: Routes = [
@@ -55,11 +55,11 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    SpCommsModule
+    SpCommsModule,
+    LoggerModule
   ],
   exports: [ RouterModule ],
   providers: [
-    LoggerService,
     UserService
   ],
   bootstrap: [AppComponent]

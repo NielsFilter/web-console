@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import Chart from 'chart.js';
 import { DataService } from '../../sp-comms/data.service';
-import { LoggerService } from '../../services/logger.service';
+import { LoggerService } from '../../logger/logger.service';
 
 @Component({
   selector: 'app-backup-account-details',

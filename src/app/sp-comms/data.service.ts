@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { LoggerService } from '../services/logger.service';
+import { LoggerService } from '../logger/logger.service';
 
 import { HttpClient, HttpParams, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
