@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from './user.service';
-import { LoggerService } from './logger.service';
+import { UserService } from '../services/user.service';
+import { LoggerService } from '../services/logger.service';
 
 import { HttpClient, HttpParams, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
@@ -16,8 +16,12 @@ import { asTextData } from '@angular/core/src/view';
 
 import { SelectControlValueAccessor } from '@angular/forms/src/directives/select_control_value_accessor';
 
+export interface IDataService {
+  login(credentials: string, platformAddress: string): Promise<any>;
+}
+
 @Injectable()
-export class DataService {
+export class DataService implements IDataService {
   CONTEXT = 'Data Service';
 
   structuredGroupData: any;
@@ -31,14 +35,16 @@ export class DataService {
 
   // Attempts to log into the AS using the provided credentials
   login(credentials: string, platformAddress: string): Promise<any> {
-    // const credentials = 'Basic ' + btoa(`${username}:${password}`);
-    const url = `http://192.168.20.198:8080/https://${platformAddress}/api/access/Users`;
+    const url = `https://${platformAddress}/api/access/Users`;
     const headers = new HttpHeaders({
-      'Authorization': credentials,
-      'Content-Type': 'application/json',
+      'Authorization' : credentials,
+      'Content-Type' : 'application/json'
     });
+
     this.logger.INFO(this.CONTEXT, 'data.service.sending.login.request', [platformAddress]);
-    return this.http.get(url, { headers })
+    return this.http.get(url, {
+      headers: headers
+    })
       .toPromise();
   }
 
@@ -49,7 +55,7 @@ export class DataService {
     headers: HttpHeaders = this.userService.getHttpHeaders()): any {
 
     this.logger.DEBUG(this.CONTEXT, 'retrieve.group.children.details', [groupId.toString()]);
-    const url = `http://192.168.20.198:8080/https://${platformAddress}/api/backup/Groups/${groupId}/groups`;
+    const url = `https://${platformAddress}/api/backup/Groups/${groupId}/groups`;
     return this.http.get(url, { headers })
       .toPromise();
   }
@@ -58,7 +64,7 @@ export class DataService {
   getAccountsForGroup(groupId: number): any {
     this.logger.DEBUG(this.CONTEXT, 'retrieve.accounts.for.group', [groupId.toString()]);
     // tslint:disable-next-line:max-line-length
-    const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
+    const url = `https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=BackupGroupId%20eq%20${groupId}`;
     const headers = this.userService.getHttpHeaders();
     return this.http.get(url, { headers })
       .toPromise();
@@ -68,7 +74,7 @@ export class DataService {
   getAccountDetails(accountId: number): any {
     this.logger.DEBUG(this.CONTEXT, 'retrieve.account.details', [accountId.toString()]);
     // tslint:disable-next-line:max-line-length
-    const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=Id%20eq%20${accountId}`;
+    const url = `https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=Id%20eq%20${accountId}`;
     const headers = this.userService.getHttpHeaders();
     return this.http.get(url, { headers })
       .toPromise();
@@ -79,9 +85,9 @@ export class DataService {
     this.logger.TRACE(this.CONTEXT, 'search.for.accounts', [filter.toString()]);
     // group also
     // tslint:disable-next-line:max-line-length
-    // const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=contains(AccountName,${filter}) eq true and contains(BackupGroup,${group})`;
+    // const url = `https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=contains(AccountName,${filter}) eq true and contains(BackupGroup,${group})`;
     // tslint:disable-next-line:max-line-length
-    const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=contains(AccountName,'${filter}') eq true`;
+    const url = `https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Accounts?$filter=contains(AccountName,'${filter}') eq true`;
     const headers = this.userService.getHttpHeaders();
     return this.http.get(url, { headers })
       .toPromise();
@@ -96,7 +102,7 @@ export class DataService {
       selectedRecords = `&$top=${numRecords}`;
     }
     // tslint:disable-next-line:max-line-length
-    const url = `http://192.168.20.198:8080/https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Backups?$filter=AccountId%20eq%20${accountId}${selectedRecords}&$orderby=BackupTime%20desc`;
+    const url = `https://${this.userService.currentConsoleUser.platformAddress}/api/odata/Backups?$filter=AccountId%20eq%20${accountId}${selectedRecords}&$orderby=BackupTime%20desc`;
     const headers = this.userService.getHttpHeaders();
     return this.http.get(url, { headers })
       .toPromise();

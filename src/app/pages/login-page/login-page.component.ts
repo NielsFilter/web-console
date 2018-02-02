@@ -6,7 +6,7 @@ import { Http } from '@angular/http';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { UserService } from '../../services/user.service';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../sp-comms/data.service';
 import { ConsoleUser } from '../../classes/consoleUser';
 import { LoggerService } from '../../services/logger.service';
 
@@ -21,10 +21,9 @@ export class LoginPageComponent implements OnInit {
   waitingForRequest = false;
   loading = true;
 
-  
-  username: string; // 'admin';
-  password: string; // 'password';
-  platformAddress: string; // '192.168.20.198';
+  username: string = 'admin';
+  password: string = 'password';
+  platformAddress: string = '192.168.20.198';
 
   errorOccurred = false;
   errorMessage = '';

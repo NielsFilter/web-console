@@ -1,5 +1,5 @@
 import { Input, Output, Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../sp-comms/data.service';
 import { UserService } from '../../services/user.service';
 import { LoggerService } from '../../services/logger.service';
 import * as _ from 'lodash';

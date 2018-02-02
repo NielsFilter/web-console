@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../sp-comms/data.service';
 import { LoggerService } from '../../services/logger.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';

@@ -14,7 +14,6 @@ import { BackupAccountManagementPageComponent } from './pages/backup-account-man
 import { ServerManagementComponent } from './pages/server-management/server-management.component';
 
 import { LoggerService } from './services/logger.service';
-import { DataService } from './services/data.service';
 import { UserService } from './services/user.service';
 
 import 'rxjs/add/operator/map';
@@ -27,6 +26,8 @@ import { BackupAccountDetailsComponent } from './components/backup-account-detai
 import * as $ from 'jquery';
 import * as bootstrap from "bootstrap";
 
+// our custom modules
+import { SpCommsModule } from './sp-comms/sp-comms.module';
 
 
 const routes: Routes = [
@@ -53,10 +54,14 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    SpCommsModule
   ],
   exports: [ RouterModule ],
-  providers: [LoggerService, DataService, UserService],
+  providers: [
+    LoggerService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
